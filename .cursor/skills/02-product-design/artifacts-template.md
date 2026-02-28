@@ -72,8 +72,9 @@ flowchart TD
 
 ## Flow: [Flow Name]
 **ID:** UF-001
+**Covers:** FR-001, FR-002 *(list all PRD functional requirement IDs this flow satisfies)*
 **Persona:** [Primary persona]
-**User Story:** As a [user], I want to [action] so that [outcome]
+**User Story:** US-001 — As a [user], I want to [action] so that [outcome]
 **Entry Point:** [Where flow begins — e.g., "Home screen > CTA button"]
 **Success State:** [What happens when the user completes the goal]
 
@@ -120,6 +121,15 @@ flowchart TD
 ## Flow: [Flow Name 2]
 **ID:** UF-002
 [Repeat structure above — include a Flow Diagram mermaid block for each flow]
+
+---
+
+## Downstream Use (03-frontend-design / wireframing)
+- Flow IDs (UF-xxx) are referenced by wireframe screens — ensure every P0 flow has a unique UF-ID
+- `Covers: FR-xxx` in each flow header enables traceability from PRD → flow → wireframe → design → code → test
+- Error States table feeds directly into wireframe error state specs and Phase 03 error state designs
+- Empty States table feeds into wireframe empty state specs
+- Every screen referenced in a flow must have a corresponding wireframe (WF-xxx)
 ```
 
 ---
@@ -136,7 +146,8 @@ flowchart TD
 
 ## Screen: [Screen Name]
 **ID:** WF-001
-**Flow(s):** [UF-001, UF-002]
+**Flow(s):** UF-001, UF-002 *(list all flow IDs that include this screen)*
+**Covers:** FR-001, FR-002 *(inherited from referenced flows — list all FR-IDs)*
 **Platform:** Web / Mobile / Both
 **Authentication Required:** Yes / No
 
@@ -177,6 +188,15 @@ flowchart TD
 ## Screen: [Screen Name 2]
 **ID:** WF-002
 [Repeat structure]
+
+---
+
+## Downstream Use (03-frontend-design)
+- Screen IDs (WF-xxx) are used by Phase 03 to map designs to Figma frames or screen specs — ensure every P0 screen has a unique WF-ID
+- FR-IDs inherited from flows enable Phase 03 to verify design coverage against PRD requirements
+- Component annotations (Type column) map to design system components — Phase 03 will design each as a component with all states
+- Accessibility Notes (focus order, ARIA) feed directly into Phase 03 component ARIA specs and Phase 04 implementation
+- States (loading, empty, error) must all be specified here — Phase 03 will create visual designs for each
 ```
 
 ---

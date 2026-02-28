@@ -53,6 +53,24 @@ flowchart TD
 
 ---
 
+## Accept Handoff (before starting work)
+
+1. Read the handoff package from Phase 01 (Discovery)
+2. Verify all No-Go items pass:
+   - [ ] PRD exists with FR-IDs for all P0 requirements
+   - [ ] Problem statement is a single clear sentence
+   - [ ] At least 2 personas with identified primary persona
+   - [ ] Success metrics defined and measurable
+   - If any fail → **HALT**. Notify orchestrator.
+3. Log Read-Back: restate the product intent and design constraints in this phase's context — "We are designing flows for [product] whose core problem is [problem statement]. The primary persona is [name]. The constraints we must preserve are: [list from handoff Decisions and Intent table]."
+4. Raise RFIs: list any unclear items from the handoff. Resolve from artifacts or escalate to human.
+5. Review inherited Assumptions — flag any that conflict with design knowledge.
+6. Only after all above: begin Phase 02 work.
+
+See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
+
+---
+
 ## Quick Start
 
 Before starting, confirm these discovery artifacts exist:

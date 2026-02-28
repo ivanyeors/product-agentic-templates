@@ -92,31 +92,47 @@ Then begin Phase 1. At every gate, stop and wait for explicit approval before pr
 
 ## Gate Protocol
 
-At every phase boundary, present this exact structure:
+At every phase boundary, produce and present the **Handoff Package** (see [handoff-package-template.md](handoff-package-template.md)). The handoff package IS the gate presentation — it replaces the previous flat artifact list.
+
+Present this structure:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PHASE [N] COMPLETE — [PHASE NAME]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-ARTIFACTS PRODUCED:
-[List every artifact produced in this phase]
+SITUATION:
+[2–3 sentences: what was built, scope covered, current state]
 
-KEY DECISIONS MADE:
-[List the 3–5 most important decisions and why]
+DECISIONS AND INTENT:
+[Table: Decision | Rationale | Constraint (do not violate)]
 
-PRIORITIZATION SUMMARY:
-[Which items were ranked P0 and why — reference scoring if applicable]
+ARTIFACTS:
+[Table: Artifact | Path | What it contains]
 
-WHAT WAS LEARNED / KEY INSIGHTS:
-[Surprising findings, validated assumptions, risks identified]
+COVERAGE:
+[One sentence summary + traceability table for P0 items]
+
+ASSESSMENT:
+Strong: [where output is solid]
+Thin: [where it is weakest]
+Deferred: [what was cut and why]
+
+RISKS FORWARD:
+[Table: Risk | Why it matters to next phase | Suggested mitigation]
+
+ASSUMPTIONS (UNVALIDATED):
+[Table: ID | Assumption | Origin | Validate by]
 
 ACTIVE INTERVENTIONS RESOLVED:
 [List any human-interventions/active/ items processed this phase]
 
-NEXT PHASE PREVIEW:
-Phase [N+1]: [Name] will begin. It will produce:
-[List what the next phase will create]
+NEXT PHASE:
+Phase [N+1]: [Name] will [outcome]. Consumes: [artifact list].
+
+HANDOFF READY:
+No-Go: [all must pass — hard stop if any fails]
+Quality: [should pass — can proceed with documented exceptions]
 
 REVIEW CHECKLIST:
 [Reference the phase checklist file]
@@ -209,13 +225,13 @@ Max 3 revision cycles per gate. On the 3rd round, present the human with explici
 
 ## Phase Reference Index
 
-| Phase | Skill Directory | Key Artifacts | Prioritization Rubric | Review Gate |
-|-------|----------------|---------------|-----------------------|-------------|
-| 1. Discovery | `01-product-discovery/` | PRD, Personas, Journey Map | RICE + MoSCoW | `discovery-checklist.md` |
-| 2. Product Design | `02-product-design/` | IA, User Flows, Wireframes | Impact/Effort 2×2 | `design-checklist.md` |
-| 3. Frontend Design | `03-frontend-design/` | Design System, Components | — | `design-checklist.md` |
-| 4. Frontend Dev | `04-frontend-development/` | Working application | Sprint scoring | `dev-checklist.md` |
-| 5. QA Testing | `05-qa-testing/` | Test suite, Audit reports | Defect triage | `qa-checklist.md` |
+| Phase | Skill Directory | Key Artifacts | Handoff Additions | Review Gate |
+|-------|----------------|---------------|-------------------|-------------|
+| 1. Discovery | `01-product-discovery/` | PRD (FR-IDs), Personas, Journey Map | Handoff Package 1 | `discovery-checklist.md` |
+| 2. Product Design | `02-product-design/` | IA, User Flows (UF-IDs), Wireframes (WF-IDs) | Handoff Package 2 | `design-checklist.md` |
+| 3. Frontend Design | `03-frontend-design/` | Route A: Figma + Manifest; Route B: BOM + Screen Specs | Handoff Package 3 + Component BOM | `design-checklist.md` |
+| 4. Frontend Dev | `04-frontend-development/` | Working application + FAI report | Handoff Package 4 + Test Coverage Matrix | `dev-checklist.md` |
+| 5. QA Testing | `05-qa-testing/` | Test suite, Audit reports, Coverage Matrix | Handoff Package 5 | `qa-checklist.md` |
 | 6. Deployment | `06-deployment/` | Live production URL | — | `launch-checklist.md` |
 
 ---
@@ -288,6 +304,7 @@ Document what is and isn't yet approved when running parallel workstreams.
 
 ## Additional Resources
 
+- [handoff-package-template.md](handoff-package-template.md) — unified handoff package template (SBAR-inspired, used at every gate)
 - [workflow-stages.md](workflow-stages.md) — detailed gate criteria, phase transition rules, revision loop guidance
 - [pm-prioritization.md](pm-prioritization.md) — RICE, MoSCoW, Impact/Effort, sprint scoring, defect triage rubrics
 - `.cursor/skills/07-human-intervention/SKILL.md` — human intervention protocol

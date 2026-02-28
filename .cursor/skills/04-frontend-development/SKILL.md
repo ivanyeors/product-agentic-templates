@@ -56,12 +56,31 @@ flowchart TD
 
 ---
 
+## Accept Handoff (before starting work)
+
+1. Read the handoff package from Phase 03 (Frontend Design)
+2. Verify all No-Go items pass:
+   - [ ] All design tokens defined (color, typography, spacing, radius, shadow)
+   - [ ] Component BOM complete — every P0 component mapped to code library
+   - [ ] All P0 screens at high fidelity (Route A) OR screen specs complete (Route B)
+   - [ ] All text/background combinations pass WCAG 4.5:1
+   - If any fail → **HALT**. Notify orchestrator.
+3. Log Read-Back: restate the design intent — "We are implementing [product] using [framework]. The design system uses [token approach]. The component library is [library]. Key constraints: [list from handoff Decisions and Intent table]."
+4. Raise RFIs: list any unclear component specs, ambiguous responsive tolerances, or missing states. Resolve from Figma/manifest or escalate to human.
+5. Review Component BOM: confirm all mapped library components exist and support the specified variants/props.
+6. Review inherited Assumptions — flag any that affect implementation decisions.
+7. Only after all above: begin Phase 04 work.
+
+See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
+
+---
+
 ## Quick Start
 
 Before starting, confirm these artifacts exist:
-- [ ] Figma handoff package (or wireframe specs at minimum)
+- [ ] Figma handoff package (or screen specs from Route B at minimum)
 - [ ] Design token specification
-- [ ] Component library designs
+- [ ] Component BOM (from handoff manifest or agent-direct spec)
 
 Ask the user:
 1. What framework/stack is being used? (Next.js, Vite+React, Vue, etc.)
@@ -101,10 +120,47 @@ Ask the user:
 - Output: **Full component library implemented**
 
 ### Phase 5: Page Implementation
-- Implement each screen/page from the design
+- Implement each screen/page from the design (using screen specs or Figma manifest)
 - Connect components to routing and real data sources
 - Implement loading, error, and empty states for all data-dependent views
+- **After the first screen is implemented:** run the First Article Inspection (see below)
 - Output: **Pages implemented**
+
+### First Article Inspection (after first screen)
+
+Inspired by physical manufacturing's FAI process. The first implemented screen is inspected systematically against the handoff spec — item by item, not eyeballed. This catches systemic issues before they propagate across all screens.
+
+**Run this inspection after implementing the first P0 screen:**
+
+1. **Component BOM check** — for each component on the screen, verify:
+   - [ ] Correct library component used (matches BOM table)
+   - [ ] Correct props/variant applied
+   - [ ] All required states work (default, hover, focus, active, disabled)
+2. **Token check** — open browser dev tools and verify:
+   - [ ] All colors reference CSS custom properties (no hardcoded hex)
+   - [ ] Typography matches token spec (size, weight, line-height)
+   - [ ] Spacing matches token values
+3. **Responsive check** — test at each breakpoint in the Tolerances table:
+   - [ ] Layout matches the specified behavior at each breakpoint
+   - [ ] Elements show/hide correctly per spec
+   - [ ] Touch targets meet minimum 44x44px on mobile
+4. **State check** — verify all data states:
+   - [ ] Loading state renders (skeleton or spinner per spec)
+   - [ ] Empty state renders with correct content
+   - [ ] Error state renders with recovery action
+5. **Accessibility check:**
+   - [ ] Focus order matches spec
+   - [ ] Focus rings visible on all interactive elements
+   - [ ] Screen reader announces dynamic content correctly
+
+**Document deviations** — not all deviations are bugs. Record each with rationale:
+```
+| Element | Spec | Implementation | Rationale |
+|---------|------|---------------|-----------|
+| Card width | 33% desktop | 32% desktop | Grid gap of 24px requires slight adjustment |
+```
+
+If 3+ systemic issues are found (e.g., wrong token naming, missing states pattern), halt page implementation and fix the root cause before continuing.
 
 ### Phase 6: State Management & Data Layer
 - Implement state management strategy (see [dev-standards.md](dev-standards.md) → State)

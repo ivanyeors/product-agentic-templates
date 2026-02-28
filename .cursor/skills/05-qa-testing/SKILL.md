@@ -56,6 +56,25 @@ flowchart TD
 
 ---
 
+## Accept Handoff (before starting work)
+
+1. Read the handoff package from Phase 04 (Frontend Development)
+2. Verify all No-Go items pass:
+   - [ ] Zero TypeScript errors (`tsc --noEmit`)
+   - [ ] Zero ESLint errors
+   - [ ] All P0 screens implemented with loading, empty, and error states
+   - [ ] First Article Inspection passed for first screen
+   - If any fail → **HALT**. Notify orchestrator.
+3. Log Read-Back: restate what is being tested — "We are testing [product] with [N] P0 screens, [N] P0 flows. The architecture is [framework + key libraries]. Known thin areas from handoff: [list from Assessment]. Key risks forwarded: [list from Risks Forward]."
+4. Raise RFIs: list any unclear implementation decisions, missing error states, or ambiguous behavior. Resolve from code/docs or escalate to human.
+5. Build test coverage matrix from PRD FR-IDs — every P0 requirement must map to a planned E2E test.
+6. Review inherited Assumptions — flag any that affect test strategy.
+7. Only after all above: begin Phase 05 work.
+
+See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
+
+---
+
 ## Quick Start
 
 Before starting, confirm:

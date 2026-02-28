@@ -527,26 +527,30 @@ Avoid or make optional.
 
 ## User Stories
 
+Every user story must reference the FR-IDs it satisfies. This enables traceability from requirements → flows → wireframes → implementation → tests across all downstream phases.
+
 ### Must Have (P0)
-- As a [user type], I want to [action] so that [outcome]
-- As a [user type], I want to [action] so that [outcome]
+- **US-001** (FR-001): As a [user type], I want to [action] so that [outcome]
+- **US-002** (FR-002, FR-003): As a [user type], I want to [action] so that [outcome]
 
 ### Should Have (P1)
-- As a [user type], I want to [action] so that [outcome]
+- **US-003** (FR-004): As a [user type], I want to [action] so that [outcome]
 
 ### Could Have (P2)
-- As a [user type], I want to [action] so that [outcome]
+- **US-004** (FR-005): As a [user type], I want to [action] so that [outcome]
 
 ### Won't Have (Out of Scope)
-- [Explicitly deferred feature]
+- [Explicitly deferred feature — include FR-ID if it was previously scoped]
 
 ## Functional Requirements
 
+Every functional requirement must have a unique FR-ID. These IDs are referenced by user stories above and traced through all downstream phases (flows, wireframes, designs, implementation, tests). Never reuse or renumber FR-IDs after initial assignment.
+
 ### [Feature Area 1]
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | [Specific, testable requirement] | P0 | |
-| FR-002 | [Specific, testable requirement] | P0 | |
+| ID | Requirement | Priority | User Story | Notes |
+|----|-------------|----------|------------|-------|
+| FR-001 | [Specific, testable requirement] | P0 | US-001 | |
+| FR-002 | [Specific, testable requirement] | P0 | US-002 | |
 
 ### [Feature Area 2]
 [Repeat table]
@@ -579,4 +583,11 @@ Avoid or make optional.
 - Link to research synthesis
 - Link to competitive analysis
 - Link to personas
+
+## Downstream Use (02-product-design)
+- Each P0 user story (US-xxx) will become one or more user flows in Phase 02 — ensure stories are atomic and testable
+- FR-IDs must be unique and stable; Phase 02 will reference them in flow headers (`Covers: FR-001, FR-002`)
+- Primary persona must be clearly named; Phase 02 uses it for the flow `Persona` field
+- Non-functional requirements (NFR-IDs) inform accessibility and performance planning in wireframes
+- Success metrics feed into Phase 05 test acceptance criteria
 ```

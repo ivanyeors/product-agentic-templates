@@ -56,6 +56,24 @@ flowchart TD
 
 ---
 
+## Accept Handoff (before starting work)
+
+1. Read the handoff package from Phase 05 (QA Testing)
+2. Verify all No-Go items pass:
+   - [ ] All P0 E2E tests passing
+   - [ ] Zero critical accessibility violations
+   - [ ] Zero P0 defects open
+   - [ ] No critical npm audit vulnerabilities
+   - If any fail → **HALT**. Notify orchestrator.
+3. Log Read-Back: restate deployment context — "We are deploying [product] to [target]. QA confirmed [N] P0 tests passing, coverage at [X%]. Known thin areas: [list from Assessment]. Accepted P1 defects: [list]. Key risks forwarded: [list from Risks Forward]."
+4. Raise RFIs: list any unclear infrastructure requirements, missing environment configs, or ambiguous rollback procedures. Resolve from docs or escalate to human.
+5. Review inherited Assumptions — flag any that affect deployment decisions.
+6. Only after all above: begin Phase 06 work.
+
+See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
+
+---
+
 ## Quick Start
 
 Before starting, confirm:

@@ -2,19 +2,26 @@
 
 ## Gate Criteria by Phase
 
-Each gate has minimum criteria that must be met for APPROVED to be valid. The agent should verify these before presenting the gate.
+Each gate has **No-Go** criteria (hard stop if any fails) and **Quality** criteria (should pass but can proceed with documented exceptions). The agent must verify all No-Go items before presenting the handoff package.
+
+Every gate presentation uses the **Handoff Package** format (see [handoff-package-template.md](handoff-package-template.md)).
 
 ---
 
 ### Gate 1: Discovery → Product Design
 
-**Minimum criteria:**
-- PRD exists with at least 3 P0 user stories
+**No-Go (hard stop if any fails):**
+- PRD exists with FR-IDs for all P0 requirements
 - Problem statement is a single clear sentence
-- At least 2 personas created with goals and frustrations
+- At least 2 personas with identified primary persona
+- Success metrics defined and measurable
+- Handoff package produced with Coverage table tracing all P0 FR-IDs
+
+**Quality (should pass — proceed with documented exceptions):**
+- At least 3 P0 user stories in PRD
 - Current state journey map completed for primary persona
 - At least 3 competitors analyzed
-- Success metrics defined and measurable
+- All assumptions labelled and logged in handoff Assumptions table
 
 **Common revision requests:**
 - "The PRD requirements aren't specific enough" → Make each FR testable and measurable
@@ -26,12 +33,18 @@ Each gate has minimum criteria that must be met for APPROVED to be valid. The ag
 
 ### Gate 2: Product Design → Frontend Design
 
-**Minimum criteria:**
-- IA document covers all P0 screens
-- User flow exists for every P0 user story
-- Wireframes exist for every screen in P0 flows
+**No-Go (hard stop if any fails):**
+- User flow (UF-ID) exists for every P0 user story, with `Covers: FR-xxx` header
+- Wireframes (WF-ID) exist for every screen in P0 flows, with `Covers: FR-xxx` header
 - All screens have loading, empty, and error states specified
 - Accessibility notes (focus order, ARIA flags) on every screen
+- Handoff package produced with Coverage table tracing FR → UF → WF
+
+**Quality (should pass — proceed with documented exceptions):**
+- IA document covers all P0 and P1 screens
+- Interaction specification covers all P0 components
+- Prototype brief completed (if applicable)
+- No dead ends — every error state has a recovery path
 
 **Common revision requests:**
 - "Flows have dead ends" → Ensure every error state has a recovery path
@@ -43,48 +56,65 @@ Each gate has minimum criteria that must be met for APPROVED to be valid. The ag
 
 ### Gate 3: Frontend Design → Frontend Development
 
-**Minimum criteria:**
+**No-Go (hard stop if any fails):**
 - All design tokens defined (color, typography, spacing, radius, shadow)
-- All P0 components designed with all states (default, hover, focus, active, disabled)
-- All P0 screens at high fidelity (desktop + mobile)
-- Figma file with Color Styles, Text Styles, and Variants
+- Component BOM complete — every P0 component mapped to code library
+- All P0 screens at high fidelity (Route A) OR screen specs complete (Route B)
 - All text/background combinations pass WCAG 4.5:1
+- Handoff package produced with Coverage table and Component BOM
+
+**Quality (should pass — proceed with documented exceptions):**
+- All interactive components have all states designed (default, hover, focus, active, disabled)
+- Route A: Figma Handoff Manifest complete with tolerances table
+- Route B: Screen specs with responsive behavior tables
+- Token-to-CSS mapping documented
 
 **Common revision requests:**
 - "Tokens are inconsistent" → Audit all components for raw values and replace with tokens
 - "Missing component states" → Add hover, focus, disabled for [specific component]
 - "Contrast fails on [screen]" → Identify failing pairs, adjust color tokens
 - "No mobile designs" → Design mobile breakpoint for all P0 screens
+- "BOM maps to wrong library component" → Verify component capabilities match design
 
 ---
 
 ### Gate 4: Frontend Development → QA Testing
 
-**Minimum criteria:**
+**No-Go (hard stop if any fails):**
 - Zero TypeScript errors (`tsc --noEmit`)
 - Zero ESLint errors
 - All P0 screens implemented with loading, empty, and error states
+- First Article Inspection passed for first screen (documented)
+- Handoff package produced with Coverage table and test coverage matrix
+
+**Quality (should pass — proceed with documented exceptions):**
 - Lighthouse audit run (scores documented)
 - axe DevTools run with zero critical violations
 - API error handling tested manually
+- Test coverage matrix maps all P0 FR-IDs to planned E2E tests
 
 **Common revision requests:**
 - "Performance is poor" → Address specific Lighthouse recommendations
 - "Accessibility violations found" → Fix listed axe violations
 - "Missing error states" → Implement error UI for [specific screens]
 - "TypeScript errors" → Fix all before proceeding
+- "FAI deviations not documented" → Document all deviations with rationale
 
 ---
 
 ### Gate 5: QA → Deployment
 
-**Minimum criteria:**
+**No-Go (hard stop if any fails):**
 - All P0 E2E tests passing
-- Unit test coverage ≥ 80% for utils and hooks
 - Zero critical accessibility violations (axe automated)
-- LCP < 2.5s, INP < 200ms, CLS < 0.1
+- Zero P0 defects open
 - No critical npm audit vulnerabilities
-- Zero P1/Critical bugs open
+- Handoff package produced with complete test coverage matrix
+
+**Quality (should pass — proceed with documented exceptions):**
+- Unit test coverage ≥ 80% for utils and hooks
+- LCP < 2.5s, INP < 200ms, CLS < 0.1
+- P1 defects documented with explicit acceptance and remediation plan
 
 **Common revision requests:**
 - "E2E tests are flaky" → Stabilize specific tests before re-presenting
@@ -96,11 +126,13 @@ Each gate has minimum criteria that must be met for APPROVED to be valid. The ag
 
 ### Gate 6: Deployment → Live (Post-Launch Sign-off)
 
-**Minimum criteria:**
+**No-Go (hard stop if any fails):**
 - 24 hours of stable operation
 - Error rate < 0.1%
-- Core Web Vitals in "Good" range in production
 - No P1/Critical alerts in monitoring
+
+**Quality (should pass — proceed with documented exceptions):**
+- Core Web Vitals in "Good" range in production
 - Stakeholders notified and accepted
 
 **Common revision requests:**
@@ -227,32 +259,39 @@ If the work is taking significantly longer than expected:
 - `competitive-analysis.md`
 - `persona-[name].md` (one per persona)
 - `journey-map-[persona].md`
-- `prd.md`
+- `prd.md` (with FR-IDs and US-IDs)
+- **Handoff Package 1** (Discovery → Product Design)
 
 ### Phase 2 — Product Design
 - `ia-document.md`
-- `user-flows.md`
-- `wireframe-specs.md`
+- `user-flows.md` (with UF-IDs and `Covers: FR-xxx` headers)
+- `wireframe-specs.md` (with WF-IDs and `Covers: FR-xxx` headers)
 - `interaction-spec.md`
 - `prototype-brief.md`
+- **Handoff Package 2** (Product Design → Frontend Design)
 
 ### Phase 3 — Frontend Design
 - `design-tokens.md` (or exported token file)
-- Figma file URL
-- Component library (in Figma)
-- Screen designs (in Figma)
+- Route A: Figma file URL + `figma-handoff-manifest.md` (with Component BOM)
+- Route B: `component-bom.md` + `screen-specs.md` (from agent-direct-spec.md templates)
+- **Handoff Package 3** (Frontend Design → Frontend Development)
 
 ### Phase 4 — Frontend Development
 - Git repository with working application
 - `architecture.md` (documented decisions)
+- First Article Inspection report (deviations documented)
 - Lighthouse audit report
+- `test-coverage-matrix.md` (FR-IDs → planned E2E tests)
+- **Handoff Package 4** (Frontend Development → QA Testing)
 
 ### Phase 5 — QA Testing
 - Test files in repository
+- `test-coverage-matrix.md` (updated with passing/failing status)
 - Coverage report
 - Accessibility audit report
 - Performance audit report
 - Security review report
+- **Handoff Package 5** (QA → Deployment)
 
 ### Phase 6 — Deployment
 - CI/CD pipeline configuration
