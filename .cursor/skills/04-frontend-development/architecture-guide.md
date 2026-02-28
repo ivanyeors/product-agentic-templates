@@ -12,6 +12,19 @@
 | Vue preferred | Nuxt.js |
 | Static site | Astro / Next.js Static Export |
 
+```mermaid
+flowchart TD
+    start([Choose frontend framework]) --> seo{SEO critical\nor content-heavy?}
+    seo -->|Yes| nextjs([Next.js App Router])
+    seo -->|No| vue{Vue preferred?}
+    vue -->|Yes| nuxt([Nuxt.js])
+    vue -->|No| spa{Highly interactive SPA\nno SEO needed?}
+    spa -->|Yes| vite([Vite + React])
+    spa -->|No| islands{Server-rendered\nwith islands?}
+    islands -->|Yes| astro([Astro])
+    islands -->|No — static site| astroStatic([Astro or Next.js\nStatic Export])
+```
+
 ### Styling Approach
 
 | Situation | Recommendation |
@@ -20,6 +33,17 @@
 | Design system already in Figma | Tailwind + CSS custom properties for tokens |
 | Existing CSS Modules project | Continue with CSS Modules |
 | Component library (Shadcn, MUI) | Follow their conventions |
+
+```mermaid
+flowchart TD
+    start([Choose styling approach]) --> existing{Existing project\nwith CSS Modules?}
+    existing -->|Yes| cssModules([Continue with CSS Modules])
+    existing -->|No| lib{Using component library\nShadcn or MUI?}
+    lib -->|Yes| libConventions([Follow library conventions])
+    lib -->|No| figma{Design system\nalready in Figma?}
+    figma -->|Yes| tailwindTokens([Tailwind CSS +\nCSS custom properties for tokens])
+    figma -->|No| tailwind([Tailwind CSS\nutility-first])
+```
 
 Default: **Tailwind CSS + CSS custom properties for design tokens**
 

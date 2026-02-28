@@ -19,6 +19,18 @@ Use this matrix to select the recommended PDLC before Phase 1.
 | Clear user job exists, market has established solutions | JTBD-Led Discovery |
 | Enterprise / regulated domain, audit trail required | Stage-Gate (Phase-Gate) |
 
+```mermaid
+flowchart TD
+    start([Select PDLC Framework]) --> q1{New product or\nexisting feature?}
+    q1 -->|New product| q2{User needs\nknown?}
+    q1 -->|Feature on\nexisting product| dualTrack([Dual-Track Agile])
+    q2 -->|Unknown — high uncertainty| doubleDiamond([Double Diamond])
+    q2 -->|Human-centred\ninnovation challenge| designThinking([Design Thinking])
+    q2 -->|Clear job exists\nestablished market| jtbd([JTBD-Led Discovery])
+    q2 -->|Lean startup\nhypothesis-driven| leanStartup([Lean Startup Loop])
+    q2 -->|Enterprise or regulated\naudit trail required| stageGate([Stage-Gate])
+```
+
 ### Selection Questions (ask during Phase 0)
 
 1. Is this a new product or a feature on an existing product?
@@ -37,9 +49,11 @@ Document the selection decision in the **PDLC Selection Record** artifact (see `
 
 **Best for:** Net-new products, ambiguous problem spaces, high discovery risk.
 
-```
-Discover ──► Define ──► Develop ──► Deliver
-(Diverge)   (Converge)  (Diverge)   (Converge)
+```mermaid
+flowchart LR
+    discover["Discover\n(Diverge)\nUser research\nEthnography\nTrend scanning"] --> define["Define\n(Converge)\nInsight synthesis\nProblem statement\nPersonas"]
+    define -->|Human review gate| develop["Develop\n(Diverge)\nIdeation\nConcept generation\nPrototyping"]
+    develop --> deliver["Deliver\n(Converge)\nTesting\nIteration\nBuild and launch"]
 ```
 
 | Diamond | Activities | Output |
@@ -59,11 +73,13 @@ Discover ──► Define ──► Develop ──► Deliver
 
 **Best for:** Mature products, continuous delivery, teams with direct user access.
 
-```
-Discovery Track ──► Validated backlog items
-                         │
-                         ▼
-Delivery Track  ──► Sprint → Sprint → Release
+```mermaid
+flowchart LR
+    disc["Discovery Track\nUser interviews\nConcept tests\nPrototype validation"] -->|Validated items| backlog[Backlog]
+    backlog --> s1[Sprint]
+    s1 --> s2[Sprint]
+    s2 --> release([Release])
+    deliver["Delivery Track\nBuild — Test — Ship"] --- s1
 ```
 
 | Track | Activities | Cadence |
@@ -81,10 +97,14 @@ Delivery Track  ──► Sprint → Sprint → Release
 
 **Best for:** Startups, zero-to-one products, resource-constrained teams, hypothesis-driven culture.
 
-```
-Build ──► Measure ──► Learn ──► (repeat)
-  ▲                               │
-  └───────────────────────────────┘
+```mermaid
+flowchart LR
+    hypothesize([Hypothesize\nMap assumptions]) --> build[Build\nMinimum viable experiment]
+    build --> measure[Measure\nAnalytics and interviews]
+    measure --> learn{Learn\nHypothesis correct?}
+    learn -->|Persevere| build
+    learn -->|Pivot| hypothesize
+    learn -->|Validated| done([Graduate to full product])
 ```
 
 | Loop Stage | Discovery Activity | Key Question |
@@ -104,8 +124,14 @@ Build ──► Measure ──► Learn ──► (repeat)
 
 **Best for:** Innovation challenges, cross-functional teams, human-centred problem reframing.
 
-```
-Empathize ──► Define ──► Ideate ──► Prototype ──► Test
+```mermaid
+flowchart LR
+    empathize["Empathize\nObservation\nInterviews\nShadowing"] --> define["Define\nPOV statement\nInsight synthesis"]
+    define --> ideate["Ideate\nBrainstorming\nSCAMPER\nAnalogies"]
+    ideate --> prototype["Prototype\nLow-fi mockups\nPaper prototypes"]
+    prototype --> test["Test\nUsability\nConcept validation"]
+    test -->|Insights found| empathize
+    test -->|Validated| done([Feeds Product Design phase])
 ```
 
 | Stage | Activities | Discovery Mapping |
@@ -126,8 +152,12 @@ Empathize ──► Define ──► Ideate ──► Prototype ──► Test
 
 **Best for:** Markets with established solutions, differentiation-focused products, B2B tools, productivity software.
 
-```
-Identify Job ──► Map Job Stages ──► Score Opportunities ──► Define Solution
+```mermaid
+flowchart LR
+    identify["Job Identification\nSwitch interviews\nJTBD interviews"] --> mapStages["Job Mapping\n8-stage job map\nSub-job decomposition"]
+    mapStages --> score["Opportunity Scoring\nImportance vs satisfaction\nmatrix"]
+    score --> solution["Solution Space\nFeature ideation against\nunderserved jobs"]
+    solution --> done([Top 5 underserved jobs\nidentified — feeds PRD])
 ```
 
 | Stage | Activities | Discovery Mapping |
@@ -147,11 +177,19 @@ Identify Job ──► Map Job Stages ──► Score Opportunities ──► De
 
 **Best for:** Enterprise products, regulated industries (healthcare, finance, gov), large capex investments.
 
-```
-Gate 0       Gate 1       Gate 2       Gate 3       Gate 4       Gate 5
-  │            │            │            │            │            │
-Scoping ──► Business   ──► Development ──► Testing ──► Launch ──► Post-Launch
-           Case                                       Review
+```mermaid
+flowchart LR
+    g0{Gate 0\nScoping} -->|Approved| businessCase["Business Case\nValidated problem\nMarket sizing\nRisk assessment"]
+    businessCase --> g1{Gate 1\nBusiness Case}
+    g1 -->|Approved| development["Development\nApproved PRD\nDesign specs"]
+    development --> g2{Gate 2\nDevelopment}
+    g2 -->|Approved| testing["Testing\nWorking software\nTest plan"]
+    testing --> g3{Gate 3\nTesting}
+    g3 -->|Approved| launch["Launch\nAcceptance tests\nLaunch plan"]
+    launch --> g4{Gate 4\nLaunch}
+    g4 -->|Approved| postLaunch["Post-Launch\nKPIs vs targets"]
+    postLaunch --> g5{Gate 5\nPost-Launch Review}
+    g5 -->|Signed off| done([Product Live])
 ```
 
 | Gate | Entry Criteria | Discovery Relevance |

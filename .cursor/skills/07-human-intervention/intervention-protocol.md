@@ -270,24 +270,21 @@ Original deadline: [date].
 
 Use this to classify urgency when a human provides feedback:
 
-```
-Is the intervention a production incident?
-  YES → immediate
-
-Does it change a core assumption (problem statement, primary persona, tech stack)?
-  YES → immediate
-
-Does it block the current phase from completing?
-  YES → immediate
-
-Does it require a RICE/MoSCoW re-run before the next gate?
-  YES → end-of-phase
-
-Is it a design or UX polish request?
-  NO BLOCKING ISSUE → end-of-phase
-
-Is it a future enhancement or nice-to-have?
-  YES → backlog
+```mermaid
+flowchart TD
+    start([Human provides feedback]) --> q1{Is it a\nproduction incident?}
+    q1 -->|Yes| immediate([urgent: immediate])
+    q1 -->|No| q2{Does it change a core assumption?\nproblem statement / primary persona / tech stack}
+    q2 -->|Yes| immediate
+    q2 -->|No| q3{Does it block the current\nphase from completing?}
+    q3 -->|Yes| immediate
+    q3 -->|No| q4{Does it require a RICE/MoSCoW\nre-run before the next gate?}
+    q4 -->|Yes| endOfPhase([urgency: end-of-phase])
+    q4 -->|No| q5{Is it a design or\nUX polish request?}
+    q5 -->|Yes — no blocking issue| endOfPhase
+    q5 -->|No| q6{Is it a future enhancement\nor nice-to-have?}
+    q6 -->|Yes| backlog([urgency: backlog])
+    q6 -->|No| endOfPhase
 ```
 
 ---
@@ -300,6 +297,17 @@ When multiple interventions are active simultaneously:
 2. Within the same urgency tier: process in creation order (FIFO)
 3. Exception: if two `immediate` interventions conflict (one says add X, another says remove X), halt and present the conflict to the human for resolution before acting on either
 
+```mermaid
+flowchart TD
+    multi([Multiple active interventions]) --> sort[Sort by urgency tier:\nimmediate → end-of-phase → backlog]
+    sort --> conflict{Two immediate\ninterventions conflict?}
+    conflict -->|Yes| halt[Halt — present conflict to human\nfor resolution before acting on either]
+    halt --> resolved{Human resolves\nconflict?}
+    resolved -->|Yes| process
+    conflict -->|No| process[Process in FIFO order\nwithin each urgency tier]
+    process --> done([All interventions processed])
+```
+
 ---
 
 ## Escalation Rules
@@ -310,3 +318,13 @@ Escalate to the orchestrator (`00-product-workflow`) when:
 - The human's instructions are ambiguous and clarification is needed
 - A scope change requires timeline re-negotiation
 - A production incident requires cross-phase coordination
+
+```mermaid
+flowchart TD
+    trigger{Escalation trigger?} -->|Invalidates approved gate| escalate
+    trigger -->|Two interventions conflict| escalate
+    trigger -->|Instructions ambiguous| escalate
+    trigger -->|Scope change needs timeline re-negotiation| escalate
+    trigger -->|Production incident — cross-phase coordination| escalate
+    escalate[Escalate to 00-product-workflow orchestrator] --> orchestrator([Orchestrator decides\nwhich phases to revisit])
+```

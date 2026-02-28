@@ -117,6 +117,22 @@ Each gate has minimum criteria that must be met for APPROVED to be valid. The ag
 4. **Re-validate against checklist** — after revising, re-verify the full gate checklist before re-presenting
 5. **Don't regress** — ensure revisions don't break previously approved elements
 
+```mermaid
+flowchart TD
+    gate[Present gate to human] --> response{Human response?}
+    response -->|APPROVED| done([Proceed to next phase])
+    response -->|PAUSE| pause([Save state and wait])
+    response -->|REVISE| count{Revision cycle\nnumber?}
+    count -->|Cycle 1 or 2| revise[Revise only what was requested\nDocument changes]
+    revise --> recheck[Re-validate full gate checklist]
+    recheck --> gate
+    count -->|Cycle 3| escalate[Present human with 3 options:\nA Accept current state\nB Descope specific items\nC Pause for sync review]
+    escalate --> human{Human decides}
+    human -->|Accept| done
+    human -->|Descope| revise
+    human -->|Pause| pause
+```
+
 ### Revision Tracking Format
 
 ```
@@ -148,6 +164,35 @@ When a team is moving fast, some phase overlap is acceptable. Rules:
 ## Human Decision Points Beyond Gates
 
 These situations require a human decision even mid-phase:
+
+```mermaid
+flowchart TD
+    midPhase([Mid-phase event detected]) --> type{Event type?}
+
+    type -->|New requirement emerged| scope[Scope Change\nPresent 3 options to human]
+    scope --> scopeOpts{Human decides}
+    scopeOpts -->|Add to current scope| extend[Extend this phase\nUpdate timeline estimate]
+    scopeOpts -->|Defer| defer[Log as backlog item\nContinue current work]
+    scopeOpts -->|Reject| reject[Document rejection reason\nContinue current work]
+
+    type -->|Technical constraint blocks design| tech[Technical Risk\nPresent alternatives with trade-offs]
+    tech --> techOpts{Human selects alternative}
+    techOpts -->|Alternative A| implA[Implement Alternative A]
+    techOpts -->|Alternative B| implB[Implement Alternative B]
+
+    type -->|Phase taking significantly longer| timeline[Timeline Risk\nPresent scope reduction options]
+    timeline --> timeOpts{Human decides}
+    timeOpts -->|Reduce scope| descope[Defer lowest-priority items\nDocument deferrals]
+    timeOpts -->|Extend timeline| extend2[Continue with updated timeline\nNotify stakeholders]
+
+    extend --> resume([Resume phase work])
+    defer --> resume
+    reject --> resume
+    implA --> resume
+    implB --> resume
+    descope --> resume
+    extend2 --> resume
+```
 
 ### Scope Change
 If new requirements emerge during a phase:

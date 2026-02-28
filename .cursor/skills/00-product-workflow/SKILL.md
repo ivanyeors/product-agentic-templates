@@ -165,6 +165,23 @@ At the start of every work session and before presenting any gate, check for act
 3. Broadcast relevant interventions to the active phase agent
 4. After resolution, move the file to `human-interventions/processed/` and log in the gate summary
 
+```mermaid
+flowchart TD
+    start([Start of session or before gate]) --> check[Read human-interventions/active/\nfor phase: all files]
+    check --> found{Files found?}
+    found -->|No| proceed([Continue phase work])
+    found -->|Yes| urgency{Urgency?}
+    urgency -->|immediate| halt[Halt current phase work]
+    urgency -->|end-of-phase| queue[Queue for gate integration]
+    urgency -->|backlog| log[Acknowledge and log]
+    halt --> broadcast[Broadcast to active phase agent]
+    broadcast --> resolve[Resolve intervention]
+    queue --> resolve
+    log --> proceed
+    resolve --> archive[Move to processed/\nLog in gate summary]
+    archive --> proceed
+```
+
 See `.cursor/skills/07-human-intervention/SKILL.md` for the full intervention protocol.
 
 ---

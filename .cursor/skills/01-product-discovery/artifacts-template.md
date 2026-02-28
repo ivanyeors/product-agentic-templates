@@ -118,7 +118,22 @@ Use these templates when producing discovery outputs. Replace all `[PLACEHOLDER]
 ## Scenario
 [Describe the task/goal the user is trying to accomplish]
 
-## Stages
+## Stage Flow
+
+```mermaid
+flowchart LR
+    s1["[Stage 1]\nAction: [what user does]\nEmotion: [feeling]\nPain: [friction]"]
+    s2["[Stage 2]\nAction: [what user does]\nEmotion: [feeling]\nPain: [friction]"]
+    s3["[Stage 3]\nAction: [what user does]\nEmotion: [feeling]\nPain: [friction]"]
+    s4["[Stage 4]\nAction: [what user does]\nEmotion: [feeling]\nOpportunity: [insight]"]
+    s5["[Stage 5]\nAction: [what user does]\nEmotion: [feeling]\nOutcome: [result]"]
+    s1 --> s2 --> s3 --> s4 --> s5
+    pain1(["Pain point:\n[description]"]) -.-> s1
+    pain2(["Pain point:\n[description]"]) -.-> s3
+    opp1(["Opportunity:\n[description]"]) -.-> s4
+```
+
+## Stages Table
 
 | Stage | [Stage 1] | [Stage 2] | [Stage 3] | [Stage 4] | [Stage 5] |
 |-------|-----------|-----------|-----------|-----------|-----------|

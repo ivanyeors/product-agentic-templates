@@ -2,15 +2,12 @@
 
 ## The Test Pyramid
 
-```
-          /\
-         /  \
-        / E2E \          Few, slow, expensive — cover critical paths only
-       /--------\
-      / Integration\     Moderate — component interactions, API mocks
-     /--------------\
-    /   Unit Tests    \  Many, fast, cheap — pure logic and components
-   /------------------\
+```mermaid
+flowchart TD
+    e2e["E2E Tests\nFew — slow — expensive\nCover critical paths only"]
+    integration["Integration Tests\nModerate — component interactions\nAPI mocks"]
+    unit["Unit Tests\nMany — fast — cheap\nPure logic and components\nTarget: 80%+ of utils and hooks"]
+    unit --> integration --> e2e
 ```
 
 ### Allocation Guidelines

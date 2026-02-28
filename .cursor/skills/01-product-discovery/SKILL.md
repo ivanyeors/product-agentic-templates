@@ -133,6 +133,20 @@ At the start of every work session and before presenting the gate:
 4. If found with `urgency: backlog` — acknowledge and log, continue current work
 5. After resolving, move to `human-interventions/processed/` and note in gate summary
 
+```mermaid
+flowchart TD
+    check[Check human-interventions/active/\nfor phase: 01-product-discovery or phase: all] --> found{Files found?}
+    found -->|No| proceed([Continue phase work])
+    found -->|Yes| urgency{Urgency?}
+    urgency -->|immediate| halt[Halt current work\nProcess intervention first]
+    urgency -->|end-of-phase| queue[Integrate before gate presentation]
+    urgency -->|backlog| log[Acknowledge and log\nContinue current work]
+    halt --> archive[Move to processed/\nNote in gate summary]
+    queue --> archive
+    archive --> proceed
+    log --> proceed
+```
+
 ---
 
 ## Feedback & Update Loop

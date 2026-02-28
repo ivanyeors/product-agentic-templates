@@ -27,17 +27,18 @@ Use these templates when producing Product Design outputs. Replace all `[PLACEHO
 - [Section C]
 
 ### Full Structure
-```
-[Product Name]
-├── [Section A] — [Purpose/content type]
-│   ├── [Page A1] — [Description]
-│   └── [Page A2] — [Description]
-├── [Section B] — [Purpose/content type]
-│   └── [Page B1] — [Description]
-└── Utility
-    ├── Login / Register
-    ├── Profile / Settings
-    └── Help / Support
+
+```mermaid
+flowchart TD
+    root["[Product Name]"] --> sectionA["[Section A]\n[Purpose/content type]"]
+    root --> sectionB["[Section B]\n[Purpose/content type]"]
+    root --> utility["Utility"]
+    sectionA --> pageA1["[Page A1]\n[Description]"]
+    sectionA --> pageA2["[Page A2]\n[Description]"]
+    sectionB --> pageB1["[Page B1]\n[Description]"]
+    utility --> auth["Login / Register"]
+    utility --> profile["Profile / Settings"]
+    utility --> help["Help / Support"]
 ```
 
 ## URL Structure (if web)
@@ -76,6 +77,22 @@ Use these templates when producing Product Design outputs. Replace all `[PLACEHO
 **Entry Point:** [Where flow begins — e.g., "Home screen > CTA button"]
 **Success State:** [What happens when the user completes the goal]
 
+### Flow Diagram
+
+```mermaid
+flowchart TD
+    entry([Entry Point:\n[Screen or trigger]]) --> step1[Step 1: User action]
+    step1 --> step2{Decision or\nsystem check}
+    step2 -->|Success| step3[Step 2: System response]
+    step2 -->|Error condition| error[Show error message\n[User-facing message]]
+    error --> recovery[Recovery action\navailable to user]
+    recovery --> step1
+    step3 --> step4[Step 3: User action]
+    step4 --> success([Success State:\n[What the user achieves]])
+    step1 -->|Alt A: [Condition]| altPath[Alternate path]
+    altPath --> success
+```
+
 ### Happy Path
 1. User arrives at [entry point]
 2. User [action]
@@ -102,7 +119,7 @@ Use these templates when producing Product Design outputs. Replace all `[PLACEHO
 
 ## Flow: [Flow Name 2]
 **ID:** UF-002
-[Repeat structure]
+[Repeat structure above — include a Flow Diagram mermaid block for each flow]
 ```
 
 ---

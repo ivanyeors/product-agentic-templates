@@ -154,6 +154,18 @@ At the start of every work session and before presenting the gate:
 3. If `urgency: end-of-phase` — integrate before gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
+```mermaid
+flowchart TD
+    check[Check human-interventions/active/\nfor phase: 04-frontend-development or phase: all] --> found{Files found?}
+    found -->|No| proceed([Continue phase work])
+    found -->|Yes| urgency{Urgency?}
+    urgency -->|immediate| halt[Halt current task\nProcess intervention first]
+    urgency -->|end-of-phase| queue[Integrate before gate presentation]
+    halt --> archive[Move to processed/\nNote in gate summary]
+    queue --> archive
+    archive --> proceed
+```
+
 ---
 
 ## Feedback & Update Loop

@@ -70,6 +70,21 @@ Trigger rollback if any of the following occur within 30 minutes of deployment:
 - Database connection failures
 - Significant performance regression (LCP > 4s)
 
+```mermaid
+flowchart TD
+    deploy([Deployment complete]) --> monitor[Monitor for 30 minutes]
+    monitor --> check{Any trigger\nfired?}
+    check -->|Error rate > 1%| rollback
+    check -->|Critical bug in P0 flow| rollback
+    check -->|Health check non-2xx| rollback
+    check -->|DB connection failures| rollback
+    check -->|LCP > 4s regression| rollback
+    check -->|No triggers| stable([Stable — continue monitoring\nfor 24h watchful period])
+    rollback[Execute Rollback] --> notify[Notify stakeholders]
+    notify --> rca[Root cause analysis within 24h]
+    rca --> fix[Fix forward\nDo not redeploy without the fix]
+```
+
 ### Rollback Steps
 
 #### Vercel
@@ -135,34 +150,22 @@ docker service logs -f your-service-name
 
 ### Incident Response Process
 
-```
-1. DETECT
-   - Alert fires (monitoring) OR user reports
-   - Assign incident owner
-
-2. ASSESS (5 minutes)
-   - Confirm severity
-   - Check: is this a deployment regression? (rollback candidate)
-   - Check: is data integrity affected?
-
-3. COMMUNICATE (10 minutes)
-   - Notify stakeholders: "We're aware of [issue] and investigating"
-   - Update status page
-
-4. MITIGATE
-   - If deployment regression → rollback immediately
-   - If data issue → halt writes, assess damage
-   - Apply temporary workaround if available
-
-5. RESOLVE
-   - Deploy fix (through full CI/CD pipeline, even in incidents)
-   - Verify in production
-
-6. POST-INCIDENT (within 48h)
-   - Timeline of events
-   - Root cause
-   - What went well / what didn't
-   - Action items with owners and dates
+```mermaid
+flowchart TD
+    detect([1. DETECT\nAlert fires or user reports]) --> assign[Assign incident owner]
+    assign --> assess[2. ASSESS — 5 min\nConfirm severity]
+    assess --> regression{Deployment\nregression?}
+    regression -->|Yes| rollback[Rollback immediately]
+    regression -->|No| dataIssue{Data integrity\naffected?}
+    dataIssue -->|Yes| haltWrites[Halt writes\nAssess damage]
+    dataIssue -->|No| workaround[Apply temporary\nworkaround if available]
+    rollback --> communicate
+    haltWrites --> communicate
+    workaround --> communicate
+    communicate[3. COMMUNICATE — 10 min\nNotify stakeholders\nUpdate status page] --> mitigate[4. MITIGATE\nContain the issue]
+    mitigate --> resolve[5. RESOLVE\nDeploy fix via full CI/CD pipeline\nVerify in production]
+    resolve --> postIncident[6. POST-INCIDENT — within 48h\nTimeline of events\nRoot cause\nAction items with owners and dates]
+    postIncident --> done([Incident closed])
 ```
 
 ### Communication Template

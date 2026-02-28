@@ -37,14 +37,10 @@ If none of the above apply, mark Phase 5b as **not applicable** in the discovery
 
 ## Lifecycle: Discovery → Design → Development
 
-```
-Discovery          Design             Development
-    │                  │                   │
-    ▼                  ▼                   ▼
-Business-level    Data model         Database schema /
-entity map    ──► relationships  ──► API contracts /
-+ business        + UI data          data migration
-rules             requirements       plan
+```mermaid
+flowchart LR
+    disc["Discovery\nBusiness-level entity map\n+ business rules"] --> design["Design\nData model relationships\n+ UI data requirements"]
+    design --> dev["Development\nDatabase schema\nAPI contracts\nData migration plan"]
 ```
 
 ### Discovery Phase (Phase 5b)
@@ -67,6 +63,18 @@ Scope: Engineering translates business-level definitions into database schemas, 
 3. **Source identification** — for each entity, note whether the product creates it, receives it from an external system, or both
 4. **Owner assignment** — identify which team, role, or system is the authoritative source of truth for each entity
 5. **Criticality rating** — mark each entity as Core (product cannot function without it), Supporting (enhances core flows), or Reference (lookup data)
+
+```mermaid
+flowchart TD
+    prd([Read PRD]) --> nouns[1. Noun extraction\nHighlight every stored or acted-on noun]
+    nouns --> relate[2. Relationship mapping\nSketch entity relationships]
+    relate --> source[3. Source identification\nCreated by product?\nReceived externally? Both?]
+    source --> owner[4. Owner assignment\nIdentify authoritative source of truth]
+    owner --> criticality{5. Criticality rating}
+    criticality -->|Cannot function without| core([Core entity])
+    criticality -->|Enhances core flows| supporting([Supporting entity])
+    criticality -->|Lookup data| reference([Reference entity])
+```
 
 ---
 
