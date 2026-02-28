@@ -1,6 +1,6 @@
 ---
 name: product-workflow
-description: Master orchestrator for the full product development lifecycle from Discovery to Deployment. Guides through all phases in sequence with mandatory human-in-the-loop approval gates between each phase. Use when building a complete product end-to-end, when the user says "run the full workflow", "build this product from scratch", "let's go end to end", "start the product process", or "full product lifecycle". Coordinates: 01-product-discovery → 02-product-design → 03-frontend-design → 04-frontend-development → 05-qa-testing → 06-deployment.
+description: Master orchestrator for the full product development lifecycle from Discovery to Deployment to Documentation. Guides through all phases in sequence with mandatory human-in-the-loop approval gates between each phase. Use when building a complete product end-to-end, when the user says "run the full workflow", "build this product from scratch", "let's go end to end", "start the product process", or "full product lifecycle". Coordinates: 01-product-discovery → 02-product-design → 03-frontend-design → 04-frontend-development → 05-qa-testing → 06-deployment → 08-documentation.
 ---
 
 # Product Workflow — Master Orchestrator
@@ -36,7 +36,7 @@ The complete human-in-the-loop product development lifecycle. Every phase produc
 ```mermaid
 flowchart TD
     start([Product Idea]) --> hi
-    hi[07 Human Intervention\nmonitor active throughout] -.->|immediate feedback| p1 & p2 & p3 & p4 & p5 & p6
+    hi[07 Human Intervention\nmonitor active throughout] -.->|immediate feedback| p1 & p2 & p3 & p4 & p5 & p6 & p8
 
     start --> p1[01 Product Discovery]
     p1 --> g1{Gate 1\nHuman Approval}
@@ -60,8 +60,12 @@ flowchart TD
     g5 -->|REVISE| p5
 
     p6 --> g6{Gate 6\nPost-Launch Sign-off}
-    g6 -->|SIGNED OFF| live([LIVE])
+    g6 -->|SIGNED OFF| p8[08 Documentation]
     g6 -->|ROLLBACK| p6
+
+    p8 --> g8{Gate 8\nHuman Approval}
+    g8 -->|APPROVED| done([DOCUMENTED])
+    g8 -->|REVISE| p8
 ```
 
 ---
@@ -232,7 +236,8 @@ Max 3 revision cycles per gate. On the 3rd round, present the human with explici
 | 3. Frontend Design | `03-frontend-design/` | Route A: Figma + Manifest; Route B: BOM + Screen Specs | Handoff Package 3 + Component BOM | `design-checklist.md` |
 | 4. Frontend Dev | `04-frontend-development/` | Working application + FAI report | Handoff Package 4 + Test Coverage Matrix | `dev-checklist.md` |
 | 5. QA Testing | `05-qa-testing/` | Test suite, Audit reports, Coverage Matrix | Handoff Package 5 | `qa-checklist.md` |
-| 6. Deployment | `06-deployment/` | Live production URL | — | `launch-checklist.md` |
+| 6. Deployment | `06-deployment/` | Live production URL | Handoff Package 6 | `launch-checklist.md` |
+| 8. Documentation | `08-documentation/` | User Docs, Technical Docs, Operations Handbook, Retrospective | Handoff Package 8 | `documentation-checklist.md` |
 
 ---
 
@@ -281,6 +286,7 @@ Document what is and isn't yet approved when running parallel workstreams.
 - [ ] Phase 4: Frontend Development — Not started
 - [ ] Phase 5: QA Testing — Not started
 - [ ] Phase 6: Deployment — Not started
+- [ ] Phase 8: Documentation — Not started
 
 ## Artifacts Location
 - PRD: [link or file path]
@@ -289,6 +295,7 @@ Document what is and isn't yet approved when running parallel workstreams.
 - Repository: [URL]
 - Staging: [URL]
 - Production: [URL]
+- Documentation: [URL or path]
 
 ## Active Interventions
 - [Date] — [Topic] — [Status]
@@ -308,3 +315,4 @@ Document what is and isn't yet approved when running parallel workstreams.
 - [workflow-stages.md](workflow-stages.md) — detailed gate criteria, phase transition rules, revision loop guidance
 - [pm-prioritization.md](pm-prioritization.md) — RICE, MoSCoW, Impact/Effort, sprint scoring, defect triage rubrics
 - `.cursor/skills/07-human-intervention/SKILL.md` — human intervention protocol
+- `.cursor/skills/08-documentation/SKILL.md` — documentation and after-sales phase

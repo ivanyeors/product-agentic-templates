@@ -124,7 +124,7 @@ Every gate presentation uses the **Handoff Package** format (see [handoff-packag
 
 ---
 
-### Gate 6: Deployment → Live (Post-Launch Sign-off)
+### Gate 6: Deployment → Documentation (Post-Launch Sign-off)
 
 **No-Go (hard stop if any fails):**
 - 24 hours of stable operation
@@ -138,6 +138,27 @@ Every gate presentation uses the **Handoff Package** format (see [handoff-packag
 **Common revision requests:**
 - "Error rate too high" → Rollback, diagnose, fix, redeploy
 - "Performance degraded in production" → Investigate CDN/hosting config differences
+
+---
+
+### Gate 7: Documentation → Product Complete
+
+**No-Go (hard stop if any fails):**
+- Artifact index exists and lists all artifacts from Phases 1–6
+- User documentation exists (Quick Start + at least one Feature Guide)
+- Ops runbook is product-specific and includes rollback steps
+- Stakeholder package exists and is signed off
+- docs/README.md or equivalent provides single entry point
+
+**Quality (should pass — proceed with documented exceptions):**
+- FAQ has at least 5 entries
+- All docs have a "Last updated" date
+- No orphan docs — all linked from entry point
+
+**Common revision requests:**
+- "Artifact index is incomplete" → Add missing artifacts with resolvable paths
+- "User docs are too technical" → Apply writing guide; simplify language
+- "Ops runbook missing product-specific steps" → Adapt from 06-deployment/ops-runbook.md
 
 ---
 
@@ -299,3 +320,16 @@ If the work is taking significantly longer than expected:
 - Monitoring dashboard URL
 - Release notes
 - Signed launch checklist
+- **Handoff Package 6** (Deployment → Documentation)
+
+### Phase 7 — Documentation
+- `artifact-index.md` (or `docs/artifact-index.md`)
+- `docs/user-guide/quick-start.md`
+- `docs/user-guide/features.md`
+- `docs/user-guide/faq.md`
+- `docs/ops/ops-runbook.md` (product-specific)
+- `docs/ops/environment-reference.md`
+- `docs/ops/monitoring.md`
+- `docs/stakeholder-package.md`
+- `docs/README.md` (entry point)
+- **Handoff Package 7** (Documentation → Product Complete)

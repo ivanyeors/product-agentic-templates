@@ -94,7 +94,7 @@ Fill in all sections using the template in [intervention-protocol.md](interventi
 ```markdown
 # Human Intervention — [Topic]
 **Date:** YYYY-MM-DD
-**Phase:** [01-product-discovery | 02-product-design | 03-frontend-design | 04-frontend-development | 05-qa-testing | 06-deployment | all]
+**Phase:** [01-product-discovery | 02-product-design | 03-frontend-design | 04-frontend-development | 05-qa-testing | 06-deployment | 08-documentation | all]
 **Type:** [requirement-change | design-feedback | scope-change | technical-constraint | priority-shift | bug-report | timeline-change | other]
 **Urgency:** [immediate | end-of-phase | backlog]
 **Raised by:** [Name / Role]

@@ -133,6 +133,19 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] LCP < 2.5s, INP < 200ms, CLS < 0.1
 - [ ] P1 defects documented with remediation plan
 
+### Phase 6 → 8 (Deployment → Product Documentation)
+**No-Go:**
+- [ ] Post-launch sign-off received (product is live and stable)
+- [ ] Production URL is available and documented
+- [ ] All 6 handoff packages (Phases 01–06) exist and are accessible
+- [ ] Rollback procedure was tested on staging and is documented
+
+**Quality:**
+- [ ] Release notes written and shared with stakeholders
+- [ ] Monitoring dashboards and alert rules documented
+- [ ] Environment configuration document exists
+- [ ] Ops runbook exists with deployment and rollback steps
+
 ---
 
 ## How to Use This Template

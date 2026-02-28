@@ -20,7 +20,7 @@ human-interventions/
 | Part | Format | Example |
 |------|--------|---------|
 | Date | `YYYY-MM-DD` | `2026-02-28` |
-| Phase code | `01-discovery`, `02-product-design`, `03-frontend-design`, `04-frontend-dev`, `05-qa`, `06-deployment`, `all` | `04-frontend-dev` |
+| Phase code | `01-discovery`, `02-product-design`, `03-frontend-design`, `04-frontend-dev`, `05-qa`, `06-deployment`, `08-documentation`, `all` | `04-frontend-dev` |
 | Topic slug | kebab-case, 2–4 words, describes the change | `new-auth-flow`, `prd-scope-reduction`, `token-color-update` |
 
 **Full example:** `2026-02-28-04-frontend-dev-new-auth-flow/`
