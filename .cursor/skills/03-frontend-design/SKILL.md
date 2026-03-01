@@ -35,27 +35,27 @@ Transforms UX wireframes into a complete visual design system and pixel-perfect 
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> prereq{UX artifacts\nexist?}
+    start([Triggered]) --> prereq{UX artifacts exist?}
     prereq -->|No| block[Trigger 02-product-design first]
-    prereq -->|Yes| accept[Accept Handoff\nVerify No-Go + Read-Back]
-    accept --> hi_check[Check human-interventions/active/\nfor phase:frontend-design items]
-    hi_check --> dfi[Design-for-Implementation Audit\nWireframes vs Library]
+    prereq -->|Yes| accept[Accept Handoff Verify No-Go + Read-Back]
+    accept --> hi_check[Check human-interventions/active/ for phase:frontend-design items]
+    hi_check --> dfi[Design-for-Implementation Audit Wireframes vs Library]
     dfi --> route{Route Decision}
 
-    route -->|"Route A: Figma"| s1[Phase 1\nDesign Token Foundation]
-    s1 --> s2[Phase 2\nTypography System]
-    s2 --> s3[Phase 3\nColor System\nWCAG validation]
-    s3 --> s4[Phase 4\nSpacing & Layout Grid]
-    s4 --> s5[Phase 5\nComponent Library Design\nAll states required]
-    s5 --> s6[Phase 6\nScreen Design\nHi-fi all P0 flows]
-    s6 --> s7[Phase 7\nFigma Handoff + Manifest\n+ Component BOM]
+    route -->|"Route A: Figma"| s1[Phase 1 Design Token Foundation]
+    s1 --> s2[Phase 2 Typography System]
+    s2 --> s3[Phase 3 Color System WCAG validation]
+    s3 --> s4[Phase 4 Spacing & Layout Grid]
+    s4 --> s5[Phase 5 Component Library Design All states required]
+    s5 --> s6[Phase 6 Screen Design Hi-fi all P0 flows]
+    s6 --> s7[Phase 7 Figma Handoff + Manifest + Component BOM]
 
-    route -->|"Route B: Agent-Direct"| b1[Phase B1\nDesign Token Definition]
-    b1 --> b2[Phase B2\nComponent Mapping + BOM]
-    b2 --> b3[Phase B3\nScreen Specifications]
-    b3 --> b4[Phase B4\nAccessibility Specification]
+    route -->|"Route B: Agent-Direct"| b1[Phase B1 Design Token Definition]
+    b1 --> b2[Phase B2 Component Mapping + BOM]
+    b2 --> b3[Phase B3 Screen Specifications]
+    b3 --> b4[Phase B4 Accessibility Specification]
 
-    s7 --> gate{Gate 3\nHuman Approval}
+    s7 --> gate{Gate 3 Human Approval}
     b4 --> gate
     gate -->|APPROVED| next[04 Frontend Development]
     gate -->|REVISE| revise[Revise flagged artifacts]
@@ -67,16 +67,17 @@ flowchart TD
 ## Accept Handoff (before starting work)
 
 1. Read the handoff package from Phase 02 (Product Design)
-2. Verify all No-Go items pass:
-   - [ ] User flow exists for every P0 user story (with FR-ID reference)
-   - [ ] Wireframes exist for every screen in P0 flows (with WF-IDs)
+2. **Verify Release Mode and MVP Scope** — if `Release Mode: MVP`, scope = MVP-tagged FR-IDs only; otherwise full P0.
+3. Verify all No-Go items pass (interpret "P0" as MVP scope when in MVP mode):
+   - [ ] User flow exists for every P0 (or MVP) user story (with FR-ID reference)
+   - [ ] Wireframes exist for every screen in P0 (or MVP) flows (with WF-IDs)
    - [ ] All screens have loading, empty, and error states specified
    - [ ] Accessibility notes (focus order, ARIA flags) on every screen
    - If any fail → **HALT**. Notify orchestrator.
-3. Log Read-Back: restate the design intent — "We are designing the visual system for [product]. The IA has [N] primary sections. The primary flows are [list]. The constraints we must preserve are: [list from handoff Decisions and Intent table]."
-4. Raise RFIs: list any unclear wireframe annotations, missing states, or ambiguous interactions. Resolve from artifacts or escalate to human.
-5. Review inherited Assumptions — flag any that affect visual design decisions.
-6. Only after all above: begin Phase 03 work.
+4. Log Read-Back: restate the design intent — "We are designing the visual system for [product]. **Release Mode: [Full Production | MVP].** The IA has [N] primary sections. The primary flows are [list]. The constraints we must preserve are: [list from handoff Decisions and Intent table]."
+5. Raise RFIs: list any unclear wireframe annotations, missing states, or ambiguous interactions. Resolve from artifacts or escalate to human.
+6. Review inherited Assumptions — flag any that affect visual design decisions.
+7. Only after all above: begin Phase 03 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -131,6 +132,21 @@ Before beginning design work, audit wireframe specs against the target component
 4. If a wireframe pattern cannot be expressed by the library or CSS Grid: flag for human decision (simplify wireframe or accept custom work)
 
 This audit prevents designing components that cannot be implemented and ensures Design-for-Implementation compliance.
+
+---
+
+## MVP Mode Behavior
+
+When `Release Mode: MVP` in the handoff package, adjust scope and detail:
+
+| Aspect | Full Production | MVP |
+|--------|-----------------|-----|
+| Scope | All P0 flows and screens | MVP-tagged flows/screens only |
+| Design tokens | Full token system | Core tokens (color, typography, spacing) |
+| Component states | All 8 states per component | Default, hover, focus, error (4 states) |
+| Route preference | Route A or B per signal | Prefer Route B (Agent-Direct) for speed |
+| Responsive | All breakpoints | Mobile + desktop only |
+| Dark mode | If required | Defer unless critical |
 
 ---
 
@@ -235,12 +251,12 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 03-frontend-design or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 03-frontend-design or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt current work\nProcess intervention first]
+    urgency -->|immediate| halt[Halt current work Process intervention first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
 ```

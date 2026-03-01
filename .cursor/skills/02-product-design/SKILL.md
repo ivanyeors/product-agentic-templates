@@ -35,17 +35,17 @@ Translates discovery insights into a validated UX design ready for visual implem
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> prereq{Discovery artifacts\nexist?}
+    start([Triggered]) --> prereq{Discovery artifacts exist?}
     prereq -->|No| block[Trigger 01-product-discovery first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/\nfor phase:product-design items]
-    hi_check --> s1[Phase 1\nInformation Architecture]
-    s1 --> s2[Phase 2\nUser Flow Design]
-    s2 --> pri[Prioritization\nImpact/Effort 2x2\nfor scope sequencing]
-    pri --> s3[Phase 3\nWireframing\nP0 flows first]
-    s3 --> s4[Phase 4\nInteraction Design]
-    s4 --> s5[Phase 5\nAccessibility Planning]
-    s5 --> s6[Phase 6\nPrototype Specification]
-    s6 --> gate{Gate 2\nHuman Approval}
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:product-design items]
+    hi_check --> s1[Phase 1 Information Architecture]
+    s1 --> s2[Phase 2 User Flow Design]
+    s2 --> pri[Prioritization Impact/Effort 2x2 for scope sequencing]
+    pri --> s3[Phase 3 Wireframing P0 flows first]
+    s3 --> s4[Phase 4 Interaction Design]
+    s4 --> s5[Phase 5 Accessibility Planning]
+    s5 --> s6[Phase 6 Prototype Specification]
+    s6 --> gate{Gate 2 Human Approval}
     gate -->|APPROVED| next[03 Frontend Design]
     gate -->|REVISE| revise[Revise flagged artifacts]
     revise --> gate
@@ -163,12 +163,12 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 02-product-design or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 02-product-design or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt current work\nProcess intervention first]
+    urgency -->|immediate| halt[Halt current work Process intervention first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
 ```

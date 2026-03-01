@@ -12,6 +12,24 @@ Inspired by SBAR (medicine), design intent (construction), FMEA risk forwarding 
 # Handoff Package — Phase [N] → Phase [N+1]
 **Phase:** [Name] · **Product:** [Name] · **Date:** [Date]
 
+## Release Mode
+**Release Mode:** `Full Production` | `MVP`
+
+*Set at the Release Mode check-in (after Gate 2). Carried forward in every handoff from Phase 2 onward. Phases 03–05 read this to adjust scope and detail.*
+
+*When Release Mode = MVP, include the following sections.*
+
+## MVP Scope (when MVP)
+| FR-ID | Feature | MVP? | Rationale |
+|-------|---------|------|-----------|
+| FR-001 | [Feature] | Yes | [Why MVP] |
+| FR-002 | [Feature] | No | [Why Post-MVP] |
+
+## Post-MVP Backlog (when MVP)
+| FR-ID | Feature | Deferred From | Notes |
+|-------|---------|---------------|-------|
+| FR-002 | [Feature] | MVP scoping | Add when evolving to full production |
+
 ## Situation
 [2–3 sentences: what was built, scope covered, current state of the product.]
 
@@ -109,17 +127,55 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] Token-to-CSS mapping documented
 - [ ] Tolerances table complete for responsive behavior
 
-### Phase 4 → 5 (Frontend Development → QA Testing)
+### Phase 3a → 4a (Backend Design → Backend Implementation)
+**No-Go:**
+- [ ] OpenAPI spec exists and is valid
+- [ ] Every endpoint traceable to FR-ID
+- [ ] Schema design complete (tables, columns, indexes, migration plan)
+- [ ] Auth & permission model defined
+
+**Quality:**
+- [ ] Request/response examples in OpenAPI
+- [ ] Error format documented and consistent
+- [ ] Pagination defined for all list endpoints
+- [ ] Integration points (webhooks, third-party) specified
+
+### Phase 4 → 4b (Frontend Development → Integration)
 **No-Go:**
 - [ ] Zero TypeScript errors (`tsc --noEmit`)
 - [ ] Zero ESLint errors
 - [ ] All P0 screens implemented with loading, empty, and error states
 - [ ] First Article Inspection passed for first screen
+- [ ] API client structure exists (see 04-frontend-development dev-standards)
 
 **Quality:**
 - [ ] Lighthouse audit run and scores documented
 - [ ] axe DevTools run with zero critical violations
 - [ ] Test coverage matrix maps all P0 FR-IDs to planned E2E tests
+
+### Phase 4a → 4b (Backend Implementation → Integration)
+**No-Go:**
+- [ ] All P0 endpoints implemented and match OpenAPI spec
+- [ ] Backend API is runnable (staging or local)
+- [ ] Auth and permission checks applied
+- [ ] Structured error responses match Backend Design format
+
+**Quality:**
+- [ ] Unit tests for services
+- [ ] Integration tests for API endpoints
+- [ ] No N+1 queries verified
+
+### Phase 4b → 5 (Integration → QA Testing)
+**No-Go:**
+- [ ] Contract verification passed for all P0 endpoints
+- [ ] API client integrated in frontend (typed, error handling)
+- [ ] Auth flow works (login, token, protected routes)
+- [ ] E2E data flow verified for P0 flows
+- [ ] Third-party integrations configured per PRD (if applicable)
+
+**Quality:**
+- [ ] No frontend/backend contract mismatches
+- [ ] Error handling aligned between frontend and backend
 
 ### Phase 5 → 6 (QA → Deployment)
 **No-Go:**
@@ -150,11 +206,12 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 
 ## How to Use This Template
 
-1. **Producing phase** fills in the template at gate time — before presenting to human
-2. **Human reviewer** reads Situation, Decisions/Intent, Assessment, Risks Forward — approves or revises
-3. **Receiving phase** reads the full package during Accept Handoff — verifies no-go items, logs read-back, raises RFIs
-4. The Coverage table is a **living traceability matrix** — each phase appends its column to existing rows
-5. Assumptions carry forward — each phase reviews inherited assumptions and flags stale ones
+1. **Release Mode** is set at the Release Mode check-in (after Gate 2). When MVP, **MVP Scope** and **Post-MVP Backlog** are populated during MVP scoping and carried forward.
+2. **Producing phase** fills in the template at gate time — before presenting to human
+3. **Human reviewer** reads Situation, Decisions/Intent, Assessment, Risks Forward — approves or revises
+4. **Receiving phase** reads the full package during Accept Handoff — verifies Release Mode and MVP Scope (if MVP), verifies no-go items, logs read-back, raises RFIs
+5. The Coverage table is a **living traceability matrix** — each phase appends its column to existing rows
+6. Assumptions carry forward — each phase reviews inherited assumptions and flags stale ones
 
 ---
 
@@ -163,11 +220,14 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 The Coverage table grows across phases. Each handoff package inherits and extends the previous one:
 
 ```
-Phase 1:  FR-001 → (pending)
-Phase 2:  FR-001 → UF-001 → WF-001
-Phase 3:  FR-001 → UF-001 → WF-001 → Figma/Dashboard (or Screen Spec)
-Phase 4:  FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard
-Phase 5:  FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard → e2e/dashboard.spec.ts
+Phase 1:   FR-001 → (pending)
+Phase 2:   FR-001 → UF-001 → WF-001
+Phase 3:   FR-001 → UF-001 → WF-001 → Figma/Dashboard (or Screen Spec)
+Phase 3a:  FR-001 → GET/POST /users, /orders (API endpoints)
+Phase 4:   FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard
+Phase 4a:  FR-001 → API implemented, migrations run
+Phase 4b:  FR-001 → Contract verified, API client wired
+Phase 5:   FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard → e2e/dashboard.spec.ts
 ```
 
 If any row has a gap, it is visible immediately — that requirement has lost traceability.

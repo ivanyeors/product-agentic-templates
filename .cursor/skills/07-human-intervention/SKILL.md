@@ -35,17 +35,17 @@ The structured system for capturing, categorising, and routing human feedback in
 
 ```mermaid
 flowchart TD
-    human([Human has feedback\nor new instruction]) --> capture[Create content.md\nin human-interventions/active/]
+    human([Human has feedback or new instruction]) --> capture[Create content.md in human-interventions/active/]
     capture --> assess{Assess urgency}
-    assess -->|immediate| halt[Halt current phase work\nNotify active phase agent]
-    assess -->|end-of-phase| queue[Queue for gate integration\nFlag in phase SKILL.md]
-    assess -->|backlog| log[Log and acknowledge\nAdd to next planning cycle]
-    halt --> interpret[Agent Interpretation\n+ Impact Assessment]
+    assess -->|immediate| halt[Halt current phase work Notify active phase agent]
+    assess -->|end-of-phase| queue[Queue for gate integration Flag in phase SKILL.md]
+    assess -->|backlog| log[Log and acknowledge Add to next planning cycle]
+    halt --> interpret[Agent Interpretation + Impact Assessment]
     queue --> interpret
     interpret --> action[Execute Action Plan]
-    action --> verify{Human confirms\nresolution?}
-    verify -->|Yes| process[Move to processed/\nNote in gate summary]
-    verify -->|No| revise[Revise interpretation\nUpdate action plan]
+    action --> verify{Human confirms resolution?}
+    verify -->|Yes| process[Move to processed/ Note in gate summary]
+    verify -->|No| revise[Revise interpretation Update action plan]
     revise --> action
     process --> resume([Resume workflow])
 ```

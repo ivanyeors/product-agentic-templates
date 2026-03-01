@@ -147,18 +147,18 @@ For every significant screen, specify:
 
 ```mermaid
 flowchart TD
-    situation([Design situation]) --> q1{Novel interaction\npattern?}
+    situation([Design situation]) --> q1{Novel interaction pattern?}
     q1 -->|Yes| prototype
-    q1 -->|No| q2{Stakeholder buy-in\nneeded for complex flow?}
+    q1 -->|No| q2{Stakeholder buy-in needed for complex flow?}
     q2 -->|Yes| prototype
-    q2 -->|No| q3{Usability testing\nwith users?}
+    q2 -->|No| q3{Usability testing with users?}
     q3 -->|Yes| prototype
-    q3 -->|No| q4{Simple familiar\nUI patterns?}
-    q4 -->|Yes| noProto([No prototype needed\nProceed to dev handoff])
-    q4 -->|No — straightforward\ndev handoff| noProto
+    q3 -->|No| q4{Simple familiar UI patterns?}
+    q4 -->|Yes| noProto([No prototype needed Proceed to dev handoff])
+    q4 -->|No — straightforward dev handoff| noProto
     prototype[Prototype needed] --> fidelity{Purpose?}
-    fidelity -->|Early concept testing| lofi([Lo-fi prototype\nPaper or basic Figma frames])
-    fidelity -->|Usability testing\nor stakeholder sign-off| hifi([Hi-fi prototype\nFigma with design applied])
+    fidelity -->|Early concept testing| lofi([Lo-fi prototype Paper or basic Figma frames])
+    fidelity -->|Usability testing or stakeholder sign-off| hifi([Hi-fi prototype Figma with design applied])
 ```
 
 ### Prototype Fidelity Decision

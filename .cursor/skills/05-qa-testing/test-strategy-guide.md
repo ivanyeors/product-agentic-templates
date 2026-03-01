@@ -4,9 +4,9 @@
 
 ```mermaid
 flowchart TD
-    e2e["E2E Tests\nFew — slow — expensive\nCover critical paths only"]
-    integration["Integration Tests\nModerate — component interactions\nAPI mocks"]
-    unit["Unit Tests\nMany — fast — cheap\nPure logic and components\nTarget: 80%+ of utils and hooks"]
+    e2e["E2E Tests Few — slow — expensive Cover critical paths only"]
+    integration["Integration Tests Moderate — component interactions API mocks"]
+    unit["Unit Tests Many — fast — cheap Pure logic and components Target: 80%+ of utils and hooks"]
     unit --> integration --> e2e
 ```
 

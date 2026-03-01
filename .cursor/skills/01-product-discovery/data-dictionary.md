@@ -39,8 +39,8 @@ If none of the above apply, mark Phase 5b as **not applicable** in the discovery
 
 ```mermaid
 flowchart LR
-    disc["Discovery\nBusiness-level entity map\n+ business rules"] --> design["Design\nData model relationships\n+ UI data requirements"]
-    design --> dev["Development\nDatabase schema\nAPI contracts\nData migration plan"]
+    disc["Discovery Business-level entity map + business rules"] --> design["Design Data model relationships + UI data requirements"]
+    design --> dev["Development Database schema API contracts Data migration plan"]
 ```
 
 ### Discovery Phase (Phase 5b)
@@ -66,10 +66,10 @@ Scope: Engineering translates business-level definitions into database schemas, 
 
 ```mermaid
 flowchart TD
-    prd([Read PRD]) --> nouns[1. Noun extraction\nHighlight every stored or acted-on noun]
-    nouns --> relate[2. Relationship mapping\nSketch entity relationships]
-    relate --> source[3. Source identification\nCreated by product?\nReceived externally? Both?]
-    source --> owner[4. Owner assignment\nIdentify authoritative source of truth]
+    prd([Read PRD]) --> nouns[1. Noun extraction Highlight every stored or acted-on noun]
+    nouns --> relate[2. Relationship mapping Sketch entity relationships]
+    relate --> source[3. Source identification Created by product? Received externally? Both?]
+    source --> owner[4. Owner assignment Identify authoritative source of truth]
     owner --> criticality{5. Criticality rating}
     criticality -->|Cannot function without| core([Core entity])
     criticality -->|Enhances core flows| supporting([Supporting entity])

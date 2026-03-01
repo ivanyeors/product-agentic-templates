@@ -35,22 +35,22 @@ Validates that the implemented product meets all quality standards across functi
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> prereq{Application running\nin test environment?}
+    start([Triggered]) --> prereq{Application running in test environment?}
     prereq -->|No| block[Complete 04-frontend-development first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/\nfor phase:qa-testing items]
-    hi_check --> s1[Phase 1\nTest Strategy]
-    s1 --> pri[Defect Triage Matrix\nready for incoming bugs]
-    pri --> s2[Phase 2\nUnit Tests]
-    s2 --> s3[Phase 3\nIntegration Tests]
-    s3 --> s4[Phase 4\nE2E Tests\nAll P0 critical paths]
-    s4 --> s5[Phase 5\nVisual Regression]
-    s5 --> s6[Phase 6\nAccessibility Audit\nautomated + manual]
-    s6 --> s7[Phase 7\nPerformance Testing]
-    s7 --> s8[Phase 8\nSecurity Review]
-    s8 --> triage[Defect Triage\nPrioritize all found bugs]
-    triage --> gate{Gate 5\nHuman Approval}
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:qa-testing items]
+    hi_check --> s1[Phase 1 Test Strategy]
+    s1 --> pri[Defect Triage Matrix ready for incoming bugs]
+    pri --> s2[Phase 2 Unit Tests]
+    s2 --> s3[Phase 3 Integration Tests]
+    s3 --> s4[Phase 4 E2E Tests All P0 critical paths]
+    s4 --> s5[Phase 5 Visual Regression]
+    s5 --> s6[Phase 6 Accessibility Audit automated + manual]
+    s6 --> s7[Phase 7 Performance Testing]
+    s7 --> s8[Phase 8 Security Review]
+    s8 --> triage[Defect Triage Prioritize all found bugs]
+    triage --> gate{Gate 5 Human Approval}
     gate -->|APPROVED| next[06 Deployment]
-    gate -->|REVISE| fix[Fix bugs\nRe-run affected tests]
+    gate -->|REVISE| fix[Fix bugs Re-run affected tests]
     fix --> gate
 ```
 
@@ -59,17 +59,18 @@ flowchart TD
 ## Accept Handoff (before starting work)
 
 1. Read the handoff package from Phase 04 (Frontend Development)
-2. Verify all No-Go items pass:
+2. **Verify Release Mode and MVP Scope** — if `Release Mode: MVP`, scope = MVP-tagged FR-IDs only; otherwise full P0.
+3. Verify all No-Go items pass (interpret "P0" as MVP scope when in MVP mode):
    - [ ] Zero TypeScript errors (`tsc --noEmit`)
    - [ ] Zero ESLint errors
-   - [ ] All P0 screens implemented with loading, empty, and error states
+   - [ ] All P0 (or MVP) screens implemented with loading, empty, and error states
    - [ ] First Article Inspection passed for first screen
    - If any fail → **HALT**. Notify orchestrator.
-3. Log Read-Back: restate what is being tested — "We are testing [product] with [N] P0 screens, [N] P0 flows. The architecture is [framework + key libraries]. Known thin areas from handoff: [list from Assessment]. Key risks forwarded: [list from Risks Forward]."
-4. Raise RFIs: list any unclear implementation decisions, missing error states, or ambiguous behavior. Resolve from code/docs or escalate to human.
-5. Build test coverage matrix from PRD FR-IDs — every P0 requirement must map to a planned E2E test.
-6. Review inherited Assumptions — flag any that affect test strategy.
-7. Only after all above: begin Phase 05 work.
+4. Log Read-Back: restate what is being tested — "We are testing [product]. **Release Mode: [Full Production | MVP].** [N] P0 (or MVP) screens, [N] flows. The architecture is [framework + key libraries]. Known thin areas from handoff: [list from Assessment]. Key risks forwarded: [list from Risks Forward]."
+5. Raise RFIs: list any unclear implementation decisions, missing error states, or ambiguous behavior. Resolve from code/docs or escalate to human.
+6. Build test coverage matrix from PRD FR-IDs — every P0 (or MVP) requirement must map to a planned E2E test.
+7. Review inherited Assumptions — flag any that affect test strategy.
+8. Only after all above: begin Phase 05 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -83,9 +84,23 @@ Before starting, confirm:
 
 Ask the user:
 1. What is the testing stack? (Jest, Vitest, Playwright, Cypress, etc.)
-2. What are the coverage targets? (Default: 80% unit, 100% critical paths E2E)
+2. What are the coverage targets? (Default: 80% unit, 100% critical paths E2E; MVP: 60% unit with documented exception)
 3. Is there a CI/CD pipeline to integrate tests into?
 4. Are there existing tests to build on?
+
+---
+
+## MVP Mode Behavior
+
+When `Release Mode: MVP` in the handoff package, adjust scope and detail. **No-Go criteria remain strict** (zero P0 defects, zero critical a11y). Quality criteria may be relaxed:
+
+| Aspect | Full Production | MVP |
+|--------|-----------------|-----|
+| E2E coverage | All P0 critical paths | MVP critical paths only |
+| Unit coverage | ≥ 80% (Quality) | ≥ 60% (Quality; document exception) |
+| Visual regression | Required | Optional / defer |
+| Performance | Full targets | Relaxed (document) |
+| Security | Full OWASP | Critical items only |
 
 ---
 
@@ -174,12 +189,12 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 05-qa-testing or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 05-qa-testing or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt current work\nProcess intervention first]
+    urgency -->|immediate| halt[Halt current work Process intervention first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
 ```

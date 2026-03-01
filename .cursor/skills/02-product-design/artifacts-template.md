@@ -30,12 +30,12 @@ Use these templates when producing Product Design outputs. Replace all `[PLACEHO
 
 ```mermaid
 flowchart TD
-    root["[Product Name]"] --> sectionA["[Section A]\n[Purpose/content type]"]
-    root --> sectionB["[Section B]\n[Purpose/content type]"]
+    root["[Product Name]"] --> sectionA["[Section A] [Purpose/content type]"]
+    root --> sectionB["[Section B] [Purpose/content type]"]
     root --> utility["Utility"]
-    sectionA --> pageA1["[Page A1]\n[Description]"]
-    sectionA --> pageA2["[Page A2]\n[Description]"]
-    sectionB --> pageB1["[Page B1]\n[Description]"]
+    sectionA --> pageA1["[Page A1] [Description]"]
+    sectionA --> pageA2["[Page A2] [Description]"]
+    sectionB --> pageB1["[Page B1] [Description]"]
     utility --> auth["Login / Register"]
     utility --> profile["Profile / Settings"]
     utility --> help["Help / Support"]
@@ -82,14 +82,14 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    entry([Entry Point:\n[Screen or trigger]]) --> step1[Step 1: User action]
-    step1 --> step2{Decision or\nsystem check}
+    entry([Entry Point: [Screen or trigger]]) --> step1[Step 1: User action]
+    step1 --> step2{Decision or system check}
     step2 -->|Success| step3[Step 2: System response]
-    step2 -->|Error condition| error[Show error message\n[User-facing message]]
-    error --> recovery[Recovery action\navailable to user]
+    step2 -->|Error condition| error[Show error message [User-facing message]]
+    error --> recovery[Recovery action available to user]
     recovery --> step1
     step3 --> step4[Step 3: User action]
-    step4 --> success([Success State:\n[What the user achieves]])
+    step4 --> success([Success State: [What the user achieves]])
     step1 -->|Alt A: [Condition]| altPath[Alternate path]
     altPath --> success
 ```

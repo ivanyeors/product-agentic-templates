@@ -73,16 +73,16 @@ Trigger rollback if any of the following occur within 30 minutes of deployment:
 ```mermaid
 flowchart TD
     deploy([Deployment complete]) --> monitor[Monitor for 30 minutes]
-    monitor --> check{Any trigger\nfired?}
+    monitor --> check{Any trigger fired?}
     check -->|Error rate > 1%| rollback
     check -->|Critical bug in P0 flow| rollback
     check -->|Health check non-2xx| rollback
     check -->|DB connection failures| rollback
     check -->|LCP > 4s regression| rollback
-    check -->|No triggers| stable([Stable — continue monitoring\nfor 24h watchful period])
+    check -->|No triggers| stable([Stable — continue monitoring for 24h watchful period])
     rollback[Execute Rollback] --> notify[Notify stakeholders]
     notify --> rca[Root cause analysis within 24h]
-    rca --> fix[Fix forward\nDo not redeploy without the fix]
+    rca --> fix[Fix forward Do not redeploy without the fix]
 ```
 
 ### Rollback Steps
@@ -152,19 +152,19 @@ docker service logs -f your-service-name
 
 ```mermaid
 flowchart TD
-    detect([1. DETECT\nAlert fires or user reports]) --> assign[Assign incident owner]
-    assign --> assess[2. ASSESS — 5 min\nConfirm severity]
-    assess --> regression{Deployment\nregression?}
+    detect([1. DETECT Alert fires or user reports]) --> assign[Assign incident owner]
+    assign --> assess[2. ASSESS — 5 min Confirm severity]
+    assess --> regression{Deployment regression?}
     regression -->|Yes| rollback[Rollback immediately]
-    regression -->|No| dataIssue{Data integrity\naffected?}
-    dataIssue -->|Yes| haltWrites[Halt writes\nAssess damage]
-    dataIssue -->|No| workaround[Apply temporary\nworkaround if available]
+    regression -->|No| dataIssue{Data integrity affected?}
+    dataIssue -->|Yes| haltWrites[Halt writes Assess damage]
+    dataIssue -->|No| workaround[Apply temporary workaround if available]
     rollback --> communicate
     haltWrites --> communicate
     workaround --> communicate
-    communicate[3. COMMUNICATE — 10 min\nNotify stakeholders\nUpdate status page] --> mitigate[4. MITIGATE\nContain the issue]
-    mitigate --> resolve[5. RESOLVE\nDeploy fix via full CI/CD pipeline\nVerify in production]
-    resolve --> postIncident[6. POST-INCIDENT — within 48h\nTimeline of events\nRoot cause\nAction items with owners and dates]
+    communicate[3. COMMUNICATE — 10 min Notify stakeholders Update status page] --> mitigate[4. MITIGATE Contain the issue]
+    mitigate --> resolve[5. RESOLVE Deploy fix via full CI/CD pipeline Verify in production]
+    resolve --> postIncident[6. POST-INCIDENT — within 48h Timeline of events Root cause Action items with owners and dates]
     postIncident --> done([Incident closed])
 ```
 

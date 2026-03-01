@@ -35,16 +35,16 @@ Captures everything that was built, decided, and learned. The product is live â€
 
 ```mermaid
 flowchart TD
-    start([Triggered after LIVE]) --> prereq{Deployment\nsigned off?}
+    start([Triggered after LIVE]) --> prereq{Deployment signed off?}
     prereq -->|No| block[Complete 06-deployment first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/\nfor phase:documentation items]
-    hi_check --> s1[Phase 1\nDocumentation Audit\nInventory all artifacts, map audiences]
-    s1 --> s2[Phase 2\nUser-Facing Docs\nProduct overview, getting started, FAQ]
-    s2 --> s3[Phase 3\nTechnical Docs\nArchitecture, ADRs, README, API]
-    s3 --> s4[Phase 4\nOperations Docs\nRunbook, incident playbook, monitoring]
-    s4 --> s5[Phase 5\nKnowledge Transfer\nRetro, lessons learned, roadmap notes]
-    s5 --> gate{Gate 8\nHuman Approval}
-    gate -->|APPROVED| s6[Phase 6\nReview and Publish\nPublish, set maintenance cadence]
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:documentation items]
+    hi_check --> s1[Phase 1 Documentation Audit Inventory all artifacts, map audiences]
+    s1 --> s2[Phase 2 User-Facing Docs Product overview, getting started, FAQ]
+    s2 --> s3[Phase 3 Technical Docs Architecture, ADRs, README, API]
+    s3 --> s4[Phase 4 Operations Docs Runbook, incident playbook, monitoring]
+    s4 --> s5[Phase 5 Knowledge Transfer Retro, lessons learned, roadmap notes]
+    s5 --> gate{Gate 8 Human Approval}
+    gate -->|APPROVED| s6[Phase 6 Review and Publish Publish, set maintenance cadence]
     gate -->|REVISE| s5
     s6 --> done([DOCUMENTED])
 ```
@@ -295,12 +295,12 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 08-documentation or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 08-documentation or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt current work\nProcess intervention first]
+    urgency -->|immediate| halt[Halt current work Process intervention first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
 ```

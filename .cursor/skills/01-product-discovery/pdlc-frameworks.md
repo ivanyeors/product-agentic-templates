@@ -21,14 +21,14 @@ Use this matrix to select the recommended PDLC before Phase 1.
 
 ```mermaid
 flowchart TD
-    start([Select PDLC Framework]) --> q1{New product or\nexisting feature?}
-    q1 -->|New product| q2{User needs\nknown?}
-    q1 -->|Feature on\nexisting product| dualTrack([Dual-Track Agile])
+    start([Select PDLC Framework]) --> q1{New product or existing feature?}
+    q1 -->|New product| q2{User needs known?}
+    q1 -->|Feature on existing product| dualTrack([Dual-Track Agile])
     q2 -->|Unknown — high uncertainty| doubleDiamond([Double Diamond])
-    q2 -->|Human-centred\ninnovation challenge| designThinking([Design Thinking])
-    q2 -->|Clear job exists\nestablished market| jtbd([JTBD-Led Discovery])
-    q2 -->|Lean startup\nhypothesis-driven| leanStartup([Lean Startup Loop])
-    q2 -->|Enterprise or regulated\naudit trail required| stageGate([Stage-Gate])
+    q2 -->|Human-centred innovation challenge| designThinking([Design Thinking])
+    q2 -->|Clear job exists established market| jtbd([JTBD-Led Discovery])
+    q2 -->|Lean startup hypothesis-driven| leanStartup([Lean Startup Loop])
+    q2 -->|Enterprise or regulated audit trail required| stageGate([Stage-Gate])
 ```
 
 ### Selection Questions (ask during Phase 0)
@@ -51,9 +51,9 @@ Document the selection decision in the **PDLC Selection Record** artifact (see `
 
 ```mermaid
 flowchart LR
-    discover["Discover\n(Diverge)\nUser research\nEthnography\nTrend scanning"] --> define["Define\n(Converge)\nInsight synthesis\nProblem statement\nPersonas"]
-    define -->|Human review gate| develop["Develop\n(Diverge)\nIdeation\nConcept generation\nPrototyping"]
-    develop --> deliver["Deliver\n(Converge)\nTesting\nIteration\nBuild and launch"]
+    discover["Discover (Diverge) User research Ethnography Trend scanning"] --> define["Define (Converge) Insight synthesis Problem statement Personas"]
+    define -->|Human review gate| develop["Develop (Diverge) Ideation Concept generation Prototyping"]
+    develop --> deliver["Deliver (Converge) Testing Iteration Build and launch"]
 ```
 
 | Diamond | Activities | Output |
@@ -75,11 +75,11 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    disc["Discovery Track\nUser interviews\nConcept tests\nPrototype validation"] -->|Validated items| backlog[Backlog]
+    disc["Discovery Track User interviews Concept tests Prototype validation"] -->|Validated items| backlog[Backlog]
     backlog --> s1[Sprint]
     s1 --> s2[Sprint]
     s2 --> release([Release])
-    deliver["Delivery Track\nBuild — Test — Ship"] --- s1
+    deliver["Delivery Track Build — Test — Ship"] --- s1
 ```
 
 | Track | Activities | Cadence |
@@ -99,9 +99,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    hypothesize([Hypothesize\nMap assumptions]) --> build[Build\nMinimum viable experiment]
-    build --> measure[Measure\nAnalytics and interviews]
-    measure --> learn{Learn\nHypothesis correct?}
+    hypothesize([Hypothesize Map assumptions]) --> build[Build Minimum viable experiment]
+    build --> measure[Measure Analytics and interviews]
+    measure --> learn{Learn Hypothesis correct?}
     learn -->|Persevere| build
     learn -->|Pivot| hypothesize
     learn -->|Validated| done([Graduate to full product])
@@ -126,10 +126,10 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    empathize["Empathize\nObservation\nInterviews\nShadowing"] --> define["Define\nPOV statement\nInsight synthesis"]
-    define --> ideate["Ideate\nBrainstorming\nSCAMPER\nAnalogies"]
-    ideate --> prototype["Prototype\nLow-fi mockups\nPaper prototypes"]
-    prototype --> test["Test\nUsability\nConcept validation"]
+    empathize["Empathize Observation Interviews Shadowing"] --> define["Define POV statement Insight synthesis"]
+    define --> ideate["Ideate Brainstorming SCAMPER Analogies"]
+    ideate --> prototype["Prototype Low-fi mockups Paper prototypes"]
+    prototype --> test["Test Usability Concept validation"]
     test -->|Insights found| empathize
     test -->|Validated| done([Feeds Product Design phase])
 ```
@@ -154,10 +154,10 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    identify["Job Identification\nSwitch interviews\nJTBD interviews"] --> mapStages["Job Mapping\n8-stage job map\nSub-job decomposition"]
-    mapStages --> score["Opportunity Scoring\nImportance vs satisfaction\nmatrix"]
-    score --> solution["Solution Space\nFeature ideation against\nunderserved jobs"]
-    solution --> done([Top 5 underserved jobs\nidentified — feeds PRD])
+    identify["Job Identification Switch interviews JTBD interviews"] --> mapStages["Job Mapping 8-stage job map Sub-job decomposition"]
+    mapStages --> score["Opportunity Scoring Importance vs satisfaction matrix"]
+    score --> solution["Solution Space Feature ideation against underserved jobs"]
+    solution --> done([Top 5 underserved jobs identified — feeds PRD])
 ```
 
 | Stage | Activities | Discovery Mapping |
@@ -179,16 +179,16 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    g0{Gate 0\nScoping} -->|Approved| businessCase["Business Case\nValidated problem\nMarket sizing\nRisk assessment"]
-    businessCase --> g1{Gate 1\nBusiness Case}
-    g1 -->|Approved| development["Development\nApproved PRD\nDesign specs"]
-    development --> g2{Gate 2\nDevelopment}
-    g2 -->|Approved| testing["Testing\nWorking software\nTest plan"]
-    testing --> g3{Gate 3\nTesting}
-    g3 -->|Approved| launch["Launch\nAcceptance tests\nLaunch plan"]
-    launch --> g4{Gate 4\nLaunch}
-    g4 -->|Approved| postLaunch["Post-Launch\nKPIs vs targets"]
-    postLaunch --> g5{Gate 5\nPost-Launch Review}
+    g0{Gate 0 Scoping} -->|Approved| businessCase["Business Case Validated problem Market sizing Risk assessment"]
+    businessCase --> g1{Gate 1 Business Case}
+    g1 -->|Approved| development["Development Approved PRD Design specs"]
+    development --> g2{Gate 2 Development}
+    g2 -->|Approved| testing["Testing Working software Test plan"]
+    testing --> g3{Gate 3 Testing}
+    g3 -->|Approved| launch["Launch Acceptance tests Launch plan"]
+    launch --> g4{Gate 4 Launch}
+    g4 -->|Approved| postLaunch["Post-Launch KPIs vs targets"]
+    postLaunch --> g5{Gate 5 Post-Launch Review}
     g5 -->|Signed off| done([Product Live])
 ```
 

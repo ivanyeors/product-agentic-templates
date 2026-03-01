@@ -11,6 +11,7 @@ Shared prioritization frameworks used across the PDLC. Referenced by phases 01, 
 | 04 Frontend Development | Sprint Scoring Matrix | What gets built in which order each sprint |
 | 05 QA Testing | Defect Triage Matrix | Which bugs must be fixed before the gate |
 | 00 Orchestrator | Phase Priority Assessment | Whether to proceed, descope, or pause a phase |
+| 03–05 (all) | MVP Overlay | When Release Mode = MVP, only MVP-tagged FR-IDs are in scope |
 
 ---
 
@@ -53,12 +54,12 @@ RICE Score = (Reach × Impact × Confidence%) / Effort
 
 ```mermaid
 flowchart TD
-    score[Score all features\nRICE = Reach × Impact × Confidence / Effort] --> rank[Rank features by RICE score]
-    rank --> assign[Assign tiers:\nTop 25% → P0 Must\nNext 25% → P1 Should\nNext 25% → P2 Could\nBottom 25% → P3 Won't]
+    score[Score all features RICE = Reach × Impact × Confidence / Effort] --> rank[Rank features by RICE score]
+    rank --> assign[Assign tiers: Top 25% → P0 Must Next 25% → P1 Should Next 25% → P2 Could Bottom 25% → P3 Won't]
     assign --> sumEffort[Sum effort of all P0 Must-Haves]
-    sumEffort --> fits{Fits available\ntimeline?}
-    fits -->|Yes| done([Finalise tier list\nDocument in PRD appendix])
-    fits -->|No| demote[Move lowest-scoring Must-Have\ndown to Should\nDocument demotion + reason]
+    sumEffort --> fits{Fits available timeline?}
+    fits -->|Yes| done([Finalise tier list Document in PRD appendix])
+    fits -->|No| demote[Move lowest-scoring Must-Have down to Should Document demotion + reason]
     demote --> sumEffort
 ```
 
@@ -100,16 +101,16 @@ If total Must effort > available capacity:
 
 ```mermaid
 flowchart TD
-    check{Total Must effort\n> available capacity?}
+    check{Total Must effort > available capacity?}
     check -->|No| approve([Present final list for human approval])
     check -->|Yes| sort[Sort Must-Haves by RICE score ascending]
-    sort --> move[Move lowest-scoring Must-Have → Should\nDocument reason]
-    move --> recheck{Must effort now\nfits timeline?}
+    sort --> move[Move lowest-scoring Must-Have → Should Document reason]
+    move --> recheck{Must effort now fits timeline?}
     recheck -->|No| move
-    recheck -->|Yes| present[Present demotion list to human\nfor explicit approval]
+    recheck -->|Yes| present[Present demotion list to human for explicit approval]
     present --> human{Human approves?}
     human -->|Yes| approve
-    human -->|No - restore item| restore[Restore item to Must\nFind alternative descope]
+    human -->|No - restore item| restore[Restore item to Must Find alternative descope]
     restore --> check
 ```
 
@@ -148,19 +149,19 @@ LOW IMPACT  │  FILL-INS (schedule)    │ THANKLESS TASKS (cut or defer)
 
 ```mermaid
 flowchart TD
-    score[Score all flows and screens\nBusiness Impact 1-5 vs Design Effort 1-5] --> quadrant{Assign quadrant}
-    quadrant -->|High Impact + Low Effort| qw[Quick Wins\nDo first — build momentum]
-    quadrant -->|High Impact + High Effort| mp[Major Projects\nPlan carefully — break into sub-flows]
-    quadrant -->|Low Impact + Low Effort| fi[Fill-Ins\nSchedule after QW and MP]
-    quadrant -->|Low Impact + High Effort| tt[Thankless Tasks\nCut by default]
-    qw --> capacity{Scope fits\nsprint capacity?}
+    score[Score all flows and screens Business Impact 1-5 vs Design Effort 1-5] --> quadrant{Assign quadrant}
+    quadrant -->|High Impact + Low Effort| qw[Quick Wins Do first — build momentum]
+    quadrant -->|High Impact + High Effort| mp[Major Projects Plan carefully — break into sub-flows]
+    quadrant -->|Low Impact + Low Effort| fi[Fill-Ins Schedule after QW and MP]
+    quadrant -->|Low Impact + High Effort| tt[Thankless Tasks Cut by default]
+    qw --> capacity{Scope fits sprint capacity?}
     mp --> capacity
     fi --> capacity
-    tt -->|Needs justification| justify{Explicit\njustification?}
+    tt -->|Needs justification| justify{Explicit justification?}
     justify -->|Yes| capacity
     justify -->|No| cut([Cut from scope])
     capacity -->|Yes| present([Present scoped plan to human])
-    capacity -->|No| trim[Remove Thankless Tasks first\nthen Fill-Ins]
+    capacity -->|No| trim[Remove Thankless Tasks first then Fill-Ins]
     trim --> present
 ```
 
@@ -244,16 +245,16 @@ After ranking, sum the effort of the top-N tasks to fit the sprint capacity. If 
 ```mermaid
 flowchart TD
     bug[New bug logged] --> sev{Severity?}
-    sev -->|Severity 1\ndata loss or security| p0a([P0 — Blocks gate\nMust fix])
+    sev -->|Severity 1 data loss or security| p0a([P0 — Blocks gate Must fix])
     sev -->|Severity 2| freq{Frequency?}
     freq -->|All users Freq 1| wa{Has workaround?}
-    wa -->|No| p0b([P0 — Blocks gate\nMust fix])
-    wa -->|Yes| p1a([P1 — Document workaround\nGet human acceptance])
-    freq -->|Many users Freq 2| p1b([P1 — Fix or get written\nhuman acceptance + remediation plan])
-    freq -->|Some users Freq 3| p2a([P2 — Log and defer\nDoes not block gate])
-    sev -->|Severity 3\npartially broken| p2b([P2 — Log and defer\nDoes not block gate])
-    sev -->|Severity 4\ncosmetic| p3([P3 — Log and defer\npost-launch])
-    sev -->|Blocks Launch = Y\nany severity| p0c([P0 — Blocks gate\nMust fix])
+    wa -->|No| p0b([P0 — Blocks gate Must fix])
+    wa -->|Yes| p1a([P1 — Document workaround Get human acceptance])
+    freq -->|Many users Freq 2| p1b([P1 — Fix or get written human acceptance + remediation plan])
+    freq -->|Some users Freq 3| p2a([P2 — Log and defer Does not block gate])
+    sev -->|Severity 3 partially broken| p2b([P2 — Log and defer Does not block gate])
+    sev -->|Severity 4 cosmetic| p3([P3 — Log and defer post-launch])
+    sev -->|Blocks Launch = Y any severity| p0c([P0 — Blocks gate Must fix])
 ```
 
 ---
@@ -275,19 +276,19 @@ When assessing whether to proceed, pause, or descope a phase:
 
 ```mermaid
 flowchart TD
-    assess[Assess phase at gate] --> criteria{Gate criteria\nmet?}
-    criteria -->|Yes — zero P0 issues| approved([APPROVED\nProceed to next phase])
-    criteria -->|Yes — P1 issues\ndocumented with plans| conditional([CONDITIONALLY APPROVED\nProceed with tracking])
-    criteria -->|Not met — only\nlow-priority items remain| humanDecision[Present options to human]
+    assess[Assess phase at gate] --> criteria{Gate criteria met?}
+    criteria -->|Yes — zero P0 issues| approved([APPROVED Proceed to next phase])
+    criteria -->|Yes — P1 issues documented with plans| conditional([CONDITIONALLY APPROVED Proceed with tracking])
+    criteria -->|Not met — only low-priority items remain| humanDecision[Present options to human]
     humanDecision --> hd{Human decides}
     hd -->|Accept and proceed| approved
-    hd -->|Descope remaining| descope[Run descope framework\nUpdate scope]
+    hd -->|Descope remaining| descope[Run descope framework Update scope]
     descope --> assess
-    criteria -->|Not met — P0\nissues open| blocked[BLOCKED\nResolve P0 issues first]
+    criteria -->|Not met — P0 issues open| blocked[BLOCKED Resolve P0 issues first]
     blocked --> assess
-    criteria -->|Timeline cannot\nabsorb remaining work| rubric[Run relevant prioritization rubric\nPresent descope options]
+    criteria -->|Timeline cannot absorb remaining work| rubric[Run relevant prioritization rubric Present descope options]
     rubric --> humanDecision
-    criteria -->|3rd revision cycle\nno resolution| escalate([Escalate to synchronous\nhuman review])
+    criteria -->|3rd revision cycle no resolution| escalate([Escalate to synchronous human review])
 ```
 
 ### Descope decision framework
@@ -315,3 +316,35 @@ Option C — Extend timeline by [X weeks]
 
 Please select one option before work continues.
 ```
+
+---
+
+## 7. MVP Overlay
+
+**Used in:** Phases 03, 03a, 04, 04a, 04b, 05 (when Release Mode = MVP)
+
+When the human selects **MVP** at the Release Mode check-in (after Gate 2), only FR-IDs tagged **MVP** are in scope for phases 03–05. All other FR-IDs are deferred to the **Post-MVP Backlog**.
+
+### MVP tagging criteria
+
+Apply these criteria to derive MVP scope from the PRD (see [mvp-scoping-guide.md](mvp-scoping-guide.md)):
+
+| Criterion | Definition |
+|-----------|-------------|
+| **Core value proposition** | The feature delivers the primary reason the product exists |
+| **Single primary user path** | The feature is on the critical path for the primary persona's main goal |
+| **Minimum viable data** | The feature requires core entities/tables to function — cannot be deferred without breaking the flow |
+
+### Derivation and confirmation
+
+1. **Derive automatically** from PRD: use RICE top tier, P0-only, or the criteria above
+2. **Present to human** for confirmation or edits before Phase 3
+3. **Output:** MVP scope table in handoff package; Post-MVP Backlog for deferred FR-IDs
+
+### MVP scope confirmation table template
+
+| FR-ID | Feature | MVP? | Rationale |
+|-------|---------|------|-----------|
+| FR-001 | [Feature] | Yes | Core auth — required for any use |
+| FR-002 | [Feature] | Yes | Primary user path |
+| FR-003 | [Feature] | No | Nice-to-have; defer to Post-MVP |

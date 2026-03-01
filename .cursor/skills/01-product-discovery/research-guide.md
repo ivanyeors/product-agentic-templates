@@ -84,11 +84,11 @@ When direct research isn't possible, the agent will:
 
 ```mermaid
 flowchart TD
-    collect([Collect observations\nand quotes]) --> notes[Write each observation\non a separate note]
-    notes --> group[Group notes by theme\nwithout labeling first]
-    group --> name[Name each theme\nonce grouped]
-    name --> prioritise[Identify 3-5 most\ncritical themes]
-    prioritise --> insights[Extract insight statements:\nWhat does this tell us about users?]
+    collect([Collect observations and quotes]) --> notes[Write each observation on a separate note]
+    notes --> group[Group notes by theme without labeling first]
+    group --> name[Name each theme once grouped]
+    name --> prioritise[Identify 3-5 most critical themes]
+    prioritise --> insights[Extract insight statements: What does this tell us about users?]
     insights --> hmw([Convert to HMW questions])
 ```
 
@@ -350,11 +350,11 @@ If any test fails:
 
 ```mermaid
 flowchart TD
-    tests([Run 4 USP validation tests]) --> result{All tests\npass?}
-    result -->|Yes| done([USP validated\nDocument in PRD])
-    result -->|No| errc[Return to ERRC Grid\nFind stronger Create or Raise actions]
-    errc --> jtbd[Revisit JTBD Opportunity Map\nFind higher-scoring underserved outcome]
-    jtbd --> ladder[Apply differentiation ladder\nMove up from Feature to Value or Belief level]
+    tests([Run 4 USP validation tests]) --> result{All tests pass?}
+    result -->|Yes| done([USP validated Document in PRD])
+    result -->|No| errc[Return to ERRC Grid Find stronger Create or Raise actions]
+    errc --> jtbd[Revisit JTBD Opportunity Map Find higher-scoring underserved outcome]
+    jtbd --> ladder[Apply differentiation ladder Move up from Feature to Value or Belief level]
     ladder --> revise[Revise USP statement]
     revise --> tests
 ```

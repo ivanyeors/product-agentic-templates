@@ -14,15 +14,15 @@
 
 ```mermaid
 flowchart TD
-    start([Choose frontend framework]) --> seo{SEO critical\nor content-heavy?}
+    start([Choose frontend framework]) --> seo{SEO critical or content-heavy?}
     seo -->|Yes| nextjs([Next.js App Router])
     seo -->|No| vue{Vue preferred?}
     vue -->|Yes| nuxt([Nuxt.js])
-    vue -->|No| spa{Highly interactive SPA\nno SEO needed?}
+    vue -->|No| spa{Highly interactive SPA no SEO needed?}
     spa -->|Yes| vite([Vite + React])
-    spa -->|No| islands{Server-rendered\nwith islands?}
+    spa -->|No| islands{Server-rendered with islands?}
     islands -->|Yes| astro([Astro])
-    islands -->|No — static site| astroStatic([Astro or Next.js\nStatic Export])
+    islands -->|No — static site| astroStatic([Astro or Next.js Static Export])
 ```
 
 ### Styling Approach
@@ -36,13 +36,13 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    start([Choose styling approach]) --> existing{Existing project\nwith CSS Modules?}
+    start([Choose styling approach]) --> existing{Existing project with CSS Modules?}
     existing -->|Yes| cssModules([Continue with CSS Modules])
-    existing -->|No| lib{Using component library\nShadcn or MUI?}
+    existing -->|No| lib{Using component library Shadcn or MUI?}
     lib -->|Yes| libConventions([Follow library conventions])
-    lib -->|No| figma{Design system\nalready in Figma?}
-    figma -->|Yes| tailwindTokens([Tailwind CSS +\nCSS custom properties for tokens])
-    figma -->|No| tailwind([Tailwind CSS\nutility-first])
+    lib -->|No| figma{Design system already in Figma?}
+    figma -->|Yes| tailwindTokens([Tailwind CSS + CSS custom properties for tokens])
+    figma -->|No| tailwind([Tailwind CSS utility-first])
 ```
 
 Default: **Tailwind CSS + CSS custom properties for design tokens**

@@ -36,19 +36,19 @@ Implements the validated design system and screen designs into production-ready 
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> prereq{Design system\n& Figma handoff exist?}
+    start([Triggered]) --> prereq{Design system & Figma handoff exist?}
     prereq -->|No| block[Trigger 03-frontend-design first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/\nfor phase:frontend-development items]
-    hi_check --> pri[Sprint Prioritization\nScoring Matrix]
-    pri --> s1[Phase 1\nProject Architecture]
-    s1 --> s2[Phase 2\nDesign Token Implementation]
-    s2 --> s3[Phase 3\nAtom Components]
-    s3 --> s4[Phase 4\nMolecule & Organism Components]
-    s4 --> s5[Phase 5\nPage Implementation]
-    s5 --> s6[Phase 6\nState Management & Data Layer]
-    s6 --> s7[Phase 7\nPerformance Optimization]
-    s7 --> s8[Phase 8\nAccessibility Audit]
-    s8 --> gate{Gate 4\nHuman Approval}
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:frontend-development items]
+    hi_check --> pri[Sprint Prioritization Scoring Matrix]
+    pri --> s1[Phase 1 Project Architecture]
+    s1 --> s2[Phase 2 Design Token Implementation]
+    s2 --> s3[Phase 3 Atom Components]
+    s3 --> s4[Phase 4 Molecule & Organism Components]
+    s4 --> s5[Phase 5 Page Implementation]
+    s5 --> s6[Phase 6 State Management & Data Layer]
+    s6 --> s7[Phase 7 Performance Optimization]
+    s7 --> s8[Phase 8 Accessibility Audit]
+    s8 --> gate{Gate 4 Human Approval}
     gate -->|APPROVED| next[05 QA Testing]
     gate -->|REVISE| revise[Revise flagged items]
     revise --> gate
@@ -59,17 +59,18 @@ flowchart TD
 ## Accept Handoff (before starting work)
 
 1. Read the handoff package from Phase 03 (Frontend Design)
-2. Verify all No-Go items pass:
+2. **Verify Release Mode and MVP Scope** — if `Release Mode: MVP`, scope = MVP-tagged FR-IDs only; otherwise full P0.
+3. Verify all No-Go items pass (interpret "P0" as MVP scope when in MVP mode):
    - [ ] All design tokens defined (color, typography, spacing, radius, shadow)
-   - [ ] Component BOM complete — every P0 component mapped to code library
-   - [ ] All P0 screens at high fidelity (Route A) OR screen specs complete (Route B)
+   - [ ] Component BOM complete — every P0 (or MVP) component mapped to code library
+   - [ ] All P0 (or MVP) screens at high fidelity (Route A) OR screen specs complete (Route B)
    - [ ] All text/background combinations pass WCAG 4.5:1
    - If any fail → **HALT**. Notify orchestrator.
-3. Log Read-Back: restate the design intent — "We are implementing [product] using [framework]. The design system uses [token approach]. The component library is [library]. Key constraints: [list from handoff Decisions and Intent table]."
-4. Raise RFIs: list any unclear component specs, ambiguous responsive tolerances, or missing states. Resolve from Figma/manifest or escalate to human.
-5. Review Component BOM: confirm all mapped library components exist and support the specified variants/props.
-6. Review inherited Assumptions — flag any that affect implementation decisions.
-7. Only after all above: begin Phase 04 work.
+4. Log Read-Back: restate the design intent — "We are implementing [product] using [framework]. **Release Mode: [Full Production | MVP].** The design system uses [token approach]. The component library is [library]. Key constraints: [list from handoff Decisions and Intent table]."
+5. Raise RFIs: list any unclear component specs, ambiguous responsive tolerances, or missing states. Resolve from Figma/manifest or escalate to human.
+6. Review Component BOM: confirm all mapped library components exist and support the specified variants/props.
+7. Review inherited Assumptions — flag any that affect implementation decisions.
+8. Only after all above: begin Phase 04 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -88,6 +89,19 @@ Ask the user:
 3. What styling approach? (Tailwind, CSS Modules, styled-components, etc.)
 4. Are there existing component libraries to integrate? (Shadcn, MUI, etc.)
 5. What is the TypeScript stance? (Required / Preferred / Not used)
+
+---
+
+## MVP Mode Behavior
+
+When `Release Mode: MVP` in the handoff package, adjust scope and detail:
+
+| Aspect | Full Production | MVP |
+|--------|-----------------|-----|
+| Screens | All P0 | MVP screens only |
+| Component library | Full BOM | MVP components only |
+| Performance | Phase 7 required | Light audit; defer heavy optimization |
+| Accessibility | Full audit | axe critical only; manual a11y on MVP flows |
 
 ---
 
@@ -168,6 +182,8 @@ If 3+ systemic issues are found (e.g., wrong token naming, missing states patter
 - Handle authentication state and protected routes
 - Output: **Data layer implemented**
 
+**API client alignment:** When a backend exists, the `04b-integration` skill will verify the API client matches the backend OpenAPI spec. Ensure the client structure follows [dev-standards.md](dev-standards.md) → API Integration so contract validation can succeed.
+
 ### Phase 7: Performance Optimization
 - Run Core Web Vitals baseline audit (Lighthouse)
 - Implement code splitting and lazy loading
@@ -212,12 +228,12 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 04-frontend-development or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 04-frontend-development or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt current task\nProcess intervention first]
+    urgency -->|immediate| halt[Halt current task Process intervention first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
 ```
@@ -233,6 +249,7 @@ flowchart TD
 
 ### Propagating updates downstream
 - If architecture decisions change: create `human-interventions/active/[date]-04-arch-update/content.md`; notify `05-qa-testing` of new test surface area
+- If API client structure changes: notify `04b-integration` for contract verification
 - If new components added mid-phase: re-run sprint scoring matrix to fit them into the priority order
 - If performance targets cannot be met: document the constraint with measurements and present trade-off options to the human
 
@@ -263,7 +280,7 @@ Sprint prioritization summary:
 Review checklist: see dev-checklist.md
 
 Reply with:
-- APPROVED → begin 05 QA Testing
+- APPROVED → begin 04b Integration (when Gate 4a also approved)
 - REVISE: [feedback] → agent will update and re-present
 ```
 
@@ -275,3 +292,5 @@ Reply with:
 - [dev-standards.md](dev-standards.md) — coding standards, component patterns, state, API integration, performance, a11y
 - [dev-checklist.md](dev-checklist.md) — human review gate checklist
 - [pm-prioritization.md](../00-product-workflow/pm-prioritization.md) — Sprint scoring matrix
+- `.cursor/skills/04b-integration/SKILL.md` — API contract validation when backend exists
+

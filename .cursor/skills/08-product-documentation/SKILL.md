@@ -35,19 +35,19 @@ Transforms scattered phase artifacts into a single, navigable documentation pack
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> prereq{Phase 06\npost-launch signed off?}
+    start([Triggered]) --> prereq{Phase 06 post-launch signed off?}
     prereq -->|No| block[Complete 06-deployment first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/\nfor phase:08-product-documentation items]
-    hi_check --> s1[Phase 1\nArtifact Audit\nand Inventory]
-    s1 --> s2[Phase 2\nProduct Overview]
-    s2 --> s3[Phase 3\nUser Documentation]
-    s3 --> s4[Phase 4\nTechnical Documentation]
-    s4 --> s5[Phase 5\nDesign System Reference]
-    s5 --> s6[Phase 6\nOperations Manual]
-    s6 --> s7[Phase 7\nDecision Log\nand Retrospective]
-    s7 --> hub[Documentation Hub\nSingle entry point]
-    hub --> gate{Gate 7\nDocumentation Sign-off}
-    gate -->|APPROVED| complete(["COMPLETE\nProduct fully documented"])
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:08-product-documentation items]
+    hi_check --> s1[Phase 1 Artifact Audit and Inventory]
+    s1 --> s2[Phase 2 Product Overview]
+    s2 --> s3[Phase 3 User Documentation]
+    s3 --> s4[Phase 4 Technical Documentation]
+    s4 --> s5[Phase 5 Design System Reference]
+    s5 --> s6[Phase 6 Operations Manual]
+    s6 --> s7[Phase 7 Decision Log and Retrospective]
+    s7 --> hub[Documentation Hub Single entry point]
+    hub --> gate{Gate 7 Documentation Sign-off}
+    gate -->|APPROVED| complete(["COMPLETE Product fully documented"])
     gate -->|REVISE| hub
 ```
 
@@ -171,12 +171,12 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 08-product-documentation or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 08-product-documentation or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt current work\nProcess intervention first]
+    urgency -->|immediate| halt[Halt current work Process intervention first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
 ```

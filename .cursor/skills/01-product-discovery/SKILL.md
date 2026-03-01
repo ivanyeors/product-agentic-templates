@@ -35,16 +35,16 @@ Structured discovery that produces the artifacts needed to enter Product Design 
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> hi_check[Check human-interventions/active/\nfor phase:discovery items]
-    hi_check --> s1[Phase 1\nStakeholder Alignment]
-    s1 --> s2[Phase 2\nProblem Definition]
-    s2 --> s3[Phase 3\nUser Research]
-    s3 --> s4[Phase 4\nCompetitive Analysis]
-    s4 --> s5[Phase 5\nPersonas]
-    s5 --> s6[Phase 6\nUser Journey Mapping]
-    s6 --> s7[Phase 7\nRequirements & PRD]
-    s7 --> pri[Prioritization\nRICE + MoSCoW Scoring]
-    pri --> gate{Gate 1\nHuman Approval}
+    start([Triggered]) --> hi_check[Check human-interventions/active/ for phase:discovery items]
+    hi_check --> s1[Phase 1 Stakeholder Alignment]
+    s1 --> s2[Phase 2 Problem Definition]
+    s2 --> s3[Phase 3 User Research]
+    s3 --> s4[Phase 4 Competitive Analysis]
+    s4 --> s5[Phase 5 Personas]
+    s5 --> s6[Phase 6 User Journey Mapping]
+    s6 --> s7[Phase 7 Requirements & PRD]
+    s7 --> pri[Prioritization RICE + MoSCoW Scoring]
+    pri --> gate{Gate 1 Human Approval}
     gate -->|APPROVED| next[02 Product Design]
     gate -->|REVISE| revise[Revise flagged artifacts]
     revise --> gate
@@ -135,13 +135,13 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 01-product-discovery or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 01-product-discovery or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt current work\nProcess intervention first]
+    urgency -->|immediate| halt[Halt current work Process intervention first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    urgency -->|backlog| log[Acknowledge and log\nContinue current work]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    urgency -->|backlog| log[Acknowledge and log Continue current work]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
     log --> proceed

@@ -35,22 +35,22 @@ Ships the validated product to production safely, with full observability, rollb
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> prereq{QA gate\napproved?}
+    start([Triggered]) --> prereq{QA gate approved?}
     prereq -->|No| block[Complete 05-qa-testing first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/\nfor phase:deployment items]
-    hi_check --> s1[Phase 1\nEnvironment Strategy]
-    s1 --> s2[Phase 2\nCI/CD Pipeline]
-    s2 --> s3[Phase 3\nInfrastructure]
-    s3 --> s4[Phase 4\nMonitoring & Alerting]
-    s4 --> s5[Phase 5\nRollback Strategy\nTest on staging]
-    s5 --> gate_pre{Pre-launch Gate\nHuman Approval}
-    gate_pre -->|APPROVED| s6[Phase 6\nRelease Management\nTag + Changelog]
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:deployment items]
+    hi_check --> s1[Phase 1 Environment Strategy]
+    s1 --> s2[Phase 2 CI/CD Pipeline]
+    s2 --> s3[Phase 3 Infrastructure]
+    s3 --> s4[Phase 4 Monitoring & Alerting]
+    s4 --> s5[Phase 5 Rollback Strategy Test on staging]
+    s5 --> gate_pre{Pre-launch Gate Human Approval}
+    gate_pre -->|APPROVED| s6[Phase 6 Release Management Tag + Changelog]
     gate_pre -->|REVISE| s5
-    s6 --> s7[Phase 7\nProduction Launch\n+ 30min monitoring]
+    s6 --> s7[Phase 7 Production Launch + 30min monitoring]
     s7 --> watchful[24h Watchful Period]
-    watchful --> gate_post{Post-launch Sign-off\nHuman Approval}
+    watchful --> gate_post{Post-launch Sign-off Human Approval}
     gate_post -->|SIGNED OFF| live([LIVE — Release stable])
-    gate_post -->|ROLLBACK| rollback[Execute Rollback\nOps Runbook]
+    gate_post -->|ROLLBACK| rollback[Execute Rollback Ops Runbook]
     rollback --> s6
 ```
 
@@ -154,12 +154,12 @@ At the start of every work session and before presenting the gate:
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/\nfor phase: 06-deployment or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 06-deployment or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
-    urgency -->|immediate| halt[Halt — especially critical\nfor production incidents\nProcess first]
+    urgency -->|immediate| halt[Halt — especially critical for production incidents Process first]
     urgency -->|end-of-phase| queue[Integrate before gate presentation]
-    halt --> archive[Move to processed/\nNote in gate summary]
+    halt --> archive[Move to processed/ Note in gate summary]
     queue --> archive
     archive --> proceed
 ```

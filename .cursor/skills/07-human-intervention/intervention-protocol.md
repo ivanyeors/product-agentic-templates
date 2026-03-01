@@ -272,17 +272,17 @@ Use this to classify urgency when a human provides feedback:
 
 ```mermaid
 flowchart TD
-    start([Human provides feedback]) --> q1{Is it a\nproduction incident?}
+    start([Human provides feedback]) --> q1{Is it a production incident?}
     q1 -->|Yes| immediate([urgent: immediate])
-    q1 -->|No| q2{Does it change a core assumption?\nproblem statement / primary persona / tech stack}
+    q1 -->|No| q2{Does it change a core assumption? problem statement / primary persona / tech stack}
     q2 -->|Yes| immediate
-    q2 -->|No| q3{Does it block the current\nphase from completing?}
+    q2 -->|No| q3{Does it block the current phase from completing?}
     q3 -->|Yes| immediate
-    q3 -->|No| q4{Does it require a RICE/MoSCoW\nre-run before the next gate?}
+    q3 -->|No| q4{Does it require a RICE/MoSCoW re-run before the next gate?}
     q4 -->|Yes| endOfPhase([urgency: end-of-phase])
-    q4 -->|No| q5{Is it a design or\nUX polish request?}
+    q4 -->|No| q5{Is it a design or UX polish request?}
     q5 -->|Yes — no blocking issue| endOfPhase
-    q5 -->|No| q6{Is it a future enhancement\nor nice-to-have?}
+    q5 -->|No| q6{Is it a future enhancement or nice-to-have?}
     q6 -->|Yes| backlog([urgency: backlog])
     q6 -->|No| endOfPhase
 ```
@@ -299,12 +299,12 @@ When multiple interventions are active simultaneously:
 
 ```mermaid
 flowchart TD
-    multi([Multiple active interventions]) --> sort[Sort by urgency tier:\nimmediate → end-of-phase → backlog]
-    sort --> conflict{Two immediate\ninterventions conflict?}
-    conflict -->|Yes| halt[Halt — present conflict to human\nfor resolution before acting on either]
-    halt --> resolved{Human resolves\nconflict?}
+    multi([Multiple active interventions]) --> sort[Sort by urgency tier: immediate → end-of-phase → backlog]
+    sort --> conflict{Two immediate interventions conflict?}
+    conflict -->|Yes| halt[Halt — present conflict to human for resolution before acting on either]
+    halt --> resolved{Human resolves conflict?}
     resolved -->|Yes| process
-    conflict -->|No| process[Process in FIFO order\nwithin each urgency tier]
+    conflict -->|No| process[Process in FIFO order within each urgency tier]
     process --> done([All interventions processed])
 ```
 
@@ -326,5 +326,5 @@ flowchart TD
     trigger -->|Instructions ambiguous| escalate
     trigger -->|Scope change needs timeline re-negotiation| escalate
     trigger -->|Production incident — cross-phase coordination| escalate
-    escalate[Escalate to 00-product-workflow orchestrator] --> orchestrator([Orchestrator decides\nwhich phases to revisit])
+    escalate[Escalate to 00-product-workflow orchestrator] --> orchestrator([Orchestrator decides which phases to revisit])
 ```
