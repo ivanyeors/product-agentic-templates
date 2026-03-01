@@ -3,7 +3,7 @@ name: frontend-development
 description: Guides frontend code implementation including project architecture, component development from design specs, state management, API integration, performance optimization, and accessibility. Use when implementing UI in code, setting up a frontend project, building components from Figma designs, integrating APIs, optimizing performance, or when the user says "implement the frontend", "build the UI", "set up the project", "code this component", or "implement from Figma". Works with the implement-design skill for Figma-to-code translation. Requires completed Frontend Design artifacts as input.
 ---
 
-# 04 — Frontend Development
+# 05 — Frontend Development
 
 Implements the validated design system and screen designs into production-ready frontend code. Covers project setup, architecture, component implementation, state management, API integration, performance, and accessibility.
 
@@ -38,7 +38,7 @@ Implements the validated design system and screen designs into production-ready 
 flowchart TD
     start([Triggered]) --> prereq{Design system & Figma handoff exist?}
     prereq -->|No| block[Trigger 03-frontend-design first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:frontend-development items]
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:05-frontend-development items]
     hi_check --> pri[Sprint Prioritization Scoring Matrix]
     pri --> s1[Phase 1 Project Architecture]
     s1 --> s2[Phase 2 Design Token Implementation]
@@ -48,8 +48,8 @@ flowchart TD
     s5 --> s6[Phase 6 State Management & Data Layer]
     s6 --> s7[Phase 7 Performance Optimization]
     s7 --> s8[Phase 8 Accessibility Audit]
-    s8 --> gate{Gate 4 Human Approval}
-    gate -->|APPROVED| next[05 QA Testing]
+    s8 --> gate{Gate 5 Human Approval}
+    gate -->|APPROVED| next[07 Integration]
     gate -->|REVISE| revise[Revise flagged items]
     revise --> gate
 ```
@@ -70,7 +70,7 @@ flowchart TD
 5. Raise RFIs: list any unclear component specs, ambiguous responsive tolerances, or missing states. Resolve from Figma/manifest or escalate to human.
 6. Review Component BOM: confirm all mapped library components exist and support the specified variants/props.
 7. Review inherited Assumptions — flag any that affect implementation decisions.
-8. Only after all above: begin Phase 04 work.
+8. Only after all above: begin Phase 05 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -182,7 +182,7 @@ If 3+ systemic issues are found (e.g., wrong token naming, missing states patter
 - Handle authentication state and protected routes
 - Output: **Data layer implemented**
 
-**API client alignment:** When a backend exists, the `04b-integration` skill will verify the API client matches the backend OpenAPI spec. Ensure the client structure follows [dev-standards.md](dev-standards.md) → API Integration so contract validation can succeed.
+**API client alignment:** When a backend exists, the `07-integration` skill will verify the API client matches the backend OpenAPI spec. Ensure the client structure follows [dev-standards.md](dev-standards.md) → API Integration so contract validation can succeed.
 
 ### Phase 7: Performance Optimization
 - Run Core Web Vitals baseline audit (Lighthouse)
@@ -221,14 +221,14 @@ Before beginning development, score all tasks in the sprint backlog using the Sp
 ## Active Intervention Check
 
 At the start of every work session and before presenting the gate:
-1. Check `human-interventions/active/` for files tagged `phase: 04-frontend-development` or `phase: all`
+1. Check `human-interventions/active/` for files tagged `phase: 05-frontend-development` or `phase: all`
 2. If `urgency: immediate` — halt current task and process the intervention first
 3. If `urgency: end-of-phase` — integrate before gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/ for phase: 04-frontend-development or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 05-frontend-development or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
     urgency -->|immediate| halt[Halt current task Process intervention first]
@@ -248,8 +248,8 @@ flowchart TD
 - **From 03-frontend-design (token changes):** Resync all token references, re-test contrast in dark/light mode
 
 ### Propagating updates downstream
-- If architecture decisions change: create `human-interventions/active/[date]-04-arch-update/content.md`; notify `05-qa-testing` of new test surface area
-- If API client structure changes: notify `04b-integration` for contract verification
+- If architecture decisions change: create `human-interventions/active/[date]-05-arch-update/content.md`; notify `08-qa-testing` of new test surface area
+- If API client structure changes: notify `07-integration` for contract verification
 - If new components added mid-phase: re-run sprint scoring matrix to fit them into the priority order
 - If performance targets cannot be met: document the constraint with measurements and present trade-off options to the human
 
@@ -280,7 +280,7 @@ Sprint prioritization summary:
 Review checklist: see dev-checklist.md
 
 Reply with:
-- APPROVED → begin 04b Integration (when Gate 4a also approved)
+- APPROVED → begin 07 Integration (when Gate 6 also approved)
 - REVISE: [feedback] → agent will update and re-present
 ```
 
@@ -292,5 +292,5 @@ Reply with:
 - [dev-standards.md](dev-standards.md) — coding standards, component patterns, state, API integration, performance, a11y
 - [dev-checklist.md](dev-checklist.md) — human review gate checklist
 - [pm-prioritization.md](../00-product-workflow/pm-prioritization.md) — Sprint scoring matrix
-- `.cursor/skills/04b-integration/SKILL.md` — API contract validation when backend exists
+- `.cursor/skills/07-integration/SKILL.md` — API contract validation when backend exists
 

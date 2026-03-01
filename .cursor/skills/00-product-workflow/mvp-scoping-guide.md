@@ -1,6 +1,6 @@
 # MVP Scoping Guide
 
-When the human selects **MVP** at the Release Mode check-in (after Gate 2), the orchestrator follows this guide to derive and confirm MVP scope before Phase 3 and 3a begin.
+When the human selects **MVP** at the Release Mode check-in (after Gate 2), the orchestrator follows this guide to derive and confirm MVP scope before Phase 3 and 4 begin.
 
 ---
 
@@ -16,7 +16,7 @@ Differentiate **must-have features for MVP** from **nice-to-have (Post-MVP)** so
 2. Orchestrator runs MVP scoping (this guide)
 3. Orchestrator presents proposed MVP scope to human for confirmation or edits
 4. Human confirms or modifies the scope
-5. Orchestrator proceeds to Phase 3 and 3a with `Release Mode: MVP` and the confirmed scope
+5. Orchestrator proceeds to Phase 3 and 4 with `Release Mode: MVP` and the confirmed scope
 
 ---
 
@@ -62,7 +62,7 @@ MVP SCOPE — CONFIRMATION REQUIRED
 
 Based on the PRD and Product Design handoff, the following scope is proposed for MVP:
 
-MVP (in scope for Phase 3–5):
+MVP (in scope for Phase 3–8):
 - FR-001: [Feature] — [Rationale]
 - FR-002: [Feature] — [Rationale]
 
@@ -71,7 +71,7 @@ Post-MVP (deferred to backlog):
 - FR-004: [Feature] — [Rationale]
 
 Please confirm or edit:
-  CONFIRMED  → Proceed to Phase 3 + 3a with this scope
+  CONFIRMED  → Proceed to Phase 3 + 4 with this scope
   EDIT: [changes] → Agent will update and re-present
 ```
 

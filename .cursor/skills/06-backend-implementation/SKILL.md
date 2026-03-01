@@ -3,7 +3,7 @@ name: backend-implementation
 description: Guides backend code implementation including project setup, schema migrations, data access layer, service layer, API endpoints, auth, validation, and testing. Use when implementing the backend, building API endpoints, creating database migrations, implementing services, or when the user says "implement the backend", "build the API", "create API endpoints", "backend development", "database migrations". Requires completed Backend Design artifacts as input.
 ---
 
-# 04a — Backend Implementation
+# 06 — Backend Implementation
 
 Implements the validated API contract and schema design into production-ready backend code. Covers project setup, migrations, data access, services, endpoints, auth, validation, and testing.
 
@@ -37,9 +37,9 @@ Implements the validated API contract and schema design into production-ready ba
 ```mermaid
 flowchart TD
     start([Triggered]) --> prereq{Backend Design handoff exists?}
-    prereq -->|No| block[Trigger 03a-backend-design first]
+    prereq -->|No| block[Trigger 04-backend-design first]
     prereq -->|Yes| accept[Accept Handoff Verify No-Go + Read-Back]
-    accept --> hi_check[Check human-interventions/active/ for phase:04a-backend-implementation items]
+    accept --> hi_check[Check human-interventions/active/ for phase:06-backend-implementation items]
     hi_check --> pri[Sprint Prioritization Scoring Matrix]
     pri --> s1[Phase 1 Project Architecture]
     s1 --> s2[Phase 2 Schema Implementation]
@@ -49,8 +49,8 @@ flowchart TD
     s5 --> s6[Phase 6 Auth & Security]
     s6 --> s7[Phase 7 Error Handling & Validation]
     s7 --> s8[Phase 8 API Testing]
-    s8 --> gate{Gate 4a Human Approval}
-    gate -->|APPROVED| next[04b Integration]
+    s8 --> gate{Gate 6 Human Approval}
+    gate -->|APPROVED| next[07 Integration]
     gate -->|REVISE| revise[Revise flagged items]
     revise --> gate
 ```
@@ -59,7 +59,7 @@ flowchart TD
 
 ## Accept Handoff (before starting work)
 
-1. Read the handoff package from Phase 03a (Backend Design)
+1. Read the handoff package from Phase 04 (Backend Design)
 2. **Verify Release Mode and MVP Scope** — if `Release Mode: MVP`, scope = MVP-tagged FR-IDs only; otherwise full P0.
 3. Verify all No-Go items pass (interpret "P0" as MVP scope when in MVP mode):
    - [ ] OpenAPI spec exists and is valid
@@ -70,7 +70,7 @@ flowchart TD
 4. Log Read-Back: restate the implementation intent — "We are implementing [product] backend using [stack]. **Release Mode: [Full Production | MVP].** The API has [N] endpoints. The database is [DB]. Key constraints: [list from handoff Decisions and Intent table]."
 5. Raise RFIs: list any unclear schema decisions, ambiguous business rules, or missing integration specs. Resolve from artifacts or escalate to human.
 6. Review inherited Assumptions — flag any that affect implementation.
-7. Only after all above: begin Phase 04a work.
+7. Only after all above: begin Phase 06 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -192,14 +192,14 @@ When `Release Mode: MVP` in the handoff package, adjust scope and detail:
 ## Active Intervention Check
 
 At the start of every work session and before presenting the gate:
-1. Check `human-interventions/active/` for files tagged `phase: 04a-backend-implementation` or `phase: all`
+1. Check `human-interventions/active/` for files tagged `phase: 06-backend-implementation` or `phase: all`
 2. If `urgency: immediate` — halt current task and process the intervention first
 3. If `urgency: end-of-phase` — integrate before gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/ for phase: 04a-backend-implementation or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 06-backend-implementation or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
     urgency -->|immediate| halt[Halt current task Process intervention first]
@@ -216,10 +216,10 @@ flowchart TD
 ### Receiving feedback
 - **From gate REVISE:** Fix only the specifically flagged issues — do not refactor unrelated code
 - **From human intervention:** Assess impact on current sprint tasks, re-run prioritization if scope changes
-- **From 03a-backend-design (API/schema changes):** Resync implementation with updated spec
+- **From 04-backend-design (API/schema changes):** Resync implementation with updated spec
 
 ### Propagating updates downstream
-- If API contract changes: create `human-interventions/active/[date]-04a-api-update/content.md`; notify `04b-integration`
+- If API contract changes: create `human-interventions/active/[date]-06-api-update/content.md`; notify `07-integration`
 - If schema changes: document migration path and notify integration
 - If new endpoints added: re-run sprint scoring to fit into priority order
 
@@ -252,7 +252,7 @@ Sprint prioritization summary:
 Review checklist: see backend-checklist.md
 
 Reply with:
-- APPROVED → begin 04b Integration
+- APPROVED → begin 07 Integration
 - REVISE: [feedback] → agent will update and re-present
 ```
 

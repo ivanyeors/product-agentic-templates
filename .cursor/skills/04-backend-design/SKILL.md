@@ -3,7 +3,7 @@ name: backend-design
 description: Guides backend design work including API contract specification, database schema design, auth model, and integration point design. Use when designing the API, creating OpenAPI specs, designing database schemas, defining auth and permissions, or when the user says "design the API", "API contract", "schema design", "database design", "backend design", "OpenAPI spec". Requires completed Product Discovery and Product Design artifacts as input.
 ---
 
-# 03a — Backend Design
+# 04 — Backend Design
 
 Translates discovery and product design artifacts into implementation-ready backend specifications. Produces API contracts (OpenAPI), schema design, auth model, and integration point specs for human review before Backend Implementation begins.
 
@@ -38,7 +38,7 @@ flowchart TD
     start([Triggered]) --> prereq{Product Design artifacts exist?}
     prereq -->|No| block[Trigger 02-product-design first]
     prereq -->|Yes| accept[Accept Handoff Verify No-Go + Read-Back]
-    accept --> hi_check[Check human-interventions/active/ for phase:03a-backend-design items]
+    accept --> hi_check[Check human-interventions/active/ for phase:04-backend-design items]
     hi_check --> pri[Prioritization Impact/Effort 2x2 for endpoint sequencing]
     pri --> s1[Phase 1 API Contract Design]
     s1 --> s2[Phase 2 Request/Response Specification]
@@ -46,8 +46,8 @@ flowchart TD
     s3 --> s4[Phase 4 Auth & Permission Model]
     s4 --> s5[Phase 5 Integration Points Design]
     s5 --> s6[Phase 6 API Documentation]
-    s6 --> gate{Gate 3a Human Approval}
-    gate -->|APPROVED| next[04a Backend Implementation]
+    s6 --> gate{Gate 4 Human Approval}
+    gate -->|APPROVED| next[06 Backend Implementation]
     gate -->|REVISE| revise[Revise flagged artifacts]
     revise --> gate
 ```
@@ -67,7 +67,7 @@ flowchart TD
 4. Log Read-Back: restate the backend design intent — "We are designing the API and schema for [product]. **Release Mode: [Full Production | MVP].** Core entities are [list from data dictionary]. The primary flows requiring backend support are [list]. The constraints we must preserve are: [list from handoff Decisions and Intent table]."
 5. Raise RFIs: list any unclear data dictionary entries, ambiguous business rules, or missing integration requirements. Resolve from artifacts or escalate to human.
 6. Review inherited Assumptions — flag any that affect API or schema design.
-7. Only after all above: begin Phase 03a work.
+7. Only after all above: begin Phase 04 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -169,14 +169,14 @@ When `Release Mode: MVP` in the handoff package, adjust scope and detail:
 ## Active Intervention Check
 
 At the start of every work session and before presenting the gate:
-1. Check `human-interventions/active/` for files tagged `phase: 03a-backend-design` or `phase: all`
+1. Check `human-interventions/active/` for files tagged `phase: 04-backend-design` or `phase: all`
 2. If `urgency: immediate` — halt and process before continuing
 3. If `urgency: end-of-phase` — integrate before the gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/ for phase: 03a-backend-design or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 04-backend-design or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
     urgency -->|immediate| halt[Halt current work Process intervention first]
@@ -196,7 +196,7 @@ flowchart TD
 - **From 02-product-design:** If user flows change, re-audit affected endpoints and schema
 
 ### Propagating updates downstream
-- If API contract changes post-approval: create `human-interventions/active/[date]-03a-api-update/content.md` — notify `04a-backend-implementation` and `04b-integration`
+- If API contract changes post-approval: create `human-interventions/active/[date]-04-api-update/content.md` — notify `06-backend-implementation` and `07-integration`
 - If schema design changes: document what changed and why in the intervention file
 - Breaking API changes require a full impact assessment before proceeding
 
@@ -228,7 +228,7 @@ Prioritization summary:
 Review checklist: see backend-design-checklist.md
 
 Reply with:
-- APPROVED → begin 04a Backend Implementation
+- APPROVED → begin 06 Backend Implementation
 - REVISE: [feedback] → agent will update and re-present
 ```
 

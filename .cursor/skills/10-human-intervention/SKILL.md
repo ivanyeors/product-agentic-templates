@@ -3,7 +3,7 @@ name: human-intervention
 description: Manages structured human feedback and instructions injected during an active agentic development workflow. Handles categorisation, organisation, and agent notification of mid-phase human interventions. Use when a human has feedback, new instructions, scope changes, or corrections during an active workflow, when the user says "intervention", "stop and update", "change of direction", "new requirement", "I need to add feedback", or "update the agents". Works in conjunction with all phase skills and the product-workflow orchestrator.
 ---
 
-# 07 — Human Intervention
+# 10 — Human Intervention
 
 The structured system for capturing, categorising, and routing human feedback into an active agentic development workflow. Ensures no instruction is lost, every change is traceable, and all agents stay in sync.
 
@@ -72,7 +72,7 @@ human-interventions/active/[YYYY-MM-DD]-[phase]-[topic]/content.md
 **Examples:**
 ```
 2026-02-28-01-discovery-target-audience-update/
-2026-02-28-04-frontend-dev-new-auth-requirement/
+2026-02-28-05-frontend-development-new-auth-requirement/
 2026-02-28-all-timeline-reduction/
 ```
 
@@ -94,7 +94,7 @@ Fill in all sections using the template in [intervention-protocol.md](interventi
 ```markdown
 # Human Intervention — [Topic]
 **Date:** YYYY-MM-DD
-**Phase:** [01-product-discovery | 02-product-design | 03-frontend-design | 04-frontend-development | 05-qa-testing | 06-deployment | 08-documentation | all]
+**Phase:** [01-product-discovery | 02-product-design | 03-frontend-design | 04-backend-design | 05-frontend-development | 06-backend-implementation | 07-integration | 08-qa-testing | 09-deployment | 11-documentation | 12-product-documentation | all]
 **Type:** [requirement-change | design-feedback | scope-change | technical-constraint | priority-shift | bug-report | timeline-change | other]
 **Urgency:** [immediate | end-of-phase | backlog]
 **Raised by:** [Name / Role]

@@ -169,7 +169,7 @@ flowchart TD
 
 ## 4. Sprint Scoring Matrix
 
-**Used in:** 04-frontend-development (task prioritization within sprints)
+**Used in:** 05-frontend-development (task prioritization within sprints)
 
 ### Scoring formula
 
@@ -211,7 +211,7 @@ After ranking, sum the effort of the top-N tasks to fit the sprint capacity. If 
 
 ## 5. Defect Triage Matrix
 
-**Used in:** 05-qa-testing (bug prioritization before launch gate)
+**Used in:** 08-qa-testing (bug prioritization before launch gate)
 
 ### Triage table template
 
@@ -321,7 +321,7 @@ Please select one option before work continues.
 
 ## 7. MVP Overlay
 
-**Used in:** Phases 03, 03a, 04, 04a, 04b, 05 (when Release Mode = MVP)
+**Used in:** Phases 03, 04, 05, 06, 07, 08 (when Release Mode = MVP)
 
 When the human selects **MVP** at the Release Mode check-in (after Gate 2), only FR-IDs tagged **MVP** are in scope for phases 03–05. All other FR-IDs are deferred to the **Post-MVP Backlog**.
 

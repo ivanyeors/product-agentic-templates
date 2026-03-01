@@ -3,7 +3,7 @@ name: documentation
 description: Guides post-launch documentation and knowledge transfer including user documentation, technical documentation, operations documentation, and a knowledge transfer package. Use after deployment is live and signed off, when the user says "document this", "write the docs", "knowledge transfer", "write the README", "create user guides", "document the architecture", or "hand this off". Requires the Deployment phase to be complete and signed off.
 ---
 
-# 08 — Documentation & Knowledge Transfer
+# 11 — Documentation & Knowledge Transfer
 
 Captures everything that was built, decided, and learned. The product is live — now make sure everyone knows how to use it, support it, and build on it. No product is truly complete until it can be understood without the person who built it in the room.
 
@@ -36,14 +36,14 @@ Captures everything that was built, decided, and learned. The product is live �
 ```mermaid
 flowchart TD
     start([Triggered after LIVE]) --> prereq{Deployment signed off?}
-    prereq -->|No| block[Complete 06-deployment first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:documentation items]
+    prereq -->|No| block[Complete 09-deployment first]
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:11-documentation items]
     hi_check --> s1[Phase 1 Documentation Audit Inventory all artifacts, map audiences]
     s1 --> s2[Phase 2 User-Facing Docs Product overview, getting started, FAQ]
     s2 --> s3[Phase 3 Technical Docs Architecture, ADRs, README, API]
     s3 --> s4[Phase 4 Operations Docs Runbook, incident playbook, monitoring]
     s4 --> s5[Phase 5 Knowledge Transfer Retro, lessons learned, roadmap notes]
-    s5 --> gate{Gate 8 Human Approval}
+    s5 --> gate{Gate 10 Human Approval}
     gate -->|APPROVED| s6[Phase 6 Review and Publish Publish, set maintenance cadence]
     gate -->|REVISE| s5
     s6 --> done([DOCUMENTED])
@@ -53,14 +53,14 @@ flowchart TD
 
 ## Accept Handoff (before starting work)
 
-1. Read the handoff package from Phase 06 (Deployment)
+1. Read the handoff package from Phase 09 (Deployment)
 2. Verify the prerequisite is met:
    - [ ] Deployment post-launch sign-off received (status: SIGNED OFF)
    - If not met → **HALT**. Notify orchestrator.
 3. Log Read-Back: restate what was built — "We are documenting [product]. It is live at [URL]. Built across [N] phases. Key decisions: [list from Decisions and Intent across handoffs]. Known thin areas: [list from Assessments]. Accepted P1 defects: [list]. Open assumptions: [list from Assumptions]."
 4. Raise RFIs: list any gaps in your understanding of what was built. Resolve from artifacts or escalate to the team before writing.
 5. Review all phase handoff packages (01→06) to extract decisions, constraints, and rationale that need to be preserved in ADRs.
-6. Only after all above: begin Phase 08 work.
+6. Only after all above: begin Phase 11 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -288,14 +288,14 @@ Output: **Published Documentation Suite**
 ## Active Intervention Check
 
 At the start of every work session and before presenting the gate:
-1. Check `human-interventions/active/` for files tagged `phase: 08-documentation` or `phase: all`
+1. Check `human-interventions/active/` for files tagged `phase: 11-documentation` or `phase: all`
 2. If `urgency: immediate` — halt and process before continuing
 3. If `urgency: end-of-phase` — integrate before gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/ for phase: 08-documentation or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 11-documentation or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
     urgency -->|immediate| halt[Halt current work Process intervention first]
@@ -315,8 +315,8 @@ flowchart TD
 - **Reader testing feedback:** If a first-time reader reports confusion, treat it as a P1 doc bug — fix it before publishing
 
 ### Propagating updates
-- If documentation surfaces an undocumented decision or an inconsistency in the product: log a `human-interventions/active/[date]-08-doc-gap/content.md` and escalate to the orchestrator
-- If post-launch product changes require doc updates: re-run only the affected Phase 2–5 sections
+- If documentation surfaces an undocumented decision or an inconsistency in the product: log a `human-interventions/active/[date]-11-doc-gap/content.md` and escalate to the orchestrator
+- If post-launch product changes require doc updates: re-run only the affected Phase 2–9 sections
 - All doc debt (known gaps, outdated sections) is logged in `docs/audit-report.md` with an owner and target date
 
 ### Revision limits

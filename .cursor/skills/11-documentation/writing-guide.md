@@ -1,6 +1,6 @@
 # Writing Guide — Documentation Phase
 
-All documentation produced in Phase 08 must follow these principles. Clear, simple, easy to read.
+All documentation produced in Phase 11 must follow these principles. Clear, simple, easy to read.
 
 ---
 

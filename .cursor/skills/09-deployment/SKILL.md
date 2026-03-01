@@ -3,7 +3,7 @@ name: deployment
 description: Guides production deployment including CI/CD pipeline setup, environment configuration, infrastructure-as-code, monitoring and alerting setup, rollback strategy, and release management. Use when deploying to production, setting up CI/CD, configuring environments, setting up monitoring, planning releases, or when the user says "deploy this", "set up CI/CD", "configure infrastructure", "set up monitoring", "release this", or "go live". Requires QA Testing phase to be complete and approved.
 ---
 
-# 06 — Deployment
+# 09 — Deployment
 
 Ships the validated product to production safely, with full observability, rollback capability, and release management. No deployment happens without a tested rollback plan.
 
@@ -36,8 +36,8 @@ Ships the validated product to production safely, with full observability, rollb
 ```mermaid
 flowchart TD
     start([Triggered]) --> prereq{QA gate approved?}
-    prereq -->|No| block[Complete 05-qa-testing first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:deployment items]
+    prereq -->|No| block[Complete 08-qa-testing first]
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:09-deployment items]
     hi_check --> s1[Phase 1 Environment Strategy]
     s1 --> s2[Phase 2 CI/CD Pipeline]
     s2 --> s3[Phase 3 Infrastructure]
@@ -58,7 +58,7 @@ flowchart TD
 
 ## Accept Handoff (before starting work)
 
-1. Read the handoff package from Phase 05 (QA Testing)
+1. Read the handoff package from Phase 08 (QA Testing)
 2. Verify all No-Go items pass:
    - [ ] All P0 E2E tests passing
    - [ ] Zero critical accessibility violations
@@ -68,7 +68,7 @@ flowchart TD
 3. Log Read-Back: restate deployment context — "We are deploying [product] to [target]. QA confirmed [N] P0 tests passing, coverage at [X%]. Known thin areas: [list from Assessment]. Accepted P1 defects: [list]. Key risks forwarded: [list from Risks Forward]."
 4. Raise RFIs: list any unclear infrastructure requirements, missing environment configs, or ambiguous rollback procedures. Resolve from docs or escalate to human.
 5. Review inherited Assumptions — flag any that affect deployment decisions.
-6. Only after all above: begin Phase 06 work.
+6. Only after all above: begin Phase 09 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -147,14 +147,14 @@ Ask the user:
 ## Active Intervention Check
 
 At the start of every work session and before presenting the gate:
-1. Check `human-interventions/active/` for files tagged `phase: 06-deployment` or `phase: all`
+1. Check `human-interventions/active/` for files tagged `phase: 09-deployment` or `phase: all`
 2. If `urgency: immediate` — halt and process before continuing (especially critical for production incidents)
 3. If `urgency: end-of-phase` — integrate before gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/ for phase: 06-deployment or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 09-deployment or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
     urgency -->|immediate| halt[Halt — especially critical for production incidents Process first]
@@ -174,7 +174,7 @@ flowchart TD
 - **From human intervention:** Production incidents are always `urgency: immediate` — halt all other work
 
 ### Propagating updates
-- If a bug is found post-launch that requires code changes: create `human-interventions/active/[date]-06-post-launch-bug/content.md`; return work to `04-frontend-development` via the orchestrator
+- If a bug is found post-launch that requires code changes: create `human-interventions/active/[date]-09-post-launch-bug/content.md`; return work to `05-frontend-development` via the orchestrator
 - All incidents are logged in the ops runbook with root cause and remediation
 - Post-incident reviews create `human-interventions/processed/[date]-06-incident-review/content.md`
 

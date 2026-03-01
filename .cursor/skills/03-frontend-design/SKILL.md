@@ -273,7 +273,7 @@ flowchart TD
 - **From 02-product-design:** If new wireframes arrive mid-phase, apply the existing design system to them before presenting
 
 ### Propagating updates downstream
-- If design tokens change after this gate is approved: create `human-interventions/active/[date]-03-token-update/content.md` — notify `04-frontend-development` to resync
+- If design tokens change after this gate is approved: create `human-interventions/active/[date]-03-token-update/content.md` — notify `05-frontend-development` to resync
 - If component specs change: document what changed and why in the intervention file
 - Breaking token changes (rename, remove) require a full impact assessment before proceeding
 

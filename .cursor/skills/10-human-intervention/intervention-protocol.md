@@ -20,10 +20,10 @@ human-interventions/
 | Part | Format | Example |
 |------|--------|---------|
 | Date | `YYYY-MM-DD` | `2026-02-28` |
-| Phase code | `01-discovery`, `02-product-design`, `03-frontend-design`, `04-frontend-dev`, `05-qa`, `06-deployment`, `08-documentation`, `all` | `04-frontend-dev` |
+| Phase code | `01-product-discovery`, `02-product-design`, `03-frontend-design`, `04-backend-design`, `05-frontend-development`, `06-backend-implementation`, `07-integration`, `08-qa-testing`, `09-deployment`, `11-documentation`, `12-product-documentation`, `all` | `05-frontend-development` |
 | Topic slug | kebab-case, 2–4 words, describes the change | `new-auth-flow`, `prd-scope-reduction`, `token-color-update` |
 
-**Full example:** `2026-02-28-04-frontend-dev-new-auth-flow/`
+**Full example:** `2026-02-28-05-frontend-development-new-auth-flow/`
 
 ---
 
@@ -101,7 +101,7 @@ This affects [component/screen/flow].
 
 ## Impact Assessment
 
-**Phases affected:** [03-frontend-design if visual; 04-frontend-development if component logic changes]
+**Phases affected:** [03-frontend-design if visual; 05-frontend-development if component logic changes]
 **Artifacts to update:** [specific Figma frames, wireframe spec sections, component specs]
 **Decisions invalidated:** [prior approved design decisions that change]
 **Downstream agents to notify:** [list]
@@ -174,7 +174,7 @@ The human is [adding / removing / replacing] the following from the product scop
 ```markdown
 # Human Intervention — [Constraint Description]
 **Date:** YYYY-MM-DD
-**Phase:** [04-frontend-dev | 06-deployment | other]
+**Phase:** [05-frontend-development | 09-deployment | other]
 **Type:** technical-constraint
 **Urgency:** immediate
 **Raised by:** [Name / Role]

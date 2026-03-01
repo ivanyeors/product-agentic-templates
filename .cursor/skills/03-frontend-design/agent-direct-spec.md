@@ -1,6 +1,6 @@
 # Agent-Direct Specification — Template (Route B)
 
-Use these templates for Route B (Agent-Direct) handoffs from Phase 03 → Phase 04. The agent skips Figma and produces code-ready specifications directly from wireframes + component library.
+Use these templates for Route B (Agent-Direct) handoffs from Phase 03 → Phase 05. The agent skips Figma and produces code-ready specifications directly from wireframes + component library.
 
 The design is expressed as component composition and token values, not visual mockups. The Component BOM and screen specifications serve as the equivalent of Figma files.
 
@@ -37,7 +37,7 @@ The design is expressed as component composition and token values, not visual mo
 | EmptyState | global | Reusable empty state pattern | title, description, action, illustration | — | Centered layout + illustration + CTA |
 
 ## Component Dependency Graph
-[Which components depend on which — helps Phase 04 determine build order]
+[Which components depend on which — helps Phase 05 determine build order]
 
 ```
 Atoms (build first):
@@ -126,7 +126,7 @@ Describe how components from the BOM assemble into this screen:
 
 ---
 
-## Downstream Use (04-frontend-development)
+## Downstream Use (05-frontend-development)
 - Component BOM maps directly to component implementation order (atoms → molecules → organisms)
 - Screen Compositions define the page-level integration — implement in BOM dependency order
 - Responsive Tolerances table defines the acceptance criteria for responsive testing
@@ -174,4 +174,4 @@ Route B uses the same token architecture as Route A. Produce tokens following th
 4. **Write screen specs** — use the BOM components to compose each screen
 5. **Validate coverage** — every P0 wireframe (WF-xxx) must have a screen spec; every P0 FR-ID must be traceable through the coverage matrix
 
-Phase 04 will use the Component BOM as the primary implementation guide and the screen specs as integration blueprints.
+Phase 05 will use the Component BOM as the primary implementation guide and the screen specs as integration blueprints.

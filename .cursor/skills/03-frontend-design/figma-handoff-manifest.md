@@ -1,6 +1,6 @@
 # Figma Handoff Manifest — Template
 
-Use this manifest for Route A (Figma-based) handoffs from Phase 03 → Phase 04. Inspired by physical product design's Bill of Materials (BOM) and engineering drawings with tolerances.
+Use this manifest for Route A (Figma-based) handoffs from Phase 03 → Phase 05. Inspired by physical product design's Bill of Materials (BOM) and engineering drawings with tolerances.
 
 The manifest is the structured contract between design and development. It eliminates ambiguity by mapping every Figma element to its code implementation.
 
@@ -35,7 +35,7 @@ The manifest is the structured contract between design and development. It elimi
 
 ## Component BOM (Bill of Materials)
 
-Every UI component used in the design must be listed. Phase 04 uses this table to know exactly which code component to use for each design element.
+Every UI component used in the design must be listed. Phase 05 uses this table to know exactly which code component to use for each design element.
 
 | Component | Figma Component | Figma Variant(s) | Code Library | Code Component | Props / Config | Custom? |
 |-----------|----------------|-------------------|-------------|----------------|----------------|---------|
@@ -62,7 +62,7 @@ Every UI component used in the design must be listed. Phase 04 uses this table t
 
 ## Tolerances (Acceptable Responsive Ranges)
 
-Do not expect pixel-perfect implementation — define the acceptable range for each responsive element. Phase 04 uses this table to validate implementation correctness.
+Do not expect pixel-perfect implementation — define the acceptable range for each responsive element. Phase 05 uses this table to validate implementation correctness.
 
 | Element | Mobile (<640px) | Tablet (640-1024) | Desktop (>1024) | Notes |
 |---------|----------------|-------------------|-----------------|-------|
@@ -83,7 +83,7 @@ Do not expect pixel-perfect implementation — define the acceptable range for e
 
 ## First Article Inspection Protocol
 
-When Phase 04 implements the first screen, inspect systematically against this manifest:
+When Phase 05 implements the first screen, inspect systematically against this manifest:
 - [ ] Every component in BOM is implemented with the correct library component and props
 - [ ] All token values match CSS variable definitions (check with browser dev tools)
 - [ ] Responsive behavior matches Tolerances table at all breakpoints
@@ -107,4 +107,4 @@ Document deviations with rationale — not all deviations are bugs; some are int
 5. **Tolerances** — define responsive ranges for every element that changes across breakpoints
 6. **Assets** — mark every exportable asset with format and size
 
-Phase 04 will use this manifest as the primary reference for implementation — not the Figma file directly. The manifest IS the spec.
+Phase 05 will use this manifest as the primary reference for implementation — not the Figma file directly. The manifest IS the spec.

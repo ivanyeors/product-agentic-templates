@@ -15,7 +15,7 @@ Inspired by SBAR (medicine), design intent (construction), FMEA risk forwarding 
 ## Release Mode
 **Release Mode:** `Full Production` | `MVP`
 
-*Set at the Release Mode check-in (after Gate 2). Carried forward in every handoff from Phase 2 onward. Phases 03–05 read this to adjust scope and detail.*
+*Set at the Release Mode check-in (after Gate 2). Carried forward in every handoff from Phase 2 onward. Phases 03–08 read this to adjust scope and detail.*
 
 *When Release Mode = MVP, include the following sections.*
 
@@ -127,7 +127,7 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - `market-feedback-plan.md` (when market signals in PRD)
 - `prototype-brief.md` (if applicable)
 
-### Phase 3 → 4 (Frontend Design → Frontend Development)
+### Phase 3 → 5 (Frontend Design → Frontend Development)
 **No-Go:**
 - [ ] All design tokens defined (color, typography, spacing, radius, shadow)
 - [ ] Component BOM complete — every P0 component mapped to code library
@@ -139,7 +139,7 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] Token-to-CSS mapping documented
 - [ ] Tolerances table complete for responsive behavior
 
-### Phase 3a → 4a (Backend Design → Backend Implementation)
+### Phase 4 → 6 (Backend Design → Backend Implementation)
 **No-Go:**
 - [ ] OpenAPI spec exists and is valid
 - [ ] Every endpoint traceable to FR-ID
@@ -152,20 +152,20 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] Pagination defined for all list endpoints
 - [ ] Integration points (webhooks, third-party) specified
 
-### Phase 4 → 4b (Frontend Development → Integration)
+### Phase 5 → 7 (Frontend Development → Integration)
 **No-Go:**
 - [ ] Zero TypeScript errors (`tsc --noEmit`)
 - [ ] Zero ESLint errors
 - [ ] All P0 screens implemented with loading, empty, and error states
 - [ ] First Article Inspection passed for first screen
-- [ ] API client structure exists (see 04-frontend-development dev-standards)
+- [ ] API client structure exists (see 05-frontend-development dev-standards)
 
 **Quality:**
 - [ ] Lighthouse audit run and scores documented
 - [ ] axe DevTools run with zero critical violations
 - [ ] Test coverage matrix maps all P0 FR-IDs to planned E2E tests
 
-### Phase 4a → 4b (Backend Implementation → Integration)
+### Phase 6 → 7 (Backend Implementation → Integration)
 **No-Go:**
 - [ ] All P0 endpoints implemented and match OpenAPI spec
 - [ ] Backend API is runnable (staging or local)
@@ -177,7 +177,7 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] Integration tests for API endpoints
 - [ ] No N+1 queries verified
 
-### Phase 4b → 5 (Integration → QA Testing)
+### Phase 7 → 8 (Integration → QA Testing)
 **No-Go:**
 - [ ] Contract verification passed for all P0 endpoints
 - [ ] API client integrated in frontend (typed, error handling)
@@ -189,7 +189,7 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] No frontend/backend contract mismatches
 - [ ] Error handling aligned between frontend and backend
 
-### Phase 5 → 6 (QA → Deployment)
+### Phase 8 → 9 (QA → Deployment)
 **No-Go:**
 - [ ] All P0 E2E tests passing
 - [ ] Zero critical accessibility violations
@@ -201,11 +201,11 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] LCP < 2.5s, INP < 200ms, CLS < 0.1
 - [ ] P1 defects documented with remediation plan
 
-### Phase 6 → 8 (Deployment → Product Documentation)
+### Phase 9 → 11 (Deployment → Product Documentation)
 **No-Go:**
 - [ ] Post-launch sign-off received (product is live and stable)
 - [ ] Production URL is available and documented
-- [ ] All 6 handoff packages (Phases 01–06) exist and are accessible
+- [ ] All 9 handoff packages (Phases 01–09) exist and are accessible
 - [ ] Rollback procedure was tested on staging and is documented
 
 **Quality:**
@@ -235,11 +235,11 @@ The Coverage table grows across phases. Each handoff package inherits and extend
 Phase 1:   FR-001 → (pending)
 Phase 2:   FR-001 → UF-001 → WF-001
 Phase 3:   FR-001 → UF-001 → WF-001 → Figma/Dashboard (or Screen Spec)
-Phase 3a:  FR-001 → GET/POST /users, /orders (API endpoints)
-Phase 4:   FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard
-Phase 4a:  FR-001 → API implemented, migrations run
-Phase 4b:  FR-001 → Contract verified, API client wired
-Phase 5:   FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard → e2e/dashboard.spec.ts
+Phase 4:   FR-001 → GET/POST /users, /orders (API endpoints)
+Phase 5:   FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard
+Phase 6:   FR-001 → API implemented, migrations run
+Phase 7:   FR-001 → Contract verified, API client wired
+Phase 8:   FR-001 → UF-001 → WF-001 → Figma/Dashboard → /app/dashboard → e2e/dashboard.spec.ts
 ```
 
 If any row has a gap, it is visible immediately — that requirement has lost traceability.

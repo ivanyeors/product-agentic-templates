@@ -1,6 +1,6 @@
 # Documentation Phase — Human Review Gate Checklist
 
-Use this checklist before approving the transition from Deployment → Documentation Complete (Gate 7 — Terminal Gate).
+Use this checklist before approving the transition from Deployment → Documentation Complete (Gate 10 — Terminal Gate).
 
 ---
 
@@ -18,8 +18,8 @@ Use this checklist before approving the transition from Deployment → Documenta
 
 ## Artifact Inventory
 
-- [ ] All 6 phase directories audited
-- [ ] All handoff packages (1–6) included
+- [ ] All 9 phase directories audited
+- [ ] All handoff packages (1–9) included
 - [ ] Gaps and contradictions section completed
 - [ ] Every artifact has a path and state (Complete / Stale / Missing)
 

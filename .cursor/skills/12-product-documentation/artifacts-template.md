@@ -1,12 +1,12 @@
 # Documentation Artifact Templates
 
-Use these templates when producing Phase 08 outputs. Replace all `[PLACEHOLDER]` values. Every document must state its audience in the first line and include a "Last Updated" date and owner.
+Use these templates when producing Phase 12 outputs. Replace all `[PLACEHOLDER]` values. Every document must state its audience in the first line and include a "Last Updated" date and owner.
 
 ---
 
 ## Artifact Inventory
 
-**Audience:** Phase 08 agent, documentation maintainers  
+**Audience:** Phase 12 agent, documentation maintainers  
 **Last Updated:** [Date]  
 **Owner:** [Name/Role]
 
@@ -52,7 +52,7 @@ Use these templates when producing Phase 08 outputs. Replace all `[PLACEHOLDER]`
 | [Figma Handoff Manifest] | `[path]` | [Dev] | [Complete / Stale / Missing] | Route A only |
 | Handoff Package 3 | `[path]` | [All] | [Complete / Stale / Missing] | |
 
-## Phase 04 — Frontend Development
+## Phase 05 — Frontend Development
 
 | Artifact | Path | Audience | State | Notes |
 |----------|------|----------|-------|-------|
@@ -60,9 +60,33 @@ Use these templates when producing Phase 08 outputs. Replace all `[PLACEHOLDER]`
 | [Architecture Doc] | `[path]` | [Dev] | [Complete / Stale / Missing] | |
 | [First Article Inspection] | `[path]` | [Dev / QA] | [Complete / Stale / Missing] | |
 | [Test Coverage Matrix] | `[path]` | [QA / Dev] | [Complete / Stale / Missing] | |
+| Handoff Package 5 | `[path]` | [All] | [Complete / Stale / Missing] | |
+
+## Phase 04 — Backend Design
+
+| Artifact | Path | Audience | State | Notes |
+|----------|------|----------|-------|-------|
+| [OpenAPI Spec] | `[path]` | [Dev / Integration] | [Complete / Stale / Missing] | |
+| [Schema Design] | `[path]` | [Dev] | [Complete / Stale / Missing] | |
+| [Auth Model] | `[path]` | [Dev / Ops] | [Complete / Stale / Missing] | |
 | Handoff Package 4 | `[path]` | [All] | [Complete / Stale / Missing] | |
 
-## Phase 05 — QA Testing
+## Phase 06 — Backend Implementation
+
+| Artifact | Path | Audience | State | Notes |
+|----------|------|----------|-------|-------|
+| [API Endpoints] | `[path]` | [Dev / Integration] | [Complete / Stale / Missing] | |
+| [Migrations] | `[path]` | [Dev / Ops] | [Complete / Stale / Missing] | |
+| Handoff Package 6 | `[path]` | [All] | [Complete / Stale / Missing] | |
+
+## Phase 07 — Integration
+
+| Artifact | Path | Audience | State | Notes |
+|----------|------|----------|-------|-------|
+| [Contract Verification] | `[path]` | [Dev / QA] | [Complete / Stale / Missing] | |
+| Handoff Package 7 | `[path]` | [All] | [Complete / Stale / Missing] | |
+
+## Phase 08 — QA Testing
 
 | Artifact | Path | Audience | State | Notes |
 |----------|------|----------|-------|-------|
@@ -71,9 +95,9 @@ Use these templates when producing Phase 08 outputs. Replace all `[PLACEHOLDER]`
 | [Accessibility Audit] | `[path]` | [Dev / Design] | [Complete / Stale / Missing] | |
 | [Performance Audit] | `[path]` | [Dev / Ops] | [Complete / Stale / Missing] | |
 | [Security Review] | `[path]` | [Dev / Ops] | [Complete / Stale / Missing] | |
-| Handoff Package 5 | `[path]` | [All] | [Complete / Stale / Missing] | |
+| Handoff Package 8 | `[path]` | [All] | [Complete / Stale / Missing] | |
 
-## Phase 06 — Deployment
+## Phase 09 — Deployment
 
 | Artifact | Path | Audience | State | Notes |
 |----------|------|----------|-------|-------|
@@ -82,7 +106,7 @@ Use these templates when producing Phase 08 outputs. Replace all `[PLACEHOLDER]`
 | [Ops Runbook] | `[path]` | [Ops] | [Complete / Stale / Missing] | |
 | [Release Notes] | `[path]` | [All] | [Complete / Stale / Missing] | |
 | [Production URL] | `[URL]` | [All] | [Live] | |
-| Handoff Package 6 | `[path]` | [All] | [Complete / Stale / Missing] | |
+| Handoff Package 9 | `[path]` | [All] | [Complete / Stale / Missing] | |
 
 ## Gaps and Contradictions
 

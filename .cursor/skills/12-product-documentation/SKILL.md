@@ -1,9 +1,9 @@
 ---
 name: product-documentation
-description: Guides the consolidation of all PDLC artifacts into clear, audience-specific documentation after deployment. Produces a Product Documentation Hub with user guides, technical docs, design system reference, operations manual, and decision log. Use when documenting a completed product, creating handover packages, or when the user says "document everything", "create the documentation hub", "handover package", or "document what we built". Requires Phase 06 (Deployment) to be complete and post-launch signed off.
+description: Guides the consolidation of all PDLC artifacts into clear, audience-specific documentation after deployment. Produces a Product Documentation Hub with user guides, technical docs, design system reference, operations manual, and decision log. Use when documenting a completed product, creating handover packages, or when the user says "document everything", "create the documentation hub", "handover package", or "document what we built". Requires Phase 09 (Deployment) to be complete and post-launch signed off.
 ---
 
-# 08 — Product Documentation and Handover
+# 12 — Product Documentation and Handover
 
 Transforms scattered phase artifacts into a single, navigable documentation package. Every audience — stakeholders, end users, developers, designers, and operations — gets clear, digestible documentation. This is the terminal phase of the PDLC.
 
@@ -35,9 +35,9 @@ Transforms scattered phase artifacts into a single, navigable documentation pack
 
 ```mermaid
 flowchart TD
-    start([Triggered]) --> prereq{Phase 06 post-launch signed off?}
-    prereq -->|No| block[Complete 06-deployment first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:08-product-documentation items]
+    start([Triggered]) --> prereq{Phase 09 post-launch signed off?}
+    prereq -->|No| block[Complete 09-deployment first]
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:12-product-documentation items]
     hi_check --> s1[Phase 1 Artifact Audit and Inventory]
     s1 --> s2[Phase 2 Product Overview]
     s2 --> s3[Phase 3 User Documentation]
@@ -55,16 +55,16 @@ flowchart TD
 
 ## Accept Handoff (before starting work)
 
-1. Read the handoff package from Phase 06 (Deployment)
+1. Read the handoff package from Phase 09 (Deployment)
 2. Verify all No-Go items pass:
    - [ ] Post-launch sign-off received (product is live and stable)
    - [ ] Production URL is available
-   - [ ] All 6 handoff packages exist (Phases 01–06)
+   - [ ] All 9 handoff packages exist (Phases 01–09)
    - If any fail → **HALT**. Notify orchestrator.
-3. Log Read-Back: restate documentation context — "We are documenting [product] at [production URL]. Deployment confirmed stable. Handoff packages 1–6 available. Key artifacts: [list from Phase 06 handoff]. Known thin areas from prior phases: [list from Assessment sections]."
+3. Log Read-Back: restate documentation context — "We are documenting [product] at [production URL]. Deployment confirmed stable. Handoff packages 1–9 available. Key artifacts: [list from Phase 09 handoff]. Known thin areas from prior phases: [list from Assessment sections]."
 4. Raise RFIs: list any missing artifacts, contradictory content across phases, or unclear ownership. Resolve from phase directories or escalate to human.
 5. Review inherited Assumptions — include all in the Assumptions Register.
-6. Only after all above: begin Phase 08 work.
+6. Only after all above: begin Phase 12 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -73,7 +73,7 @@ See [handoff-package-template.md](../00-product-workflow/handoff-package-templat
 ## Quick Start
 
 Before starting, confirm:
-- [ ] Phase 06 (Deployment) post-launch sign-off received
+- [ ] Phase 09 (Deployment) post-launch sign-off received
 - [ ] Product is live at production URL
 - [ ] All phase artifact directories are accessible
 
@@ -88,7 +88,7 @@ Ask the user:
 ## Documentation Phases
 
 ### Phase 1: Artifact Audit and Inventory
-- Walk all 6 phase directories and the handoff packages
+- Walk all 9 phase directories and the handoff packages
 - Produce a **Complete Artifact Inventory** — every document, its location, its audience, and its current state
 - Include Phase 2 artifacts: IA method synthesis outputs, content model (when used), feedback channels plan (when used)
 - Flag gaps: anything referenced but missing, stale, or contradictory
@@ -114,13 +114,13 @@ Ask the user:
 - Output: **User Documentation** (see [artifacts-template.md](artifacts-template.md))
 
 ### Phase 4: Technical Documentation (Audience: Developers / Maintainers)
-- **Architecture Overview**: project structure, key patterns, data flow (from Phase 04 architecture docs)
+- **Architecture Overview**: project structure, key patterns, data flow (from Phase 05 architecture docs)
 - **Component Reference**: component hierarchy with props, states, and usage examples (from Component BOM + implementation)
 - **Content Model Reference**: when content-heavy, document content types and structure (from Phase 02 content model)
-- **API Integration Guide**: endpoints, auth, error handling (from Phase 04 data layer)
-- **Environment Setup**: how to run locally, required env vars, dependencies (from Phase 06 environment config)
-- **Testing Guide**: how to run tests, what's covered, how to add new tests (from Phase 05 test strategy + coverage matrix)
-- **Full Traceability Matrix**: the living coverage table from Phase 05 handoff, showing FR-001 through to test file — presented as a readable reference
+- **API Integration Guide**: endpoints, auth, error handling (from Phase 05 data layer)
+- **Environment Setup**: how to run locally, required env vars, dependencies (from Phase 09 environment config)
+- **Testing Guide**: how to run tests, what's covered, how to add new tests (from Phase 08 test strategy + coverage matrix)
+- **Full Traceability Matrix**: the living coverage table from Phase 08 handoff, showing FR-001 through to test file — presented as a readable reference
 - Output: **Technical Documentation** (see [artifacts-template.md](artifacts-template.md))
 
 ### Phase 5: Design System Reference (Audience: Designers / Frontend Developers)
@@ -132,10 +132,10 @@ Ask the user:
 - Output: **Design System Reference** (see [artifacts-template.md](artifacts-template.md))
 
 ### Phase 6: Operations Manual (Audience: DevOps / On-call)
-- **Deployment Runbook**: how to deploy, rollback, and hotfix (consolidates Phase 06 ops-runbook and deployment-guide)
+- **Deployment Runbook**: how to deploy, rollback, and hotfix (consolidates Phase 09 ops-runbook and deployment-guide)
 - **Monitoring Guide**: what dashboards exist, what alerts mean, escalation paths
 - **Incident Response**: step-by-step playbook (from ops-runbook)
-- **Infrastructure Reference**: environments, CI/CD pipeline, secrets management (from Phase 06 artifacts)
+- **Infrastructure Reference**: environments, CI/CD pipeline, secrets management (from Phase 09 artifacts)
 - **Feedback Pipeline Config**: when feedback in scope, document feedback tool config, webhooks, env vars (from Feedback Channels Plan)
 - **Known Issues and Accepted Risks**: P1 defects with remediation plans, accepted risks from all handoff packages
 - Output: **Operations Manual** (see [artifacts-template.md](artifacts-template.md))
@@ -152,7 +152,7 @@ Ask the user:
 
 ## Documentation Principles
 
-These are non-negotiable writing standards for all Phase 08 outputs:
+These are non-negotiable writing standards for all Phase 12 outputs:
 
 | Principle | Rule |
 |-----------|------|
@@ -169,14 +169,14 @@ These are non-negotiable writing standards for all Phase 08 outputs:
 ## Active Intervention Check
 
 At the start of every work session and before presenting the gate:
-1. Check `human-interventions/active/` for files tagged `phase: 08-product-documentation` or `phase: all`
+1. Check `human-interventions/active/` for files tagged `phase: 12-product-documentation` or `phase: all`
 2. If `urgency: immediate` — halt and process before continuing
 3. If `urgency: end-of-phase` — integrate before gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/ for phase: 08-product-documentation or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 12-product-documentation or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
     urgency -->|immediate| halt[Halt current work Process intervention first]
@@ -196,7 +196,7 @@ flowchart TD
 - **From downstream consumers:** Documentation feedback can be logged as interventions for future updates
 
 ### Propagating updates
-- Phase 08 is the terminal phase — there is no "next phase" to propagate to
+- Phase 12 is the terminal phase — there is no "next phase" to propagate to
 - Documentation maintenance is handed to the designated owner
 - Future product changes should trigger documentation updates via the human intervention system or a separate maintenance workflow
 
@@ -228,7 +228,7 @@ Reply with:
 - REVISE: [feedback] → agent will update and re-present
 ```
 
-**This is the terminal gate.** There is no Phase 09. Approval marks the PDLC as complete.
+**This is the terminal gate.** There is no Phase 13. Approval marks the PDLC as complete.
 
 ---
 

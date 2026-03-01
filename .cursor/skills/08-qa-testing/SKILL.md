@@ -3,7 +3,7 @@ name: qa-testing
 description: Guides quality assurance and testing strategy including test planning, unit testing, integration testing, E2E testing, visual regression, accessibility auditing, performance testing, and security review. Use when writing tests, creating a test strategy, setting up testing infrastructure, auditing for accessibility, running performance tests, or when the user says "write tests", "test this", "QA strategy", "set up testing", "run accessibility audit", or "security review". Requires completed Frontend Development as input.
 ---
 
-# 05 — QA Testing
+# 08 — QA Testing
 
 Validates that the implemented product meets all quality standards across functionality, accessibility, performance, and security before deployment.
 
@@ -36,8 +36,8 @@ Validates that the implemented product meets all quality standards across functi
 ```mermaid
 flowchart TD
     start([Triggered]) --> prereq{Application running in test environment?}
-    prereq -->|No| block[Complete 04-frontend-development first]
-    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:qa-testing items]
+    prereq -->|No| block[Complete 07-integration first]
+    prereq -->|Yes| hi_check[Check human-interventions/active/ for phase:08-qa-testing items]
     hi_check --> s1[Phase 1 Test Strategy]
     s1 --> pri[Defect Triage Matrix ready for incoming bugs]
     pri --> s2[Phase 2 Unit Tests]
@@ -48,8 +48,8 @@ flowchart TD
     s6 --> s7[Phase 7 Performance Testing]
     s7 --> s8[Phase 8 Security Review]
     s8 --> triage[Defect Triage Prioritize all found bugs]
-    triage --> gate{Gate 5 Human Approval}
-    gate -->|APPROVED| next[06 Deployment]
+    triage --> gate{Gate 8 Human Approval}
+    gate -->|APPROVED| next[09 Deployment]
     gate -->|REVISE| fix[Fix bugs Re-run affected tests]
     fix --> gate
 ```
@@ -58,7 +58,7 @@ flowchart TD
 
 ## Accept Handoff (before starting work)
 
-1. Read the handoff package from Phase 04 (Frontend Development)
+1. Read the handoff package from Phase 07 (Integration)
 2. **Verify Release Mode and MVP Scope** — if `Release Mode: MVP`, scope = MVP-tagged FR-IDs only; otherwise full P0.
 3. Verify all No-Go items pass (interpret "P0" as MVP scope when in MVP mode):
    - [ ] Zero TypeScript errors (`tsc --noEmit`)
@@ -70,7 +70,7 @@ flowchart TD
 5. Raise RFIs: list any unclear implementation decisions, missing error states, or ambiguous behavior. Resolve from code/docs or escalate to human.
 6. Build test coverage matrix from PRD FR-IDs — every P0 (or MVP) requirement must map to a planned E2E test. When feedback flows exist (UF-xxx for feedback), include E2E tests for feedback submission.
 7. Review inherited Assumptions — flag any that affect test strategy.
-8. Only after all above: begin Phase 05 work.
+8. Only after all above: begin Phase 08 work.
 
 See [handoff-package-template.md](../00-product-workflow/handoff-package-template.md) for the full handoff structure.
 
@@ -182,14 +182,14 @@ All defects found during testing must be triaged using the Defect Triage Matrix 
 ## Active Intervention Check
 
 At the start of every work session and before presenting the gate:
-1. Check `human-interventions/active/` for files tagged `phase: 05-qa-testing` or `phase: all`
+1. Check `human-interventions/active/` for files tagged `phase: 08-qa-testing` or `phase: all`
 2. If `urgency: immediate` — halt and process before continuing
 3. If `urgency: end-of-phase` — integrate before gate presentation
 4. After resolving, move to `human-interventions/processed/` and note in gate summary
 
 ```mermaid
 flowchart TD
-    check[Check human-interventions/active/ for phase: 05-qa-testing or phase: all] --> found{Files found?}
+    check[Check human-interventions/active/ for phase: 08-qa-testing or phase: all] --> found{Files found?}
     found -->|No| proceed([Continue phase work])
     found -->|Yes| urgency{Urgency?}
     urgency -->|immediate| halt[Halt current work Process intervention first]
@@ -206,10 +206,10 @@ flowchart TD
 ### Receiving feedback
 - **From gate REVISE:** Re-run only the test categories flagged — do not rerun the full suite unless directed
 - **From human intervention:** If scope changes mid-QA, re-assess which test cases are still valid and run the delta
-- **From 04-frontend-development:** If code is patched mid-QA, run regression on all tests covering the patched area
+- **From 05-frontend-development:** If code is patched mid-QA, run regression on all tests covering the patched area
 
 ### Propagating updates downstream
-- If critical bugs are found that require architectural changes: create `human-interventions/active/[date]-05-critical-bug/content.md`; return to `04-frontend-development` with a clear bug report
+- If critical bugs are found that require architectural changes: create `human-interventions/active/[date]-08-critical-bug/content.md`; return to `05-frontend-development` with a clear bug report
 - All found defects must be logged with reproduction steps before proceeding to the next test phase
 - Security issues always escalate to the orchestrator before any other work continues
 

@@ -1,6 +1,6 @@
 ---
 name: product-workflow
-description: Master orchestrator for the full product development lifecycle from Discovery to Deployment to Documentation. Guides through all phases in sequence with mandatory human-in-the-loop approval gates between each phase. Use when building a complete product end-to-end, when the user says "run the full workflow", "build this product from scratch", "let's go end to end", "start the product process", or "full product lifecycle". Coordinates: 01-product-discovery → 02-product-design → 03-frontend-design + 03a-backend-design (parallel) → 04-frontend-development + 04a-backend-implementation (parallel) → 04b-integration → 05-qa-testing → 06-deployment → 08-documentation.
+description: Master orchestrator for the full product development lifecycle from Discovery to Deployment to Documentation. Guides through all phases in sequence with mandatory human-in-the-loop approval gates between each phase. Use when building a complete product end-to-end, when the user says "run the full workflow", "build this product from scratch", "let's go end to end", "start the product process", or "full product lifecycle". Coordinates: 01-product-discovery → 02-product-design → 03-frontend-design + 04-backend-design (parallel) → 05-frontend-development + 06-backend-implementation (parallel) → 07-integration → 08-qa-testing → 09-deployment → 11-documentation.
 ---
 
 # Product Workflow — Master Orchestrator
@@ -36,7 +36,7 @@ The complete human-in-the-loop product development lifecycle. Every phase produc
 ```mermaid
 flowchart TD
     start([Product Idea]) --> hi
-    hi[07 Human Intervention monitor active throughout] -.->|immediate feedback| p1 & p2 & p3 & p3a & p4 & p4a & p4b & p5 & p6 & p8
+    hi[10 Human Intervention monitor active throughout] -.->|immediate feedback| p1 & p2 & p3 & p4 & p5 & p6 & p7 & p8 & p9 & p11
 
     start --> p1[01 Product Discovery]
     p1 --> g1{Gate 1 Human Approval}
@@ -48,50 +48,50 @@ flowchart TD
     g2 -->|REVISE| p2
 
     rmCheck -->|FULL PRODUCTION| p3[03 Frontend Design]
-    rmCheck -->|FULL PRODUCTION| p3a[03a Backend Design]
+    rmCheck -->|FULL PRODUCTION| p4[04 Backend Design]
     rmCheck -->|MVP| mvpScope[MVP Scoping Human confirms scope]
     mvpScope --> p3
-    mvpScope --> p3a
+    mvpScope --> p4
 
     p3 --> g3{Gate 3 Human Approval}
-    g3 -->|APPROVED| p4[04 Frontend Development]
+    g3 -->|APPROVED| p5[05 Frontend Development]
     g3 -->|REVISE| p3
 
-    p3a --> g3a{Gate 3a Human Approval}
-    g3a -->|APPROVED| p4a[04a Backend Implementation]
-    g3a -->|REVISE| p3a
-
     p4 --> g4{Gate 4 Human Approval}
-    g4 -->|APPROVED| p4b[04b Integration]
+    g4 -->|APPROVED| p6[06 Backend Implementation]
     g4 -->|REVISE| p4
 
-    p4a --> g4a{Gate 4a Human Approval}
-    g4a -->|APPROVED| p4b
-    g4a -->|REVISE| p4a
-
-    p4b --> g4b{Gate 4b Human Approval}
-    g4b -->|APPROVED| p5[05 QA Testing]
-    g4b -->|REVISE| p4b
-
     p5 --> g5{Gate 5 Human Approval}
-    g5 -->|APPROVED| p6[06 Deployment]
+    g5 -->|APPROVED| p7[07 Integration]
     g5 -->|REVISE| p5
 
-    p6 --> g6{Gate 6 Post-Launch Sign-off}
-    g6 -->|SIGNED OFF| mvpEvolve{MVP Evolution Check-in}
-    g6 -->|ROLLBACK| p6
+    p6 --> g6{Gate 6 Human Approval}
+    g6 -->|APPROVED| p7
+    g6 -->|REVISE| p6
+
+    p7 --> g7{Gate 7 Human Approval}
+    g7 -->|APPROVED| p8[08 QA Testing]
+    g7 -->|REVISE| p7
+
+    p8 --> g8{Gate 8 Human Approval}
+    g8 -->|APPROVED| p9[09 Deployment]
+    g8 -->|REVISE| p8
+
+    p9 --> g9{Gate 9 Post-Launch Sign-off}
+    g9 -->|SIGNED OFF| mvpEvolve{MVP Evolution Check-in}
+    g9 -->|ROLLBACK| p9
 
     mvpEvolve -->|If MVP launched| evolveChoice{Evolution choice?}
     evolveChoice -->|EVOLVE| debtAudit[Technical Debt Audit Re-enter Phase 3]
-    evolveChoice -->|STAY ON MVP| p8
-    evolveChoice -->|PAUSE| p8
+    evolveChoice -->|STAY ON MVP| p11
+    evolveChoice -->|PAUSE| p11
     debtAudit --> p3
 
-    mvpEvolve -->|If Full Production| p8
+    mvpEvolve -->|If Full Production| p11
 
-    p8 --> g8{Gate 8 Human Approval}
-    g8 -->|APPROVED| done([DOCUMENTED])
-    g8 -->|REVISE| p8
+    p11 --> g10{Gate 10 Human Approval}
+    g10 -->|APPROVED| done([DOCUMENTED])
+    g10 -->|REVISE| p11
 ```
 
 ---
@@ -200,19 +200,19 @@ to identify must-have vs nice-to-have features. You will confirm the MVP scope
 before Phase 3 begins.
 
 Reply with:
-  FULL PRODUCTION  → Proceed to Phase 3 + 3a with full scope
+  FULL PRODUCTION  → Proceed to Phase 3 + 4 with full scope
   MVP              → Run MVP scoping, then proceed with MVP scope
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-- **FULL PRODUCTION:** Proceed immediately to Phase 3 and 3a. Set `Release Mode: Full Production` in the handoff package.
-- **MVP:** Follow [mvp-scoping-guide.md](mvp-scoping-guide.md): derive scope from PRD, present for human confirmation, then proceed to Phase 3 and 3a with `Release Mode: MVP` and the confirmed MVP scope.
+- **FULL PRODUCTION:** Proceed immediately to Phase 3 and 4. Set `Release Mode: Full Production` in the handoff package.
+- **MVP:** Follow [mvp-scoping-guide.md](mvp-scoping-guide.md): derive scope from PRD, present for human confirmation, then proceed to Phase 3 and 4 with `Release Mode: MVP` and the confirmed MVP scope.
 
 ---
 
 ## MVP Evolution Check-in (After Gate 6, when MVP launched)
 
-When Phase 6 (Deployment) is signed off and the product was built as **MVP**, present the evolution check-in before proceeding to Phase 8 (Documentation):
+When Phase 9 (Deployment) is signed off and the product was built as **MVP**, present the evolution check-in before proceeding to Phase 11 (Documentation):
 
 ```
 MVP LAUNCHED — Evolution Check-in
@@ -223,7 +223,7 @@ MVP LAUNCHED — Evolution Check-in
 ```
 
 - **EVOLVE TO FULL PRODUCTION:** Follow [mvp-evolution-guide.md](mvp-evolution-guide.md). Run technical debt audit, then re-enter Phase 3 with `Release Mode: Full Production` and scope = MVP + Post-MVP FR-IDs.
-- **STAY ON MVP / PAUSE:** Proceed to Phase 8 (Documentation) as normal.
+- **STAY ON MVP / PAUSE:** Proceed to Phase 11 (Documentation) as normal.
 
 ---
 
@@ -275,7 +275,7 @@ flowchart TD
     archive --> proceed
 ```
 
-See `.cursor/skills/07-human-intervention/SKILL.md` for the full intervention protocol.
+See `.cursor/skills/10-human-intervention/SKILL.md` for the full intervention protocol.
 
 ---
 
@@ -287,10 +287,10 @@ See `.cursor/skills/07-human-intervention/SKILL.md` for the full intervention pr
 
 ### Cross-phase propagation rules
 - Discovery changes → notify 02-product-design of updated requirements
-- Design system token changes → notify 04-frontend-development to resync
-- API contract changes (03a) → notify 04a-backend-implementation and 04b-integration
-- Schema changes (03a) → notify 04a-backend-implementation
-- Architecture decision changes → notify 05-qa-testing of new test surface area
+- Design system token changes → notify 05-frontend-development to resync
+- API contract changes (04) → notify 06-backend-implementation and 07-integration
+- Schema changes (04) → notify 06-backend-implementation
+- Architecture decision changes → notify 08-qa-testing of new test surface area
 - Any mid-phase scope addition → run prioritization rubric, update timeline estimate
 
 ### Revision limits
@@ -309,13 +309,13 @@ Max 3 revision cycles per gate. On the 3rd round, present the human with explici
 | 1. Discovery | `01-product-discovery/` | PRD (FR-IDs), Personas, Journey Map | Handoff Package 1 | `discovery-checklist.md` |
 | 2. Product Design | `02-product-design/` | IA, User Flows (UF-IDs), Wireframes (WF-IDs) | Handoff Package 2 | `design-checklist.md` |
 | 3. Frontend Design | `03-frontend-design/` | Route A: Figma + Manifest; Route B: BOM + Screen Specs | Handoff Package 3 + Component BOM | `design-checklist.md` |
-| 3a. Backend Design | `03a-backend-design/` | OpenAPI spec, Schema design, Auth model | Handoff Package 3a | `backend-design-checklist.md` |
-| 4. Frontend Dev | `04-frontend-development/` | Working application + FAI report | Handoff Package 4 + Test Coverage Matrix | `dev-checklist.md` |
-| 4a. Backend Implementation | `04a-backend-implementation/` | API endpoints, Migrations, Services | Handoff Package 4a | `backend-checklist.md` |
-| 4b. Integration | `04b-integration/` | Contract verification, API client wired | Handoff Package 4b | `integration-checklist.md` |
-| 5. QA Testing | `05-qa-testing/` | Test suite, Audit reports, Coverage Matrix | Handoff Package 5 | `qa-checklist.md` |
-| 6. Deployment | `06-deployment/` | Live production URL | Handoff Package 6 | `launch-checklist.md` |
-| 8. Documentation | `08-documentation/` | User Docs, Technical Docs, Operations Handbook, Retrospective | Handoff Package 8 | `documentation-checklist.md` |
+| 4. Backend Design | `04-backend-design/` | OpenAPI spec, Schema design, Auth model | Handoff Package 4 | `backend-design-checklist.md` |
+| 5. Frontend Dev | `05-frontend-development/` | Working application + FAI report | Handoff Package 5 + Test Coverage Matrix | `dev-checklist.md` |
+| 6. Backend Implementation | `06-backend-implementation/` | API endpoints, Migrations, Services | Handoff Package 6 | `backend-checklist.md` |
+| 7. Integration | `07-integration/` | Contract verification, API client wired | Handoff Package 7 | `integration-checklist.md` |
+| 8. QA Testing | `08-qa-testing/` | Test suite, Audit reports, Coverage Matrix | Handoff Package 8 | `qa-checklist.md` |
+| 9. Deployment | `09-deployment/` | Live production URL | Handoff Package 9 | `launch-checklist.md` |
+| 11. Documentation | `11-documentation/` | User Docs, Technical Docs, Operations Handbook, Retrospective | Handoff Package 11 | `documentation-checklist.md` |
 
 ---
 
@@ -343,16 +343,16 @@ Confirm existing artifacts meet gate criteria before proceeding. Require explici
 Some phases can overlap — always get explicit approval before running anything in parallel:
 
 **Backend track (runs parallel to frontend):**
-- Phase 3a Backend Design can start after Gate 2 and Release Mode check-in (and MVP scoping if MVP selected) — runs in parallel with Phase 3 Frontend Design
-- Phase 4a Backend Implementation can start after Gate 3a — runs in parallel with Phase 4 Frontend Development
-- Phase 4b Integration requires BOTH Gate 4 and Gate 4a to be approved before starting
+- Phase 4 Backend Design can start after Gate 2 and Release Mode check-in (and MVP scoping if MVP selected) — runs in parallel with Phase 3 Frontend Design
+- Phase 6 Backend Implementation can start after Gate 4 — runs in parallel with Phase 5 Frontend Development
+- Phase 7 Integration requires BOTH Gate 5 and Gate 6 to be approved before starting
 
 **Frontend track:**
 - Phase 3 design tokens can start while Phase 2 non-P0 flows are being refined
-- Phase 4 atom components can begin once Phase 3 design tokens are approved
-- Phase 5 unit tests can be written during Phase 4
+- Phase 5 atom components can begin once Phase 3 design tokens are approved
+- Phase 8 unit tests can be written during Phase 5
 
-**Rule:** Phase 4b Integration cannot begin until both Frontend Development (Gate 4) and Backend Implementation (Gate 4a) are approved. The order of Gate 4 and Gate 4a does not matter.
+**Rule:** Phase 7 Integration cannot begin until both Frontend Development (Gate 5) and Backend Implementation (Gate 6) are approved. The order of Gate 5 and Gate 6 does not matter.
 
 Document what is and isn't yet approved when running parallel workstreams.
 
@@ -369,13 +369,13 @@ Document what is and isn't yet approved when running parallel workstreams.
 - [x] Phase 1: Product Discovery — Approved [Date]
 - [x] Phase 2: Product Design — Approved [Date]
 - [ ] Phase 3: Frontend Design — In Progress
-- [ ] Phase 3a: Backend Design — In Progress
-- [ ] Phase 4: Frontend Development — Not started
-- [ ] Phase 4a: Backend Implementation — Not started
-- [ ] Phase 4b: Integration — Not started (requires Gate 4 + Gate 4a)
-- [ ] Phase 5: QA Testing — Not started
-- [ ] Phase 6: Deployment — Not started
-- [ ] Phase 8: Documentation — Not started
+- [ ] Phase 4: Backend Design — In Progress
+- [ ] Phase 5: Frontend Development — Not started
+- [ ] Phase 6: Backend Implementation — Not started
+- [ ] Phase 7: Integration — Not started (requires Gate 5 + Gate 6)
+- [ ] Phase 8: QA Testing — Not started
+- [ ] Phase 9: Deployment — Not started
+- [ ] Phase 11: Documentation — Not started
 
 ## Artifacts Location
 - PRD: [link or file path]
@@ -405,5 +405,5 @@ Document what is and isn't yet approved when running parallel workstreams.
 - [mvp-scoping-guide.md](mvp-scoping-guide.md) — MVP scope derivation and human confirmation flow
 - [mvp-evolution-guide.md](mvp-evolution-guide.md) — MVP → Full Production upgrade path and technical debt audit
 - [pm-prioritization.md](pm-prioritization.md) — RICE, MoSCoW, Impact/Effort, sprint scoring, defect triage rubrics, MVP overlay
-- `.cursor/skills/07-human-intervention/SKILL.md` — human intervention protocol
-- `.cursor/skills/08-documentation/SKILL.md` — documentation and after-sales phase
+- `.cursor/skills/10-human-intervention/SKILL.md` — human intervention protocol
+- `.cursor/skills/11-documentation/SKILL.md` — documentation and after-sales phase

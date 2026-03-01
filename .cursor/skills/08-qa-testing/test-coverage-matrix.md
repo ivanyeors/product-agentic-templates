@@ -1,6 +1,6 @@
 # Test Coverage Matrix — Template
 
-Use this matrix to ensure every P0 requirement from the PRD is traced to at least one E2E test. Build this matrix during the Accept Handoff step (Phase 05) and maintain it throughout the QA phase.
+Use this matrix to ensure every P0 requirement from the PRD is traced to at least one E2E test. Build this matrix during the Accept Handoff step (Phase 08) and maintain it throughout the QA phase.
 
 The matrix traces requirements from PRD → implementation → test, closing the traceability chain that started in Phase 01.
 
@@ -77,4 +77,4 @@ For each P0 flow, document that error and edge cases are tested:
 5. **Run tests** — after execution, update status to "Passing" or "Failing"
 6. **Verify gaps** — before presenting the QA gate, verify zero P0 gaps
 
-The matrix is included in the Phase 05 handoff package under the Coverage section, extending the traceability chain with the final column (test file).
+The matrix is included in the Phase 08 handoff package under the Coverage section, extending the traceability chain with the final column (test file).

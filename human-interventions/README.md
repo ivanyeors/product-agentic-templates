@@ -30,7 +30,7 @@ Just say: **"I have an intervention"** or **"Stop — I need to update something
 
 ### Manual method
 1. Create a folder: `active/YYYY-MM-DD-[phase]-[topic]/`
-2. Create `content.md` using the template from `.cursor/skills/07-human-intervention/intervention-protocol.md`
+2. Create `content.md` using the template from `.cursor/skills/10-human-intervention/intervention-protocol.md`
 3. The agent will pick it up at the next work session start or gate check
 
 ## Folder Naming Convention
@@ -39,18 +39,23 @@ Just say: **"I have an intervention"** or **"Stop — I need to update something
 
 | Phase | Code |
 |-------|------|
-| Product Discovery | `01-discovery` |
+| Product Discovery | `01-product-discovery` |
 | Product Design | `02-product-design` |
 | Frontend Design | `03-frontend-design` |
-| Frontend Development | `04-frontend-dev` |
-| QA Testing | `05-qa` |
-| Deployment | `06-deployment` |
+| Backend Design | `04-backend-design` |
+| Frontend Development | `05-frontend-development` |
+| Backend Implementation | `06-backend-implementation` |
+| Integration | `07-integration` |
+| QA Testing | `08-qa-testing` |
+| Deployment | `09-deployment` |
+| Documentation | `11-documentation` |
+| Product Documentation | `12-product-documentation` |
 | All phases | `all` |
 
 **Examples:**
 ```
-2026-02-28-01-discovery-new-target-market/
-2026-02-28-04-frontend-dev-auth-requirement-added/
+2026-02-28-01-product-discovery-new-target-market/
+2026-02-28-05-frontend-development-auth-requirement-added/
 2026-02-28-all-deadline-moved-forward/
 ```
 
@@ -82,4 +87,4 @@ Just say: **"I have an intervention"** or **"Stop — I need to update something
 
 ## For the Agent
 
-At the start of every work session and before presenting any phase gate, read all files in `active/` and process according to urgency. See `.cursor/skills/07-human-intervention/SKILL.md` for the full protocol.
+At the start of every work session and before presenting any phase gate, read all files in `active/` and process according to urgency. See `.cursor/skills/10-human-intervention/SKILL.md` for the full protocol.

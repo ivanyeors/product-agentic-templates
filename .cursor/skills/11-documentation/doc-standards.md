@@ -1,6 +1,6 @@
-# Documentation Standards — Phase 08
+# Documentation Standards — Phase 11
 
-Writing rules for all documentation produced in Phase 08. Apply these to every document, regardless of audience. The goal is always the same: the reader finishes the document knowing exactly what they need to know, and nothing else.
+Writing rules for all documentation produced in Phase 11. Apply these to every document, regardless of audience. The goal is always the same: the reader finishes the document knowing exactly what they need to know, and nothing else.
 
 ---
 

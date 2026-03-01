@@ -206,7 +206,7 @@ flowchart TD
 ### Propagating updates downstream
 - If IA structure changes post-approval: notify `03-frontend-design` — component hierarchy may need updating
 - If new flows added: create `human-interventions/active/[date]-02-new-flows/content.md` to track
-- If accessibility requirements change: flag to `04-frontend-development` for ARIA implementation impact
+- If accessibility requirements change: flag to `05-frontend-development` for ARIA implementation impact
 
 ### Revision limits
 Max 3 revision cycles at this gate. On the 3rd, escalate to orchestrator. See `00-product-workflow/SKILL.md`.

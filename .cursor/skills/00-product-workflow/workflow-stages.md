@@ -33,7 +33,7 @@ Every gate presentation uses the **Handoff Package** format (see [handoff-packag
 
 ### Gate 2: Product Design → Frontend Design + Backend Design
 
-Gate 2 approval triggers the **Release Mode Check-in** (see [SKILL.md](SKILL.md) → Release Mode Check-in). After the human selects Full Production or MVP (and confirms MVP scope if MVP), both Phase 3 (Frontend Design) and Phase 3a (Backend Design) begin in parallel.
+Gate 2 approval triggers the **Release Mode Check-in** (see [SKILL.md](SKILL.md) → Release Mode Check-in). After the human selects Full Production or MVP (and confirms MVP scope if MVP), both Phase 3 (Frontend Design) and Phase 4 (Backend Design) begin in parallel.
 
 **No-Go (hard stop if any fails):**
 - User flow (UF-ID) exists for every P0 user story, with `Covers: FR-xxx` header
@@ -83,7 +83,7 @@ Gate 2 approval triggers the **Release Mode Check-in** (see [SKILL.md](SKILL.md)
 
 ---
 
-### Gate 3a: Backend Design → Backend Implementation
+### Gate 4: Backend Design → Backend Implementation
 
 **Scope note:** When Release Mode = MVP, scope = MVP FR-IDs only.
 
@@ -109,9 +109,9 @@ Gate 2 approval triggers the **Release Mode Check-in** (see [SKILL.md](SKILL.md)
 
 ---
 
-### Gate 4: Frontend Development → Integration
+### Gate 5: Frontend Development → Integration
 
-Gate 4 approval enables Phase 4b Integration to begin **when Gate 4a is also approved**. Phase 4b requires both Frontend and Backend implementations.
+Gate 5 approval enables Phase 7 Integration to begin **when Gate 6 is also approved**. Phase 7 requires both Frontend and Backend implementations.
 
 **Scope note:** When Release Mode = MVP, scope = MVP screens and components only.
 
@@ -138,9 +138,9 @@ Gate 4 approval enables Phase 4b Integration to begin **when Gate 4a is also app
 
 ---
 
-### Gate 4a: Backend Implementation → Integration
+### Gate 6: Backend Implementation → Integration
 
-Gate 4a approval enables Phase 4b Integration to begin **when Gate 4 is also approved**. Phase 4b requires both Frontend and Backend implementations.
+Gate 6 approval enables Phase 7 Integration to begin **when Gate 5 is also approved**. Phase 7 requires both Frontend and Backend implementations.
 
 **Scope note:** When Release Mode = MVP, scope = MVP endpoints only.
 
@@ -167,7 +167,7 @@ Gate 4a approval enables Phase 4b Integration to begin **when Gate 4 is also app
 
 ---
 
-### Gate 4b: Integration → QA Testing
+### Gate 7: Integration → QA Testing
 
 **Scope note:** When Release Mode = MVP, scope = MVP endpoints only; third-party = auth only if required.
 
@@ -191,7 +191,7 @@ Gate 4a approval enables Phase 4b Integration to begin **when Gate 4 is also app
 
 ---
 
-### Gate 5: QA → Deployment
+### Gate 8: QA → Deployment
 
 **Scope note:** When Release Mode = MVP, scope = MVP critical paths only. No-Go criteria remain strict.
 
@@ -216,7 +216,7 @@ Gate 4a approval enables Phase 4b Integration to begin **when Gate 4 is also app
 
 ---
 
-### Gate 6: Deployment → Documentation (Post-Launch Sign-off)
+### Gate 9: Deployment → Documentation (Post-Launch Sign-off)
 
 **No-Go (hard stop if any fails):**
 - 24 hours of stable operation
@@ -233,16 +233,16 @@ Gate 4a approval enables Phase 4b Integration to begin **when Gate 4 is also app
 
 ---
 
-### MVP Evolution Path (After Gate 6, when MVP launched)
+### MVP Evolution Path (After Gate 9, when MVP launched)
 
-When the product was built as MVP and Gate 6 is signed off, present the **MVP Evolution Check-in** (see [SKILL.md](SKILL.md) → MVP Evolution Check-in):
+When the product was built as MVP and Gate 9 is signed off, present the **MVP Evolution Check-in** (see [SKILL.md](SKILL.md) → MVP Evolution Check-in):
 
 - **EVOLVE TO FULL PRODUCTION:** Run technical debt audit per [mvp-evolution-guide.md](mvp-evolution-guide.md), then re-enter Phase 3 with `Release Mode: Full Production` and scope = MVP + Post-MVP FR-IDs.
-- **STAY ON MVP / PAUSE:** Proceed to Phase 8 (Documentation).
+- **STAY ON MVP / PAUSE:** Proceed to Phase 11 (Documentation).
 
 ---
 
-### Gate 7: Documentation → Product Complete
+### Gate 10: Documentation → Product Complete
 
 **No-Go (hard stop if any fails):**
 - Artifact index exists and lists all artifacts from Phases 1–6
@@ -259,7 +259,7 @@ When the product was built as MVP and Gate 6 is signed off, present the **MVP Ev
 **Common revision requests:**
 - "Artifact index is incomplete" → Add missing artifacts with resolvable paths
 - "User docs are too technical" → Apply writing guide; simplify language
-- "Ops runbook missing product-specific steps" → Adapt from 06-deployment/ops-runbook.md
+- "Ops runbook missing product-specific steps" → Adapt from 09-deployment/ops-runbook.md
 
 ---
 
@@ -307,13 +307,13 @@ When a team is moving fast, some phase overlap is acceptable. Rules:
 
 | Overlap | Allowed? | Condition |
 |---------|----------|-----------|
-| Backend Design (3a) in parallel with Frontend Design (3) | YES | Both start after Gate 2 and Release Mode check-in (MVP scoping if MVP) |
-| Backend Implementation (4a) in parallel with Frontend Development (4) | YES | Both start after respective design gates |
+| Backend Design (4) in parallel with Frontend Design (3) | YES | Both start after Gate 2 and Release Mode check-in (MVP scoping if MVP) |
+| Backend Implementation (6) in parallel with Frontend Development (5) | YES | Both start after respective design gates |
 | Design system tokens (Phase 3) while flows still being refined (Phase 2) | YES | Only tokens, not screen designs |
-| Begin component dev (Phase 4) while component designs being finalized (Phase 3) | YES | Only for atoms approved at gate |
-| Write unit tests (Phase 5) during development (Phase 4) | YES | Always encouraged |
-| Begin Integration (4b) before Gate 4 or Gate 4a approved | NO | Requires BOTH gates approved |
-| Staging deploy (Phase 6 prep) during QA (Phase 5) | YES | Required for E2E tests |
+| Begin component dev (Phase 5) while component designs being finalized (Phase 3) | YES | Only for atoms approved at gate |
+| Write unit tests (Phase 8) during development (Phase 5) | YES | Always encouraged |
+| Begin Integration (7) before Gate 5 or Gate 6 approved | NO | Requires BOTH gates approved |
+| Staging deploy (Phase 9 prep) during QA (Phase 8) | YES | Required for E2E tests |
 | Production deploy before QA gate approved | NO | Never |
 
 ---
@@ -404,54 +404,54 @@ If the work is taking significantly longer than expected:
 - Route B: `component-bom.md` + `screen-specs.md` (from agent-direct-spec.md templates)
 - **Handoff Package 3** (Frontend Design → Frontend Development)
 
-### Phase 3a — Backend Design
+### Phase 4 — Backend Design
 - `endpoint-inventory.md`
 - `openapi-spec.yaml` (or equivalent)
 - `schema-design.md` (tables, columns, indexes, migration plan)
 - `auth-permission-model.md`
 - `integration-points-spec.md` (webhooks, third-party)
-- **Handoff Package 3a** (Backend Design → Backend Implementation)
+- **Handoff Package 4** (Backend Design → Backend Implementation)
 
-### Phase 4 — Frontend Development
+### Phase 5 — Frontend Development
 - Git repository with working application
 - `architecture.md` (documented decisions)
 - First Article Inspection report (deviations documented)
 - Lighthouse audit report
 - `test-coverage-matrix.md` (FR-IDs → planned E2E tests)
-- **Handoff Package 4** (Frontend Development → Integration)
+- **Handoff Package 5** (Frontend Development → Integration)
 
-### Phase 4a — Backend Implementation
+### Phase 6 — Backend Implementation
 - Git repository with backend code
 - Migration files (executed)
 - API endpoints, services, repositories
 - API test suite
-- **Handoff Package 4a** (Backend Implementation → Integration)
+- **Handoff Package 6** (Backend Implementation → Integration)
 
-### Phase 4b — Integration
+### Phase 7 — Integration
 - Contract verification report
 - API client integration (in frontend)
 - Third-party config (auth, payments, webhooks as applicable)
 - E2E data flow verification
-- **Handoff Package 4b** (Integration → QA Testing)
+- **Handoff Package 7** (Integration → QA Testing)
 
-### Phase 5 — QA Testing
+### Phase 8 — QA Testing
 - Test files in repository
 - `test-coverage-matrix.md` (updated with passing/failing status)
 - Coverage report
 - Accessibility audit report
 - Performance audit report
 - Security review report
-- **Handoff Package 5** (QA → Deployment)
+- **Handoff Package 8** (QA → Deployment)
 
-### Phase 6 — Deployment
+### Phase 9 — Deployment
 - CI/CD pipeline configuration
 - Production URL
 - Monitoring dashboard URL
 - Release notes
 - Signed launch checklist
-- **Handoff Package 6** (Deployment → Documentation)
+- **Handoff Package 9** (Deployment → Documentation)
 
-### Phase 7 — Documentation
+### Phase 11 — Documentation
 - `artifact-index.md` (or `docs/artifact-index.md`)
 - `docs/user-guide/quick-start.md`
 - `docs/user-guide/features.md`
@@ -461,4 +461,4 @@ If the work is taking significantly longer than expected:
 - `docs/ops/monitoring.md`
 - `docs/stakeholder-package.md`
 - `docs/README.md` (entry point)
-- **Handoff Package 7** (Documentation → Product Complete)
+- **Handoff Package 11** (Documentation → Product Complete)
