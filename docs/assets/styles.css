@@ -298,6 +298,98 @@ a.phase-card:hover {
   outline-offset: 2px;
 }
 
+/* Phase prose — rendered markdown from skills */
+.phase-prose {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+.phase-prose h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.phase-prose h2:first-child {
+  margin-top: 0;
+}
+.phase-prose h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+.phase-prose h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+}
+.phase-prose p {
+  margin: 0 0 1rem;
+  color: var(--foreground);
+}
+.phase-prose ul, .phase-prose ol {
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+.phase-prose li {
+  margin-bottom: 0.25rem;
+}
+.phase-prose strong {
+  font-weight: 600;
+}
+.phase-prose code {
+  font-size: 0.875em;
+  padding: 0.15em 0.4em;
+  background: var(--muted);
+  border-radius: var(--radius);
+  font-family: ui-monospace, monospace;
+}
+.phase-prose pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--muted);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: 0.8125rem;
+}
+.phase-prose pre code {
+  padding: 0;
+  background: none;
+}
+.phase-prose blockquote {
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid var(--border);
+  color: var(--muted-foreground);
+}
+.phase-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+}
+.phase-prose th, .phase-prose td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+.phase-prose th {
+  font-weight: 600;
+  background: var(--muted);
+}
+.phase-prose hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+.phase-prose a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.phase-prose a:hover {
+  text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
   .phases-grid {

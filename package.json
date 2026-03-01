@@ -1,0 +1,8 @@
+{
+  "name": "product-agentic-templates",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build:docs": "node scripts/build-phase-docs.js"
+  }
+}

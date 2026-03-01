@@ -9,6 +9,7 @@ A static platform in `docs/` provides:
 - **Use this template** — Create a new repo from this template (enable in GitHub: Settings → General → Template repository)
 - **Download** — Get `.cursor/` as a zip (`docs/assets/product-agentic-templates.zip`). Regenerate with `node scripts/zip-cursor.js`
 - **Visualization** — Holistic view of all phases, gates, and connections at `docs/visualization.html`
+- **Phase pages** — Full skill content from `.cursor/skills/` at `docs/phase.html?phase=01-product-discovery`. Regenerate with `npm run build:docs` (or `node scripts/build-phase-docs.js`) when skills change.
 
 **GitHub Pages:** Deploy the platform by enabling Pages in repo Settings → Pages → Source: Deploy from a branch → Branch: `main` → Folder: `/docs`.
 

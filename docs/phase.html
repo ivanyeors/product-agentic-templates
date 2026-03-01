@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="assets/shadcn-base.css">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@11/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body>
@@ -76,6 +77,35 @@
       }
     }
 
+    function renderMarkdown(md) {
+      if (!md) return '';
+      marked.setOptions({ gfm: true });
+      return marked.parse(md);
+    }
+
+    function processMermaidBlocks(container) {
+      const codes = container.querySelectorAll('pre > code.language-mermaid');
+      codes.forEach((code) => {
+        const pre = code.closest('pre');
+        const div = document.createElement('div');
+        div.className = 'mermaid phase-flowchart';
+        div.textContent = code.textContent;
+        pre.replaceWith(div);
+      });
+    }
+
+    async function renderMermaidInContainer(container) {
+      const mermaidEls = container.querySelectorAll('.mermaid');
+      if (mermaidEls.length === 0) return;
+      try {
+        await mermaid.run({ nodes: mermaidEls });
+      } catch (err) {
+        mermaidEls.forEach((el) => {
+          el.innerHTML = '<p class="text-sm text-[var(--muted-foreground)]">Diagram could not be rendered.</p>';
+        });
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       initMermaid();
       const phaseId = getPhaseId();
@@ -91,28 +121,50 @@
       }
 
       document.title = `${phase.num} ${phase.name} — Product Workflow Skills`;
-      contentEl.innerHTML = `
-        <h1 class="text-2xl font-bold mb-2">${phase.num} ${phase.name}</h1>
-        <p class="text-[var(--muted-foreground)] mb-6">${phase.desc}</p>
-        <div class="mb-6">
-          <p><strong>What to expect:</strong> ${phase.expect}</p>
-        </div>
-        <div class="phase-flowchart" id="phase-flowchart"></div>
-      `;
 
-      const flowchartCode = window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId];
-      const flowchartEl = document.getElementById('phase-flowchart');
-      await renderFlowchart(flowchartEl, flowchartCode);
+      if (phase.content) {
+        const html = renderMarkdown(phase.content);
+        contentEl.innerHTML = `
+          <h1 class="text-2xl font-bold mb-2">${phase.num} ${phase.name}</h1>
+          <p class="text-[var(--muted-foreground)] mb-6">${phase.desc}</p>
+          <div class="phase-prose">${html}</div>
+        `;
+        processMermaidBlocks(contentEl);
+        await renderMermaidInContainer(contentEl);
+      } else {
+        contentEl.innerHTML = `
+          <h1 class="text-2xl font-bold mb-2">${phase.num} ${phase.name}</h1>
+          <p class="text-[var(--muted-foreground)] mb-6">${phase.desc}</p>
+          <div class="mb-6">
+            <p><strong>What to expect:</strong> ${phase.expect}</p>
+          </div>
+          <div class="phase-flowchart" id="phase-flowchart"></div>
+          <p class="text-sm text-[var(--muted-foreground)] mt-4">Full skill content not yet available.</p>
+        `;
+        const flowchartCode = window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId];
+        const flowchartEl = document.getElementById('phase-flowchart');
+        await renderFlowchart(flowchartEl, flowchartCode);
+      }
     });
 
-    window.addEventListener('themechange', () => {
+    window.addEventListener('themechange', async () => {
+      initMermaid();
       const phaseId = getPhaseId();
       const phase = window.PHASE_DATA?.PHASES?.find(p => p.id === phaseId);
-      if (phase && window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId]) {
+      if (!phase) return;
+      const contentEl = document.getElementById('phase-content');
+      if (phase.content) {
+        const html = renderMarkdown(phase.content);
+        const proseEl = contentEl.querySelector('.phase-prose');
+        if (proseEl) {
+          proseEl.innerHTML = html;
+          processMermaidBlocks(contentEl);
+          await renderMermaidInContainer(contentEl);
+        }
+      } else {
         const flowchartEl = document.getElementById('phase-flowchart');
-        if (flowchartEl) {
-          initMermaid();
-          renderFlowchart(flowchartEl, window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId]);
+        if (flowchartEl && window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId]) {
+          await renderFlowchart(flowchartEl, window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId]);
         }
       }
     });

@@ -112,6 +112,7 @@
             <p id="phase-detail-expect" class="text-sm text-[var(--muted-foreground)]"></p>
           </div>
           <div class="phase-flowchart" id="phase-detail-flowchart"></div>
+          <a id="phase-detail-link" href="#" class="btn btn-secondary mt-4 inline-block text-sm">View full details</a>
         </div>
       </div>
     </div>
@@ -199,6 +200,7 @@
     const descEl = document.getElementById('phase-detail-desc');
     const expectEl = document.getElementById('phase-detail-expect');
     const flowchartEl = document.getElementById('phase-detail-flowchart');
+    const detailLinkEl = document.getElementById('phase-detail-link');
 
     let selectedPhaseId = null;
 
@@ -223,6 +225,7 @@
       titleEl.textContent = `${phase.num} ${phase.name}`;
       descEl.textContent = phase.desc;
       expectEl.textContent = phase.expect;
+      if (detailLinkEl) detailLinkEl.href = `phase.html?phase=${phase.id}`;
       const flowchartCode = FLOWCHARTS[phase.id];
       renderFlowchart(flowchartEl, flowchartCode);
     }
