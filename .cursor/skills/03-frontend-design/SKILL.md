@@ -86,9 +86,11 @@ See [handoff-package-template.md](../00-product-workflow/handoff-package-templat
 ## Quick Start
 
 Before starting, confirm these Product Design artifacts exist:
-- [ ] Wireframe specifications
+- [ ] Wireframe specifications (with content notes per content-design)
 - [ ] Interaction specification
 - [ ] IA document
+- [ ] Content model (when content-heavy product)
+- [ ] Feedback Channels Plan (when feedback in scope)
 
 Ask the user:
 1. Is there an existing brand identity (logo, brand colors, typography)?

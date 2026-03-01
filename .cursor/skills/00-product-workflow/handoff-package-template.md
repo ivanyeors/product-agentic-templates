@@ -114,6 +114,18 @@ Phase [N+1]: [Name] will [one sentence on outcome]. Consumes: [artifact list wit
 - [ ] P1 flows have wireframes
 - [ ] Interaction specification covers all P0 components
 - [ ] Prototype brief completed (if applicable)
+- [ ] Feedback Channels Plan completed (when feedback collection is a PRD requirement)
+- [ ] Content model completed (when content-heavy product)
+- [ ] Wireframe specs include content notes (per content-design)
+
+**Phase 2 Artifacts (include in Artifacts table when produced):**
+- `ia-document.md`, `ia-method-synthesis/` (card sort, tree test, etc. when used)
+- `content-model.md` (when content-heavy)
+- `user-flows.md`, `wireframe-specs.md`, `interaction-spec.md`
+- `feedback-channels-plan.md` (when feedback in scope)
+- `feedback-triage.md` (when feedback in scope)
+- `market-feedback-plan.md` (when market signals in PRD)
+- `prototype-brief.md` (if applicable)
 
 ### Phase 3 → 4 (Frontend Design → Frontend Development)
 **No-Go:**

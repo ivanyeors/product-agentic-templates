@@ -68,7 +68,7 @@ flowchart TD
    - If any fail → **HALT**. Notify orchestrator.
 4. Log Read-Back: restate what is being tested — "We are testing [product]. **Release Mode: [Full Production | MVP].** [N] P0 (or MVP) screens, [N] flows. The architecture is [framework + key libraries]. Known thin areas from handoff: [list from Assessment]. Key risks forwarded: [list from Risks Forward]."
 5. Raise RFIs: list any unclear implementation decisions, missing error states, or ambiguous behavior. Resolve from code/docs or escalate to human.
-6. Build test coverage matrix from PRD FR-IDs — every P0 (or MVP) requirement must map to a planned E2E test.
+6. Build test coverage matrix from PRD FR-IDs — every P0 (or MVP) requirement must map to a planned E2E test. When feedback flows exist (UF-xxx for feedback), include E2E tests for feedback submission.
 7. Review inherited Assumptions — flag any that affect test strategy.
 8. Only after all above: begin Phase 05 work.
 

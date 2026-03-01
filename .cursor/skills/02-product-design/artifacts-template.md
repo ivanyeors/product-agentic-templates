@@ -2,6 +2,8 @@
 
 Use these templates when producing Product Design outputs. Replace all `[PLACEHOLDER]` values.
 
+**IA method outputs** (card sort, tree test, content audit, etc.) feed into the IA Document. See [ux-process/ia-methods/README.md](ux-process/ia-methods/README.md) for method selection. **Content model** and **Feedback Channels Plan** have separate templates in their subskills.
+
 ---
 
 ## IA Document
@@ -50,6 +52,8 @@ flowchart TD
 | Content Type | Description | Where Used |
 |-------------|-------------|------------|
 | [Type 1] | [Description] | [Section(s)] |
+
+*When content-heavy, use [ux-process/ia-methods/content-model/handover-template.md](ux-process/ia-methods/content-model/handover-template.md) for full content model.*
 
 ## Navigation Rules
 - [Rule 1: e.g., "Authenticated users always see X in primary nav"]
@@ -160,6 +164,8 @@ flowchart TD
 | Header | [Logo, nav items, auth controls] | |
 | Primary | [Main content description] | |
 | Actions | [Primary CTA, secondary actions] | |
+
+*Content notes: Specify copy, truncation rules, character limits per [ux-process/content-design.md](ux-process/content-design.md).*
 
 ### Components
 | Component | Type | Label | Behavior |
@@ -289,3 +295,9 @@ Flows to prototype:
 ## Success Criteria
 [What do you need to learn from this prototype to proceed?]
 ```
+
+---
+
+## Feedback Channels Plan
+
+*When PRD includes feedback collection, use [feedback-loop/feedback-channels-plan/handover-template.md](feedback-loop/feedback-channels-plan/handover-template.md).*

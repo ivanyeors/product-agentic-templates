@@ -49,6 +49,11 @@ Use this checklist before approving the transition from Product Design → Front
 - [ ] Data states needed are specified
 - [ ] Usability test tasks are written (if testing planned)
 
+## Feedback Loop (when feedback in PRD scope)
+- [ ] Feedback channels planned (see feedback-loop/README.md)
+- [ ] Feedback flows in user flows (UF-xxx)
+- [ ] Feedback UI in wireframes (WF-xxx)
+
 ## Cross-Phase Alignment
 - [ ] All P0 user stories from the PRD have corresponding designs
 - [ ] Personas are respected in design decisions

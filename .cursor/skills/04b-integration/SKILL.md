@@ -74,7 +74,8 @@ Before starting, confirm:
 - [ ] Backend API is accessible (staging URL or local)
 - [ ] OpenAPI spec is available and up to date
 - [ ] Frontend API client exists (or needs to be created)
-- [ ] PRD lists third-party integrations (auth, payments, etc.)
+- [ ] PRD lists third-party integrations (auth, payments, webhooks, feedback tools)
+- [ ] When feedback in scope: Feedback Channels Plan specifies third-party (e.g., Intercom, Canny) — include in Phase 3 Third-Party Setup
 
 Ask the user:
 1. What is the backend base URL for the frontend? (staging, local)

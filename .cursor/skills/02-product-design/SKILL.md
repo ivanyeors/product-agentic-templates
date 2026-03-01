@@ -88,26 +88,42 @@ Ask the user:
 
 ---
 
+## Subskill Routing
+
+### IA Method Selection
+- Read [ux-process/ux-process.md](ux-process/ux-process.md) and [ia-methods/README.md](ux-process/ia-methods/README.md) to select method(s) by context
+- When a method is selected, read that method's SKILL.md (e.g. `ia-methods/content-audit/SKILL.md`)
+- **Synthesis methods** (content-audit, affinity-diagramming, card-sort-open, card-sort-closed, tree-testing, first-click-testing) → output to `ia-method-synthesis/[method].md` using synthesis-template
+- **Structure methods** (site-map-structure, content-model, taxonomy-design) → output using handover-template, feed IA Document
+
+### Feedback Loop Routing
+- When PRD includes feedback collection: invoke `feedback-channels-plan` first
+- When channels plan includes in-app feedback: invoke `user-feedback-design` (produces UF-xxx, WF-xxx)
+- When PRD includes market signals: invoke `market-feedback-plan`
+- When feedback collection is planned: invoke `feedback-triage` (triage rubric, escalation rules)
+
+---
+
 ## Design Phases
 
 ### Phase 1: Information Architecture
 - Define the product structure: sections, pages, content hierarchy
 - Create a site map or screen map
 - Identify primary, secondary, and utility navigation
-- Apply card sort insights if available
-- Output: **IA Document + Site Map** (see [artifacts-template.md](artifacts-template.md))
+- Select and apply IA methods per [ux-process/ux-process.md](ux-process/ux-process.md) (orchestrator)
+- Output: **IA Document + Site Map** (+ `ia-method-synthesis/` when IA methods such as card sort, tree test, content audit, or affinity diagramming are used) (see [artifacts-template.md](artifacts-template.md))
 
 ### Phase 2: User Flow Design
 - Map the critical task flows for the primary persona
 - For each P0 user story in the PRD, produce a corresponding flow
 - Document: entry points, decision nodes, success states, error states, exit points
 - Identify flows requiring authentication or permissions
-- Output: **User Flow Diagrams** (see [ux-process.md](ux-process.md) → Flow Notation)
+- Output: **User Flow Diagrams** (see [ux-process/user-flow-notation.md](ux-process/user-flow-notation.md))
 
 ### Phase 3: Wireframing
 - Produce low-fidelity wireframe specifications for each screen in the critical flows
 - Include: layout structure, content zones, key UI components, hierarchy
-- Annotate interactions and states (empty, loading, error, success)
+- Annotate interactions, states (empty, loading, error, success), and content notes per [ux-process/content-design.md](ux-process/content-design.md)
 - Do NOT design visuals — focus on structure and logic only
 - Output: **Wireframe Specifications** (see [artifacts-template.md](artifacts-template.md))
 
@@ -129,7 +145,12 @@ Ask the user:
 - Define which flows need an interactive prototype
 - Specify: fidelity (lo-fi/hi-fi), tool (Figma preferred), interactions to demonstrate
 - List screens, transitions, and data states needed
-- Output: **Prototype Brief**
+- Output: **Prototype Brief** (see [ux-process/prototyping-guidance.md](ux-process/prototyping-guidance.md))
+
+### Feedback Loop (when PRD includes feedback collection)
+- Plan feedback channels per [feedback-loop/README.md](feedback-loop/README.md)
+- Invoke subskills as needed: feedback-channels-plan (always), user-feedback-design (in-app), market-feedback-plan (market signals), feedback-triage (prioritization)
+- Outputs: Feedback Channels Plan, UF-xxx/WF-xxx for feedback UI (when in-app), Market Feedback Plan (when applicable), Feedback Triage doc (when feedback in scope)
 
 ---
 
@@ -201,11 +222,15 @@ PRODUCT DESIGN COMPLETE — HUMAN REVIEW REQUIRED
 
 Artifacts produced:
 - [ ] IA Document + Site Map
+- [ ] ia-method-synthesis/ (when IA methods used)
 - [ ] User Flow Diagrams (one per P0 user story)
 - [ ] Wireframe Specifications
 - [ ] Interaction Specification
 - [ ] Accessibility Planning Notes
 - [ ] Prototype Brief
+- [ ] Feedback Channels Plan (when feedback in PRD scope)
+- [ ] Feedback Triage doc (when feedback in PRD scope)
+- [ ] Market Feedback Plan (when market signals in PRD)
 
 Prioritization summary:
 - Quick Wins designed: [list]
@@ -233,7 +258,9 @@ Reply with:
 
 ## Additional Resources
 
-- [ux-process.md](ux-process.md) — IA methods, flow notation, wireframing standards, prototyping guidance
+- [ux-process/ux-process.md](ux-process/ux-process.md) — Orchestrator: IA method selection, flow notation, wireframing standards, prototyping guidance
+- [ux-process/](ux-process/) — IA method subskills, content design, accessibility
+- [feedback-loop/](feedback-loop/) — Feedback channels planning: feedback-channels-plan, user-feedback-design, market-feedback-plan, feedback-triage
 - [artifacts-template.md](artifacts-template.md) — document templates for all design outputs
 - [design-checklist.md](design-checklist.md) — human review gate checklist
 - [pm-prioritization.md](../00-product-workflow/pm-prioritization.md) — Impact/Effort 2×2 rubric

@@ -389,9 +389,12 @@ If the work is taking significantly longer than expected:
 
 ### Phase 2 — Product Design
 - `ia-document.md`
-- `user-flows.md` (with UF-IDs and `Covers: FR-xxx` headers)
-- `wireframe-specs.md` (with WF-IDs and `Covers: FR-xxx` headers)
+- `ia-method-synthesis/` (synthesis outputs from IA methods used: card sort, tree test, content audit, etc.)
+- `content-model.md` (when content-heavy)
+- `user-flows.md` (with UF-IDs and `Covers: FR-xxx` headers; may include feedback flows)
+- `wireframe-specs.md` (with WF-IDs, content notes per content-design)
 - `interaction-spec.md`
+- `feedback-channels-plan.md` (when feedback in PRD scope)
 - `prototype-brief.md`
 - **Handoff Package 2** (Product Design → Frontend Design)
 

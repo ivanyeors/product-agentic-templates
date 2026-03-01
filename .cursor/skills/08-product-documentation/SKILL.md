@@ -90,6 +90,7 @@ Ask the user:
 ### Phase 1: Artifact Audit and Inventory
 - Walk all 6 phase directories and the handoff packages
 - Produce a **Complete Artifact Inventory** — every document, its location, its audience, and its current state
+- Include Phase 2 artifacts: IA method synthesis outputs, content model (when used), feedback channels plan (when used)
 - Flag gaps: anything referenced but missing, stale, or contradictory
 - Output: **Artifact Inventory** (see [artifacts-template.md](artifacts-template.md))
 - This becomes the raw material for all subsequent documentation
@@ -108,12 +109,14 @@ Ask the user:
 - Written as task-based guides ("How to...") not feature lists
 - Includes screenshots or annotated screen references
 - Error states and what to do about them (from wireframe error states)
+- When feedback in scope: "How to give us feedback" from Feedback Channels Plan
 - FAQ derived from persona pain points and journey map friction points
 - Output: **User Documentation** (see [artifacts-template.md](artifacts-template.md))
 
 ### Phase 4: Technical Documentation (Audience: Developers / Maintainers)
 - **Architecture Overview**: project structure, key patterns, data flow (from Phase 04 architecture docs)
 - **Component Reference**: component hierarchy with props, states, and usage examples (from Component BOM + implementation)
+- **Content Model Reference**: when content-heavy, document content types and structure (from Phase 02 content model)
 - **API Integration Guide**: endpoints, auth, error handling (from Phase 04 data layer)
 - **Environment Setup**: how to run locally, required env vars, dependencies (from Phase 06 environment config)
 - **Testing Guide**: how to run tests, what's covered, how to add new tests (from Phase 05 test strategy + coverage matrix)
@@ -133,11 +136,13 @@ Ask the user:
 - **Monitoring Guide**: what dashboards exist, what alerts mean, escalation paths
 - **Incident Response**: step-by-step playbook (from ops-runbook)
 - **Infrastructure Reference**: environments, CI/CD pipeline, secrets management (from Phase 06 artifacts)
+- **Feedback Pipeline Config**: when feedback in scope, document feedback tool config, webhooks, env vars (from Feedback Channels Plan)
 - **Known Issues and Accepted Risks**: P1 defects with remediation plans, accepted risks from all handoff packages
 - Output: **Operations Manual** (see [artifacts-template.md](artifacts-template.md))
 
 ### Phase 7: Decision Log and Retrospective (Audience: Organization / Future Teams)
 - **Decision Log**: every significant decision across all phases, extracted from handoff package Decisions and Intent tables — with rationale preserved
+- **IA Method Rationale**: when IA methods were used (card sort, tree test, etc.), document why IA was structured this way (from IA method synthesis outputs)
 - **Assumptions Register**: all unvalidated assumptions from all phases, with current status
 - **Lessons Learned**: what went well, what was thin, what should change next time (synthesized from handoff Assessment sections)
 - **Intervention History**: summary of all human interventions processed during the PDLC (from `human-interventions/processed/`)

@@ -80,6 +80,8 @@ Before starting, confirm these artifacts exist:
 - [ ] Data dictionary (entities, attributes, business rules, relationships)
 - [ ] User flow diagrams
 - [ ] Wireframe specifications
+- [ ] Content model (when content-heavy — feeds schema design)
+- [ ] Feedback Channels Plan (when feedback in scope — informs endpoint inventory, e.g. POST /feedback)
 
 If any are missing, trigger `01-product-discovery` or `02-product-design` first.
 

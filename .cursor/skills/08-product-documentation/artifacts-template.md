@@ -33,9 +33,12 @@ Use these templates when producing Phase 08 outputs. Replace all `[PLACEHOLDER]`
 | Artifact | Path | Audience | State | Notes |
 |----------|------|----------|-------|-------|
 | [IA Document] | `[path]` | [Design / Dev] | [Complete / Stale / Missing] | |
+| [IA Method Synthesis] | `[path]` | [Design / PM] | [Complete / Stale / Missing] | Card sort, tree test, etc. when used |
+| [Content Model] | `[path]` | [Design / Dev] | [Complete / Stale / Missing] | When content-heavy |
 | [User Flows] | `[path]` | [Design / Dev / QA] | [Complete / Stale / Missing] | UF-IDs: [count] |
 | [Wireframe Specs] | `[path]` | [Design / Dev] | [Complete / Stale / Missing] | WF-IDs: [count] |
 | [Interaction Spec] | `[path]` | [Design / Dev] | [Complete / Stale / Missing] | |
+| [Feedback Channels Plan] | `[path]` | [PM / Ops] | [Complete / Stale / Missing] | When feedback in scope |
 | [Prototype Brief] | `[path]` | [Design] | [Complete / Stale / Missing] | |
 | Handoff Package 2 | `[path]` | [All] | [Complete / Stale / Missing] | |
 
