@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Workflow Skills Platform</title>
+  <link rel="stylesheet" href="assets/shadcn-base.css">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Product Workflow Skills</a>
+    <nav>
+      <a href="visualization.html" class="btn btn-ghost">View Workflow</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Product Workflow Skills Platform</h1>
+      <p>A modular, multi-phase agentic skills library for Cursor and Claude AI covering the full product development lifecycle — from Discovery to Deployment to Documentation.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/ivanyeors/product-agentic-templates/generate" class="btn btn-primary" target="_blank" rel="noopener">Use this template</a>
+        <a href="assets/product-agentic-templates.zip" class="btn btn-secondary" download>Download .cursor/ zip</a>
+        <a href="visualization.html" class="btn btn-secondary">View full workflow</a>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 3rem;">
+      <h2 class="text-xl font-semibold mb-4">Phases</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm" style="border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <th class="text-left py-2 pr-4 font-medium">Phase</th>
+              <th class="text-left py-2 pr-4 font-medium">Skill</th>
+              <th class="text-left py-2 font-medium">Trigger</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">1. Product Discovery</td><td class="py-2 pr-4"><code>product-discovery</code></td><td class="py-2">Starting a new product, defining what to build</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">2. Product Design</td><td class="py-2 pr-4"><code>product-design</code></td><td class="py-2">Defining UX, IA, flows, and prototypes</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">3. Frontend Design</td><td class="py-2 pr-4"><code>frontend-design</code></td><td class="py-2">Building design systems, visual UI, components</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">4. Backend Design</td><td class="py-2 pr-4"><code>backend-design</code></td><td class="py-2">API contract, schema design, auth model</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">5. Frontend Development</td><td class="py-2 pr-4"><code>frontend-development</code></td><td class="py-2">Implementing UI in code</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">6. Backend Implementation</td><td class="py-2 pr-4"><code>backend-implementation</code></td><td class="py-2">Building API endpoints, migrations, services</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">7. Integration</td><td class="py-2 pr-4"><code>integration</code></td><td class="py-2">Connecting frontend to backend, third-party services</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">8. QA Testing</td><td class="py-2 pr-4"><code>qa-testing</code></td><td class="py-2">Verifying quality, testing strategy</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">9. Deployment</td><td class="py-2 pr-4"><code>deployment</code></td><td class="py-2">Shipping to production</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">10. Human Intervention</td><td class="py-2 pr-4"><code>human-intervention</code></td><td class="py-2">Mid-phase feedback, scope changes, corrections</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">11. Documentation</td><td class="py-2 pr-4"><code>documentation</code></td><td class="py-2">User guides, technical docs, knowledge transfer</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">12. Product Documentation</td><td class="py-2 pr-4"><code>product-documentation</code></td><td class="py-2">Documentation hub, handover package</td></tr>
+            <tr style="border-bottom: 1px solid var(--border);"><td class="py-2 pr-4">Full Lifecycle</td><td class="py-2 pr-4"><code>product-workflow</code></td><td class="py-2">Running the complete end-to-end process with HITL gates</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details class="mt-8 p-4 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--card)]">
+        <summary class="cursor-pointer font-medium">Installation</summary>
+        <div class="mt-4 text-sm text-[var(--muted-foreground)] space-y-2">
+          <p><strong>Option A — Copy into your project:</strong></p>
+          <pre class="p-3 rounded bg-[var(--muted)] overflow-x-auto"><code>cp -r /path/to/product-agentic-templates/.cursor/skills .cursor/skills</code></pre>
+          <p><strong>Option B — Clone and symlink:</strong></p>
+          <pre class="p-3 rounded bg-[var(--muted)] overflow-x-auto"><code>git clone https://github.com/ivanyeors/product-agentic-templates ~/product-agentic-templates
+ln -s ~/product-agentic-templates/.cursor/skills /your-project/.cursor/skills</code></pre>
+          <p>After copying, Cursor will automatically detect and surface the skills.</p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <script src="assets/theme-toggle.js"></script>
+</body>
+</html>

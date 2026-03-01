@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Workflow — Full Lifecycle Visualization</title>
+  <link rel="stylesheet" href="assets/shadcn-base.css">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Product Workflow Skills</a>
+    <nav>
+      <a href="index.html" class="btn btn-ghost">Home</a>
+      <a href="visualization.html" class="btn btn-secondary">View Workflow</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"></button>
+    </nav>
+  </header>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+    <h1 class="text-2xl font-bold mb-2">Full Product Lifecycle</h1>
+    <p class="text-[var(--muted-foreground)] mb-8">Holistic view of all phases, gates, and connections. Each phase links to the source in <code class="text-sm bg-[var(--muted)] px-1 rounded">.cursor/skills/</code>.</p>
+
+    <section class="mermaid-container" aria-label="Lifecycle flowchart">
+      <div class="mermaid" id="lifecycle-diagram">flowchart TD
+    start([Product Idea]) --> hi
+    hi[10 Human Intervention monitor active throughout] -.->|immediate feedback| p1 & p2 & p3 & p4 & p5 & p6 & p7 & p8 & p9 & p11
+
+    start --> p1[01 Product Discovery]
+    p1 --> g1{Gate 1}
+    g1 -->|APPROVED| p2[02 Product Design]
+    g1 -->|REVISE| p1
+
+    p2 --> g2{Gate 2}
+    g2 -->|APPROVED| rmCheck{Release Mode}
+    g2 -->|REVISE| p2
+
+    rmCheck -->|FULL PRODUCTION| p3[03 Frontend Design]
+    rmCheck -->|FULL PRODUCTION| p4[04 Backend Design]
+    rmCheck -->|MVP| mvpScope[MVP Scoping]
+    mvpScope --> p3
+    mvpScope --> p4
+
+    p3 --> g3{Gate 3}
+    g3 -->|APPROVED| p5[05 Frontend Development]
+    g3 -->|REVISE| p3
+
+    p4 --> g4{Gate 4}
+    g4 -->|APPROVED| p6[06 Backend Implementation]
+    g4 -->|REVISE| p4
+
+    p5 --> g5{Gate 5}
+    g5 -->|APPROVED| p7[07 Integration]
+    g5 -->|REVISE| p5
+
+    p6 --> g6{Gate 6}
+    g6 -->|APPROVED| p7
+    g6 -->|REVISE| p6
+
+    p7 --> g7{Gate 7}
+    g7 -->|APPROVED| p8[08 QA Testing]
+    g7 -->|REVISE| p7
+
+    p8 --> g8{Gate 8}
+    g8 -->|APPROVED| p9[09 Deployment]
+    g8 -->|REVISE| p8
+
+    p9 --> g9{Gate 9}
+    g9 -->|SIGNED OFF| mvpEvolve{Evolution?}
+    g9 -->|ROLLBACK| p9
+
+    mvpEvolve -->|EVOLVE| debtAudit[Technical Debt Audit]
+    mvpEvolve -->|STAY| p11
+    debtAudit --> p3
+
+    mvpEvolve -->|Full Production| p11
+
+    p11[11 Documentation] --> g10{Gate 10}
+    g10 -->|APPROVED| done([DOCUMENTED])
+    g10 -->|REVISE| p11</div>
+    </section>
+
+    <h2 class="text-xl font-semibold mb-4">Phases</h2>
+    <p class="text-[var(--muted-foreground)] mb-6">Click a phase to see details. Each links to <code class="text-sm bg-[var(--muted)] px-1 rounded">.cursor/skills/</code>.</p>
+
+    <div class="phases-grid" id="phases-grid">
+      <!-- Phase cards populated by JS from phases data -->
+    </div>
+  </main>
+
+  <script src="assets/theme-toggle.js"></script>
+  <script>
+    // Update this when forking; used for "View source" links to .cursor/skills/
+    const REPO_URL = 'https://github.com/ivanyeors/product-agentic-templates';
+    const MERMAID_CODE = `flowchart TD
+    start([Product Idea]) --> hi
+    hi[10 Human Intervention monitor active throughout] -.->|immediate feedback| p1 & p2 & p3 & p4 & p5 & p6 & p7 & p8 & p9 & p11
+
+    start --> p1[01 Product Discovery]
+    p1 --> g1{Gate 1}
+    g1 -->|APPROVED| p2[02 Product Design]
+    g1 -->|REVISE| p1
+
+    p2 --> g2{Gate 2}
+    g2 -->|APPROVED| rmCheck{Release Mode}
+    g2 -->|REVISE| p2
+
+    rmCheck -->|FULL PRODUCTION| p3[03 Frontend Design]
+    rmCheck -->|FULL PRODUCTION| p4[04 Backend Design]
+    rmCheck -->|MVP| mvpScope[MVP Scoping]
+    mvpScope --> p3
+    mvpScope --> p4
+
+    p3 --> g3{Gate 3}
+    g3 -->|APPROVED| p5[05 Frontend Development]
+    g3 -->|REVISE| p3
+
+    p4 --> g4{Gate 4}
+    g4 -->|APPROVED| p6[06 Backend Implementation]
+    g4 -->|REVISE| p4
+
+    p5 --> g5{Gate 5}
+    g5 -->|APPROVED| p7[07 Integration]
+    g5 -->|REVISE| p5
+
+    p6 --> g6{Gate 6}
+    g6 -->|APPROVED| p7
+    g6 -->|REVISE| p6
+
+    p7 --> g7{Gate 7}
+    g7 -->|APPROVED| p8[08 QA Testing]
+    g7 -->|REVISE| p7
+
+    p8 --> g8{Gate 8}
+    g8 -->|APPROVED| p9[09 Deployment]
+    g8 -->|REVISE| p8
+
+    p9 --> g9{Gate 9}
+    g9 -->|SIGNED OFF| mvpEvolve{Evolution?}
+    g9 -->|ROLLBACK| p9
+
+    mvpEvolve -->|EVOLVE| debtAudit[Technical Debt Audit]
+    mvpEvolve -->|STAY| p11
+    debtAudit --> p3
+
+    mvpEvolve -->|Full Production| p11
+
+    p11[11 Documentation] --> g10{Gate 10}
+    g10 -->|APPROVED| done([DOCUMENTED])
+    g10 -->|REVISE| p11`;
+
+    const PHASES = [
+      { id: '00-product-workflow', num: '00', name: 'Product Workflow', desc: 'Master orchestrator for the full lifecycle with HITL gates.', expect: 'Coordinates all phases in sequence. Pauses at every gate for human approval.' },
+      { id: '01-product-discovery', num: '01', name: 'Product Discovery', desc: 'Research, personas, PRD.', expect: 'Stakeholder interviews, user research, competitive analysis, problem statement, persona creation, journey mapping, PRD writing.' },
+      { id: '02-product-design', num: '02', name: 'Product Design', desc: 'IA, flows, wireframes.', expect: 'Information architecture, user flow design, wireframing, prototype specification, usability testing design, accessibility planning.' },
+      { id: '03-frontend-design', num: '03', name: 'Frontend Design', desc: 'Design system, components.', expect: 'Design tokens, atomic component hierarchy, visual design, responsive breakpoints, Figma handoff. Runs parallel with Backend Design.' },
+      { id: '04-backend-design', num: '04', name: 'Backend Design', desc: 'API contract, schema, auth.', expect: 'OpenAPI spec, database schema, auth model, integration points. Runs parallel with Frontend Design.' },
+      { id: '05-frontend-development', num: '05', name: 'Frontend Development', desc: 'UI implementation.', expect: 'Tech stack, architecture, component development, state management, performance, accessibility. Runs parallel with Backend Implementation.' },
+      { id: '06-backend-implementation', num: '06', name: 'Backend Implementation', desc: 'API endpoints, migrations.', expect: 'Project setup, schema migrations, data access, service layer, API endpoints, auth, validation, testing.' },
+      { id: '07-integration', num: '07', name: 'Integration', desc: 'Frontend-backend, third-party.', expect: 'API consumption, contract validation, third-party integration (auth, payments, webhooks). Requires both Gate 5 and Gate 6.' },
+      { id: '08-qa-testing', num: '08', name: 'QA Testing', desc: 'Test strategy, execution.', expect: 'Unit/integration/E2E testing, visual regression, accessibility audits, performance testing, security review.' },
+      { id: '09-deployment', num: '09', name: 'Deployment', desc: 'CI/CD, launch, monitoring.', expect: 'CI/CD pipelines, environment config, infrastructure-as-code, observability, rollback runbooks, release management.' },
+      { id: '10-human-intervention', num: '10', name: 'Human Intervention', desc: 'Mid-phase feedback, corrections.', expect: 'Cross-cutting. Structured capture of feedback, scope changes, corrections. Active throughout the workflow.' },
+      { id: '11-documentation', num: '11', name: 'Documentation', desc: 'User guides, knowledge transfer.', expect: 'User documentation, technical docs, operations docs, knowledge transfer package. Post-launch.' },
+      { id: '12-product-documentation', num: '12', name: 'Product Documentation', desc: 'Documentation hub, handover.', expect: 'Consolidation of all PDLC artifacts into a Product Documentation Hub.' },
+    ];
+
+    const grid = document.getElementById('phases-grid');
+    PHASES.forEach(phase => {
+      const card = document.createElement('div');
+      card.className = 'card phase-card';
+      card.setAttribute('aria-expanded', 'false');
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.innerHTML = `
+        <div class="flex justify-between items-start">
+          <div>
+            <h3>${phase.num} ${phase.name}</h3>
+            <p>${phase.desc}</p>
+          </div>
+          <a href="${REPO_URL}/tree/main/.cursor/skills/${phase.id}" class="btn btn-ghost text-sm" target="_blank" rel="noopener" onclick="event.stopPropagation()">View source</a>
+        </div>
+        <div class="phase-detail" data-visible="false" id="detail-${phase.id}">
+          <p><strong>What to expect:</strong> ${phase.expect}</p>
+          <p class="mt-2"><a href="${REPO_URL}/blob/main/.cursor/skills/${phase.id}/SKILL.md" target="_blank" rel="noopener">SKILL.md</a> · <a href="${REPO_URL}/blob/main/.cursor/skills/00-product-workflow/workflow-stages.md" target="_blank" rel="noopener">Gate criteria</a></p>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        const expanded = card.getAttribute('aria-expanded') === 'true';
+        card.setAttribute('aria-expanded', !expanded);
+        const detail = card.querySelector('.phase-detail');
+        detail.setAttribute('data-visible', !expanded);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+      grid.appendChild(card);
+    });
+
+    // Mermaid init with theme support
+    function initMermaid() {
+      const isDark = document.documentElement.classList.contains('dark');
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: isDark ? '#3b82f6' : '#1e40af',
+          primaryTextColor: isDark ? '#f8fafc' : '#0f172a',
+          primaryBorderColor: isDark ? '#64748b' : '#94a3b8',
+          lineColor: isDark ? '#94a3b8' : '#64748b',
+          secondaryColor: isDark ? '#334155' : '#f1f5f9',
+          tertiaryColor: isDark ? '#1e293b' : '#e2e8f0',
+          background: isDark ? '#0f172a' : '#ffffff',
+          mainBkg: isDark ? '#1e293b' : '#f8fafc',
+          nodeBorder: isDark ? '#475569' : '#cbd5e1',
+          clusterBkg: isDark ? '#1e293b' : '#f1f5f9',
+          titleColor: isDark ? '#f8fafc' : '#0f172a',
+          edgeLabelBackground: isDark ? '#1e293b' : '#f8fafc',
+          nodeTextColor: isDark ? '#f8fafc' : '#0f172a',
+        },
+      });
+      mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initMermaid();
+    });
+
+    // Re-render Mermaid when theme changes
+    window.addEventListener('themechange', () => {
+      const diagram = document.getElementById('lifecycle-diagram');
+      if (diagram && MERMAID_CODE) {
+        diagram.innerHTML = '<div class="mermaid">' + MERMAID_CODE + '</div>';
+        initMermaid();
+      }
+    });
+  </script>
+</body>
+</html>

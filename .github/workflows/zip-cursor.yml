@@ -1,0 +1,38 @@
+name: Zip .cursor on push
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.cursor/**'
+      - 'scripts/zip-cursor.js'
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Zip .cursor
+        run: node scripts/zip-cursor.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/assets/product-agentic-templates.zip
+          git diff --staged --quiet || (git commit -m "chore: update .cursor zip" && git push)
+
+      - name: Create/update release with zip
+        run: |
+          if gh release view latest --repo ivanyeors/product-agentic-templates 2>/dev/null; then
+            gh release upload latest docs/assets/product-agentic-templates.zip --repo ivanyeors/product-agentic-templates --clobber
+          else
+            gh release create latest docs/assets/product-agentic-templates.zip \
+              --repo ivanyeors/product-agentic-templates \
+              --title "Latest .cursor bundle" \
+              --notes "Auto-generated from main" \
+              --latest
+          fi

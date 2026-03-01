@@ -2,6 +2,16 @@
 
 A modular, multi-phase agentic skills library for Cursor and Claude AI covering the full product development lifecycle — from Discovery to Deployment to Documentation. Each phase is a standalone Cursor skill that can be used independently or orchestrated together with mandatory human-in-the-loop review gates.
 
+## Platform (docs/)
+
+A static platform in `docs/` provides:
+
+- **Use this template** — Create a new repo from this template (enable in GitHub: Settings → General → Template repository)
+- **Download** — Get `.cursor/` as a zip (`docs/assets/product-agentic-templates.zip`). Regenerate with `node scripts/zip-cursor.js`
+- **Visualization** — Holistic view of all phases, gates, and connections at `docs/visualization.html`
+
+**GitHub Pages:** Deploy the platform by enabling Pages in repo Settings → Pages → Source: Deploy from a branch → Branch: `main` → Folder: `/docs`.
+
 ## What This Is
 
 A collection of `.cursor/skills/` that give AI agents deep, structured guidance for every stage of building a product:
@@ -34,7 +44,7 @@ cp -r /path/to/product-agentic-templates/.cursor/skills .cursor/skills
 ### Option B: Clone and symlink (for updates)
 
 ```bash
-git clone https://github.com/your-org/product-agentic-templates ~/product-agentic-templates
+git clone https://github.com/ivanyeors/product-agentic-templates ~/product-agentic-templates
 ln -s ~/product-agentic-templates/.cursor/skills /your-project/.cursor/skills
 ```
 
@@ -42,7 +52,7 @@ ln -s ~/product-agentic-templates/.cursor/skills /your-project/.cursor/skills
 
 ```bash
 cd your-project
-git submodule add https://github.com/your-org/product-agentic-templates .cursor/skills-lib
+git submodule add https://github.com/ivanyeors/product-agentic-templates .cursor/skills-lib
 # Then copy or symlink .cursor/skills-lib/.cursor/skills to .cursor/skills
 ```
 
