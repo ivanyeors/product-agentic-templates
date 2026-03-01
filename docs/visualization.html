@@ -21,7 +21,7 @@
 
   <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
     <h1 class="text-2xl font-bold mb-2">Full Product Lifecycle</h1>
-    <p class="text-[var(--muted-foreground)] mb-8">Holistic view of all phases, gates, and connections. Each phase links to the source in <code class="text-sm bg-[var(--muted)] px-1 rounded">.cursor/skills/</code>.</p>
+    <p class="text-[var(--muted-foreground)] mb-8">Holistic view of all phases, gates, and connections. Click a phase card to view its details and flowchart.</p>
 
     <section class="mermaid-container" aria-label="Lifecycle flowchart">
       <div class="mermaid" id="lifecycle-diagram">flowchart TD
@@ -79,21 +79,47 @@
 
     p11[11 Documentation] --> g10{Gate 10}
     g10 -->|APPROVED| done([DOCUMENTED])
-    g10 -->|REVISE| p11</div>
+    g10 -->|REVISE| p11
+
+    click p1 "phase.html?phase=01-product-discovery" "01 Product Discovery"
+    click p2 "phase.html?phase=02-product-design" "02 Product Design"
+    click p3 "phase.html?phase=03-frontend-design" "03 Frontend Design"
+    click p4 "phase.html?phase=04-backend-design" "04 Backend Design"
+    click p5 "phase.html?phase=05-frontend-development" "05 Frontend Development"
+    click p6 "phase.html?phase=06-backend-implementation" "06 Backend Implementation"
+    click p7 "phase.html?phase=07-integration" "07 Integration"
+    click p8 "phase.html?phase=08-qa-testing" "08 QA Testing"
+    click p9 "phase.html?phase=09-deployment" "09 Deployment"
+    click p11 "phase.html?phase=11-documentation" "11 Documentation"
+    click hi "phase.html?phase=10-human-intervention" "10 Human Intervention"
+</div>
     </section>
 
     <h2 class="text-xl font-semibold mb-4">Phases</h2>
-    <p class="text-[var(--muted-foreground)] mb-6">Click a phase to see details. Each links to <code class="text-sm bg-[var(--muted)] px-1 rounded">.cursor/skills/</code>.</p>
+    <p class="text-[var(--muted-foreground)] mb-6">Click a phase to view its details and flowchart.</p>
 
-    <div class="phases-grid" id="phases-grid">
-      <!-- Phase cards populated by JS from phases data -->
+    <div class="phases-stepper-layout">
+      <aside class="phases-stepper" id="phases-stepper" aria-label="Phase steps">
+        <!-- 00-12 step buttons, populated by JS -->
+      </aside>
+      <div class="phases-detail" id="phases-detail">
+        <div id="phases-detail-placeholder">Select a phase to view details</div>
+        <div id="phases-detail-content" class="hidden">
+          <h3 id="phase-detail-title" class="text-lg font-semibold mb-2"></h3>
+          <p id="phase-detail-desc" class="text-[var(--muted-foreground)] mb-4"></p>
+          <div class="mb-4">
+            <p class="text-sm font-medium mb-1">What to expect:</p>
+            <p id="phase-detail-expect" class="text-sm text-[var(--muted-foreground)]"></p>
+          </div>
+          <div class="phase-flowchart" id="phase-detail-flowchart"></div>
+        </div>
+      </div>
     </div>
   </main>
 
   <script src="assets/theme-toggle.js"></script>
+  <script src="assets/phase-data.js"></script>
   <script>
-    // Update this when forking; used for "View source" links to .cursor/skills/
-    const REPO_URL = 'https://github.com/ivanyeors/product-agentic-templates';
     const MERMAID_CODE = `flowchart TD
     start([Product Idea]) --> hi
     hi[10 Human Intervention monitor active throughout] -.->|immediate feedback| p1 & p2 & p3 & p4 & p5 & p6 & p7 & p8 & p9 & p11
@@ -149,57 +175,66 @@
 
     p11[11 Documentation] --> g10{Gate 10}
     g10 -->|APPROVED| done([DOCUMENTED])
-    g10 -->|REVISE| p11`;
+    g10 -->|REVISE| p11
 
-    const PHASES = [
-      { id: '00-product-workflow', num: '00', name: 'Product Workflow', desc: 'Master orchestrator for the full lifecycle with HITL gates.', expect: 'Coordinates all phases in sequence. Pauses at every gate for human approval.' },
-      { id: '01-product-discovery', num: '01', name: 'Product Discovery', desc: 'Research, personas, PRD.', expect: 'Stakeholder interviews, user research, competitive analysis, problem statement, persona creation, journey mapping, PRD writing.' },
-      { id: '02-product-design', num: '02', name: 'Product Design', desc: 'IA, flows, wireframes.', expect: 'Information architecture, user flow design, wireframing, prototype specification, usability testing design, accessibility planning.' },
-      { id: '03-frontend-design', num: '03', name: 'Frontend Design', desc: 'Design system, components.', expect: 'Design tokens, atomic component hierarchy, visual design, responsive breakpoints, Figma handoff. Runs parallel with Backend Design.' },
-      { id: '04-backend-design', num: '04', name: 'Backend Design', desc: 'API contract, schema, auth.', expect: 'OpenAPI spec, database schema, auth model, integration points. Runs parallel with Frontend Design.' },
-      { id: '05-frontend-development', num: '05', name: 'Frontend Development', desc: 'UI implementation.', expect: 'Tech stack, architecture, component development, state management, performance, accessibility. Runs parallel with Backend Implementation.' },
-      { id: '06-backend-implementation', num: '06', name: 'Backend Implementation', desc: 'API endpoints, migrations.', expect: 'Project setup, schema migrations, data access, service layer, API endpoints, auth, validation, testing.' },
-      { id: '07-integration', num: '07', name: 'Integration', desc: 'Frontend-backend, third-party.', expect: 'API consumption, contract validation, third-party integration (auth, payments, webhooks). Requires both Gate 5 and Gate 6.' },
-      { id: '08-qa-testing', num: '08', name: 'QA Testing', desc: 'Test strategy, execution.', expect: 'Unit/integration/E2E testing, visual regression, accessibility audits, performance testing, security review.' },
-      { id: '09-deployment', num: '09', name: 'Deployment', desc: 'CI/CD, launch, monitoring.', expect: 'CI/CD pipelines, environment config, infrastructure-as-code, observability, rollback runbooks, release management.' },
-      { id: '10-human-intervention', num: '10', name: 'Human Intervention', desc: 'Mid-phase feedback, corrections.', expect: 'Cross-cutting. Structured capture of feedback, scope changes, corrections. Active throughout the workflow.' },
-      { id: '11-documentation', num: '11', name: 'Documentation', desc: 'User guides, knowledge transfer.', expect: 'User documentation, technical docs, operations docs, knowledge transfer package. Post-launch.' },
-      { id: '12-product-documentation', num: '12', name: 'Product Documentation', desc: 'Documentation hub, handover.', expect: 'Consolidation of all PDLC artifacts into a Product Documentation Hub.' },
-    ];
+    click p1 "phase.html?phase=01-product-discovery" "01 Product Discovery"
+    click p2 "phase.html?phase=02-product-design" "02 Product Design"
+    click p3 "phase.html?phase=03-frontend-design" "03 Frontend Design"
+    click p4 "phase.html?phase=04-backend-design" "04 Backend Design"
+    click p5 "phase.html?phase=05-frontend-development" "05 Frontend Development"
+    click p6 "phase.html?phase=06-backend-implementation" "06 Backend Implementation"
+    click p7 "phase.html?phase=07-integration" "07 Integration"
+    click p8 "phase.html?phase=08-qa-testing" "08 QA Testing"
+    click p9 "phase.html?phase=09-deployment" "09 Deployment"
+    click p11 "phase.html?phase=11-documentation" "11 Documentation"
+    click hi "phase.html?phase=10-human-intervention" "10 Human Intervention"
+`;
 
-    const grid = document.getElementById('phases-grid');
+    const PHASES = window.PHASE_DATA.PHASES;
+    const FLOWCHARTS = window.PHASE_DATA.PHASE_FLOWCHARTS;
+    const stepperEl = document.getElementById('phases-stepper');
+    const placeholderEl = document.getElementById('phases-detail-placeholder');
+    const contentEl = document.getElementById('phases-detail-content');
+    const titleEl = document.getElementById('phase-detail-title');
+    const descEl = document.getElementById('phase-detail-desc');
+    const expectEl = document.getElementById('phase-detail-expect');
+    const flowchartEl = document.getElementById('phase-detail-flowchart');
+
+    let selectedPhaseId = null;
+
+    async function renderFlowchart(container, code) {
+      if (!code) return;
+      try {
+        const uniqueId = 'phase-flow-' + Date.now();
+        const { svg } = await mermaid.render(uniqueId, code);
+        container.innerHTML = svg;
+      } catch (err) {
+        container.innerHTML = '<p class="text-sm text-[var(--muted-foreground)]">Flowchart could not be rendered.</p>';
+      }
+    }
+
+    function selectPhase(phase) {
+      selectedPhaseId = phase.id;
+      stepperEl.querySelectorAll('.phases-stepper-step').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.phaseId === phase.id);
+      });
+      placeholderEl.classList.add('hidden');
+      contentEl.classList.remove('hidden');
+      titleEl.textContent = `${phase.num} ${phase.name}`;
+      descEl.textContent = phase.desc;
+      expectEl.textContent = phase.expect;
+      const flowchartCode = FLOWCHARTS[phase.id];
+      renderFlowchart(flowchartEl, flowchartCode);
+    }
+
     PHASES.forEach(phase => {
-      const card = document.createElement('div');
-      card.className = 'card phase-card';
-      card.setAttribute('aria-expanded', 'false');
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', '0');
-      card.innerHTML = `
-        <div class="flex justify-between items-start">
-          <div>
-            <h3>${phase.num} ${phase.name}</h3>
-            <p>${phase.desc}</p>
-          </div>
-          <a href="${REPO_URL}/tree/main/.cursor/skills/${phase.id}" class="btn btn-ghost text-sm" target="_blank" rel="noopener" onclick="event.stopPropagation()">View source</a>
-        </div>
-        <div class="phase-detail" data-visible="false" id="detail-${phase.id}">
-          <p><strong>What to expect:</strong> ${phase.expect}</p>
-          <p class="mt-2"><a href="${REPO_URL}/blob/main/.cursor/skills/${phase.id}/SKILL.md" target="_blank" rel="noopener">SKILL.md</a> · <a href="${REPO_URL}/blob/main/.cursor/skills/00-product-workflow/workflow-stages.md" target="_blank" rel="noopener">Gate criteria</a></p>
-        </div>
-      `;
-      card.addEventListener('click', () => {
-        const expanded = card.getAttribute('aria-expanded') === 'true';
-        card.setAttribute('aria-expanded', !expanded);
-        const detail = card.querySelector('.phase-detail');
-        detail.setAttribute('data-visible', !expanded);
-      });
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
-      });
-      grid.appendChild(card);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'phases-stepper-step card';
+      btn.dataset.phaseId = phase.id;
+      btn.innerHTML = `<span class="phases-stepper-num">${phase.num}</span><span class="phases-stepper-name">${phase.name}</span>`;
+      btn.addEventListener('click', () => selectPhase(phase));
+      stepperEl.appendChild(btn);
     });
 
     // Mermaid init with theme support
@@ -207,6 +242,7 @@
       const isDark = document.documentElement.classList.contains('dark');
       mermaid.initialize({
         startOnLoad: false,
+        securityLevel: 'loose',
         theme: 'base',
         themeVariables: {
           primaryColor: isDark ? '#3b82f6' : '#1e40af',
@@ -229,6 +265,9 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       initMermaid();
+      if (PHASES.length > 0) {
+        selectPhase(PHASES[0]);
+      }
     });
 
     // Re-render Mermaid when theme changes
@@ -237,6 +276,10 @@
       if (diagram && MERMAID_CODE) {
         diagram.innerHTML = '<div class="mermaid">' + MERMAID_CODE + '</div>';
         initMermaid();
+      }
+      if (selectedPhaseId && FLOWCHARTS[selectedPhaseId]) {
+        initMermaid();
+        renderFlowchart(flowchartEl, FLOWCHARTS[selectedPhaseId]);
       }
     });
   </script>

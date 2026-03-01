@@ -124,29 +124,28 @@ a:hover {
   color: var(--muted-foreground);
 }
 
-/* Phase cards - expandable */
-.phase-card {
+/* Phase cards - links to phase pages */
+a.phase-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   cursor: pointer;
 }
-.phase-card[aria-expanded="true"] {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 1px var(--primary);
+a.phase-card:hover {
+  text-decoration: none;
 }
 
-.phase-detail {
-  display: none;
+.phase-flowchart {
   margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
-  font-size: 0.875rem;
-}
-.phase-detail[data-visible="true"] {
-  display: block;
+  padding: 1rem;
+  background: var(--muted);
+  border-radius: var(--radius);
+  overflow-x: auto;
 }
 
-.phase-detail ul {
-  margin: 0.5rem 0;
-  padding-left: 1.25rem;
+.phase-flowchart svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Hero */
@@ -177,17 +176,87 @@ a:hover {
 
 /* Container */
 .container {
-  width: 100%;
-  max-width: 64rem;
+  width: 80%;
+  max-width: 80vw;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-/* Phase grid */
+/* Phase grid (legacy, kept for reference) */
 .phases-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
+}
+
+/* Phases vertical stepper layout */
+.phases-stepper-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.phases-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+.phases-stepper-step {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+.phases-stepper-step:hover {
+  border-color: var(--ring);
+}
+
+.phases-stepper-step.active {
+  border-color: var(--primary);
+  background: var(--accent);
+}
+
+.phases-stepper-num {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  min-width: 1.5rem;
+}
+
+.phases-stepper-step.active .phases-stepper-num {
+  color: var(--primary);
+}
+
+.phases-stepper-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.phases-detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.phases-detail .hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .phases-stepper-layout {
+    flex-direction: column;
+  }
+  .phases-stepper {
+    min-width: 100%;
+  }
 }
 
 /* Mermaid container */
@@ -202,6 +271,31 @@ a:hover {
 
 .mermaid-container svg {
   max-width: 100%;
+}
+
+/* Clickable Mermaid nodes - hover state */
+.mermaid-container svg a,
+.phase-flowchart svg a {
+  cursor: pointer;
+  transition: filter 0.15s ease, fill 0.15s ease;
+}
+.mermaid-container svg a:hover rect,
+.mermaid-container svg a:hover polygon,
+.mermaid-container svg a:hover ellipse,
+.phase-flowchart svg a:hover rect,
+.phase-flowchart svg a:hover polygon,
+.phase-flowchart svg a:hover ellipse {
+  fill: var(--primary) !important;
+  fill-opacity: 0.5;
+}
+.mermaid-container svg a:hover,
+.phase-flowchart svg a:hover {
+  filter: brightness(1.2);
+}
+.mermaid-container svg a:focus-visible,
+.phase-flowchart svg a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 /* Responsive */

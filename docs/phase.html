@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase — Product Workflow Skills</title>
+  <link rel="stylesheet" href="assets/shadcn-base.css">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Product Workflow Skills</a>
+    <nav>
+      <a href="index.html" class="btn btn-ghost">Home</a>
+      <a href="visualization.html" class="btn btn-secondary">View Workflow</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"></button>
+    </nav>
+  </header>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+    <p class="mb-4">
+      <a href="visualization.html" class="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)]">← Back to workflow</a>
+    </p>
+    <div id="phase-content">
+      <!-- Populated by JS -->
+    </div>
+    <div id="phase-not-found" class="hidden">
+      <h1 class="text-2xl font-bold mb-2">Phase not found</h1>
+      <p class="text-[var(--muted-foreground)] mb-4">The requested phase does not exist.</p>
+      <a href="visualization.html" class="btn btn-secondary">Back to workflow</a>
+    </div>
+  </main>
+
+  <script src="assets/theme-toggle.js"></script>
+  <script src="assets/phase-data.js"></script>
+  <script>
+    function getPhaseId() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('phase') || '';
+    }
+
+    function initMermaid() {
+      const isDark = document.documentElement.classList.contains('dark');
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: 'base',
+        themeVariables: {
+          primaryColor: isDark ? '#3b82f6' : '#1e40af',
+          primaryTextColor: isDark ? '#f8fafc' : '#0f172a',
+          primaryBorderColor: isDark ? '#64748b' : '#94a3b8',
+          lineColor: isDark ? '#94a3b8' : '#64748b',
+          secondaryColor: isDark ? '#334155' : '#f1f5f9',
+          tertiaryColor: isDark ? '#1e293b' : '#e2e8f0',
+          background: isDark ? '#0f172a' : '#ffffff',
+          mainBkg: isDark ? '#1e293b' : '#f8fafc',
+          nodeBorder: isDark ? '#475569' : '#cbd5e1',
+          clusterBkg: isDark ? '#1e293b' : '#f1f5f9',
+          titleColor: isDark ? '#f8fafc' : '#0f172a',
+          edgeLabelBackground: isDark ? '#1e293b' : '#f8fafc',
+          nodeTextColor: isDark ? '#f8fafc' : '#0f172a',
+        },
+      });
+    }
+
+    async function renderFlowchart(container, code) {
+      if (!code) return;
+      try {
+        const uniqueId = 'phase-flow-' + Date.now();
+        const { svg } = await mermaid.render(uniqueId, code);
+        container.innerHTML = svg;
+      } catch (err) {
+        container.innerHTML = '<p class="text-sm text-[var(--muted-foreground)]">Flowchart could not be rendered.</p>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initMermaid();
+      const phaseId = getPhaseId();
+      const phase = window.PHASE_DATA.PHASES.find(p => p.id === phaseId);
+      const contentEl = document.getElementById('phase-content');
+      const notFoundEl = document.getElementById('phase-not-found');
+
+      if (!phase) {
+        contentEl.classList.add('hidden');
+        notFoundEl.classList.remove('hidden');
+        document.title = 'Phase not found — Product Workflow Skills';
+        return;
+      }
+
+      document.title = `${phase.num} ${phase.name} — Product Workflow Skills`;
+      contentEl.innerHTML = `
+        <h1 class="text-2xl font-bold mb-2">${phase.num} ${phase.name}</h1>
+        <p class="text-[var(--muted-foreground)] mb-6">${phase.desc}</p>
+        <div class="mb-6">
+          <p><strong>What to expect:</strong> ${phase.expect}</p>
+        </div>
+        <div class="phase-flowchart" id="phase-flowchart"></div>
+      `;
+
+      const flowchartCode = window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId];
+      const flowchartEl = document.getElementById('phase-flowchart');
+      await renderFlowchart(flowchartEl, flowchartCode);
+    });
+
+    window.addEventListener('themechange', () => {
+      const phaseId = getPhaseId();
+      const phase = window.PHASE_DATA?.PHASES?.find(p => p.id === phaseId);
+      if (phase && window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId]) {
+        const flowchartEl = document.getElementById('phase-flowchart');
+        if (flowchartEl) {
+          initMermaid();
+          renderFlowchart(flowchartEl, window.PHASE_DATA.PHASE_FLOWCHARTS[phaseId]);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
